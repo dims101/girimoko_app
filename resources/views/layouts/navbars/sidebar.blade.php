@@ -8,6 +8,7 @@
     <a href="#" class="simple-text logo-normal">
       {{ __('GIRIMOKO') }}
     </a>
+	<!-- <a href="#"><img style="width: 100px;" src="/material/img/girimoko.jpeg" class="simple-text logo-normal"></a> -->
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
