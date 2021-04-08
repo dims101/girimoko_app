@@ -18,13 +18,13 @@
          Halaman di akses oleh (<span>  </span>) Departemen
         </div>                    
     </div> -->
-            <div class="card-header card-header-primary">
+            <div class="card-header card-header-warning">
               <h4 class="card-title">Girimoko</h4>
               <p class="card-category">Data</p>
             </div>
             <div class="card-body table-responsive">
               <table class="table table-hover">
-                <thead class="text-primary">
+                <thead class="text-warning">
                   <th>ID</th>
                   <th>Name</th>
                   <th>Salary</th>
