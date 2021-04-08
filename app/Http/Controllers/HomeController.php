@@ -25,8 +25,4 @@ class HomeController extends Controller
     {
         return view('dashboard');
     }
-    public function login(Request $request)
-    {
-        return json_encode($request);
-    }
 }
