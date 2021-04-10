@@ -24,7 +24,7 @@ class User extends Authenticatable
         return $this->remember_token;
     }
     protected $fillable = [
-        'name', 'username','level', 'password',
+        'name', 'username','level', 'password','telepon',
     ];
 
     /**

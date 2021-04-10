@@ -12,8 +12,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         App\User::create([
-            'name' => 'Malsi',
-            'username' => 'malsinur23',
+            'name' => 'Developers',
+            'username' => 'admin',
+            'telepon' => '0813927465',
             'password' => bcrypt('12345678'),
             'level' => 'Super Admin',
      ]);

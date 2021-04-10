@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app' ,[
+  'activePage' => 'dashboard', 
+  'titlePage' => __('Dashboard')
+  ])
 
 @section('content')
 <div class="container">
@@ -40,6 +43,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="telepon" class="col-md-4 col-form-label text-md-right">{{ __('telepon') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="telepon" type="text" class="form-control @error('telepon') is-invalid @enderror" name="telepon" value="{{ old('telepon') }}" required autocomplete="telepon">
+
+                                @error('telepon')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -59,7 +76,7 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
-                        </div>
+                        </div>                        
 
                         <div class="form-group row">
                             <label for="level" class="col-md-4 col-form-label text-md-right">{{ __('Level') }}</label>
@@ -70,6 +87,7 @@
                                     <option value="super_admin">Super Admin</option>
                                     <option value="admin">Admin</option>
                                     <option value="user">User</option>
+                                    <option value="driver">Driver</option>
                                 </select>                                
 
                                 @error('level')

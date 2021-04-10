@@ -53,6 +53,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'level' => ['required', 'string', 'max:255'],
+            'telepon' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -70,6 +71,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'username' => $data['username'],
             'level' => $data['level'],
+            'telepon' => $data['telepon'],
             'password' => Hash::make($data['password']),
             //'remember_token' => Str::random(60),
         ]);
