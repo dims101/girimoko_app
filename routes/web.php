@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
+Route::get('/awb/excel', function () {
+    return view('awb.import');
+});
 Auth::routes();
 Route::get('/','Auth\LoginController@showLoginForm');
 

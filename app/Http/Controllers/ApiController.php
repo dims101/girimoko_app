@@ -22,9 +22,10 @@ class ApiController extends Controller
     public function login(Request $request){
         $username = $request->username;
         $password = $request->password;
-        $app_key = $request->app_key;
+        $app_secret = $request->app_secret;
         $credential = ['username'=>$username,'password'=>$password];
-        if($app_key != config('app.key')){
+
+        if($app_secret != config('app.secret')){
             $response = array(
                 'success' => '0',
                 'message' => 'Akses ditolak!'
@@ -32,7 +33,7 @@ class ApiController extends Controller
                 );
             return response()->json($response);
         } else {        
-            $confirmation = User::where('username',$username)->where('level',"driver")->orwhere('level','Super Admin')->first();
+            $confirmation = User::where('username',$username)->wherein('level',array('driver','Super Admin'))->first();
             if(!$confirmation){
                 $response = array(
                     'success' => '0',
@@ -49,6 +50,7 @@ class ApiController extends Controller
                         'name' => $confirmation->name,
                         'telepon' => $confirmation->telepon,
                         'level' => $confirmation->level,
+                        'active' => $confirmation->active,
                         //'data' => $confirmation
                     );
                     return response()->json($response);
