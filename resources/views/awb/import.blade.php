@@ -12,7 +12,8 @@
   </head>
   <body>
     <h1>Import Excel</h1>
-    <form method="post" action="/awb/import_excel" enctype="multipart/form-data">
+    <form method="post" action="/awb/import" enctype="multipart/form-data">
+        @csrf
         <div class="form-group">
 			<input type="file" name="file" required="required">
             <button type="submit" class="btn btn-primary">Import</button>

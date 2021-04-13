@@ -19,4 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/coba','ApiController@coba');
-Route::post('/login','ApiController@login');
+Route::post('/login','ApiController@login');//api buat login
+Route::post('/getawb','ApiController@getAwb');//api buat scan awb
+Route::post('/getproforma','ApiController@getProforma');//api buat scan awb

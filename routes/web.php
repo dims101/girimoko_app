@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/awb/excel', function () {
     return view('awb.import');
 });
+Route::post('/awb/import','AwbController@import');
 Auth::routes();
 Route::get('/','Auth\LoginController@showLoginForm');
 
