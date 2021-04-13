@@ -30,7 +30,7 @@
             document.write(new Date().getFullYear())
         </script>
         {{__(" Modified by")}}
-      <a href="#" target="_blank">{{__(" Dwi, Dimas & Malsi")}}</a>.
+      <a href="#" target="_blank">{{__(" DDM Project")}}</a>.
       {{__(" Designed by")}}
         <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
         </div>
