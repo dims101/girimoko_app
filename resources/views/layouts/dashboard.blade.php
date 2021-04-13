@@ -1,6 +1,6 @@
 @extends('layouts.app', [
   'activePage' => 'dashboard', 
-  'titlePage' => __('Dashboard')
+  'titlePage' => __('Halaman Utama')
   ])
 
   @section('content')        

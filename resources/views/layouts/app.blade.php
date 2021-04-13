@@ -16,6 +16,13 @@
     <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
+   
+    <link rel="stylesheet" href="/css/style.css">
+    
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </head>
     <body>
         
@@ -86,5 +93,60 @@
         <script src="{{ asset('material') }}/demo/demo.js"></script>
         <script src="{{ asset('material') }}/js/settings.js"></script>
         @stack('js')
+
+        <script>
+        var colorInc = 100 / 3;
+
+        $(function()
+        {
+        $("#percent-box").click(function()
+        {
+            $(this).select();
+        });
+        
+        $(document).ready(function()
+        {
+            //var val = $(this).val();
+            var val = 30;
+            
+            if(val != ""
+            && !isNaN(val)
+            && val <= 100
+            && val >= 0)
+            {
+            console.log(val);
+            
+            var valOrig = val;
+            val = 100 - val;
+            
+            if(valOrig == 0)
+            {
+                $("#percent-box").val(0);
+                $(".progress .percent").text(0 + "%");
+            }
+            else $(".progress .percent").text(valOrig + "%");
+            
+            $(".progress").parent().removeClass();
+            $(".progress .water").css("top", val + "%");
+            
+            if(valOrig < colorInc * 1)
+                $(".progress").parent().addClass("red");
+            else if(valOrig < colorInc * 2)
+                $(".progress").parent().addClass("orange");
+            else
+                $(".progress").parent().addClass("green");
+            }
+            else
+            {
+            $(".progress").parent().removeClass();
+            $(".progress").parent().addClass("green");
+            $(".progress .water").css("top", 100 - 0 + "%");
+            $(".progress .percent").text(0 + "%");
+            $("#percent-box").val("");
+            }
+        });
+        });
+        </script>
+
     </body>
 </html>
