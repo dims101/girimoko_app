@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Awb;
 use App\Proforma;
+use App\Dealer;
 use Illuminate\Support\Facades\Auth;
 use Hash;
 
@@ -95,7 +96,10 @@ class ApiController extends Controller
                 return response()->json($response);
             } else {
                 $kode_dealer = $data_awb->kode_dealer;
-                $nama_dealer = "Dealer 001";
+                $dealer = Dealer::where('kode_dealer',$kode_dealer)->first();
+                // $nama_dealer = $dealer['nama_dealer'];
+                $nama_dealer = $dealer->nama_dealer;
+                
                 $jml_koli = Proforma::get()->where('no_awb',$no_awb)->sum('koli');
                 $jml_proforma = Proforma::get()->where('no_awb',$no_awb)->count();
 
@@ -124,13 +128,65 @@ class ApiController extends Controller
                 );
             return response()->json($response);
         } else {
-            $proforma = Proforma::get()->where('no_awb',$no_awb);
+            $proforma = Proforma::select('no_proforma','koli','no_awb')->where('no_awb',$no_awb)->get();
+            // dd($proforma);
             $response = array(
                 'success' => '1',
                 'message' => 'Success',
                 'data' => $proforma
             );
             return response()->json($response);
+        }
+    }
+    public function getDealer(Request $request){
+        $app_secret = $request->app_secret;
+
+        if($app_secret != config('app.secret')){
+            $response = array(
+                'success' => '0',
+                'message' => 'Akses ditolak!'
+
+                );
+            return response()->json($response);
+        } else {
+            if(empty($request->filter)){
+                $dealer = Dealer::select('kode_dealer','nama_dealer','alamat')->get();
+                $response = array(
+                    'success' => '1',
+                    'message' => 'Success',
+                    'data' => $dealer
+                );
+                return response()->json($response);
+
+            } else {
+                $filter = $request->filter;
+                $dealer = Dealer::select('kode_dealer','nama_dealer','alamat')
+                                    ->orWhere('kode_dealer', 'LIKE','%' .$filter. '%')
+                                    ->orWhere('nama_dealer', 'LIKE','%' .$filter. '%')
+                                    ->orWhere('alamat', 'LIKE','%' .$filter. '%')->get();
+                $response = array(
+                    'success' => '1',
+                    'message' => 'Success',
+                    'data' => $dealer
+                );
+                return response()->json($response);
+            }
+
+        }
+    }
+    public function getAkun(Request $request){
+        $username = $request->username;
+        $app_secret = $request->app_secret;
+
+        if($app_secret != config('app.secret')){
+            $response = array(
+                'success' => '0',
+                'message' => 'Akses ditolak!'
+
+                );
+            return response()->json($response);
+        } else {
+            
         }
     }
 }
