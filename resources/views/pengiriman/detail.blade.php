@@ -66,7 +66,7 @@
               <td>1</td>
               <td>Jakarta 1</td>
               <td>5123</td>
-              <td>300/td>
+              <td>300</td>
               <td>50</td>
               <td>20</td>
               <td>10</td>
@@ -76,7 +76,7 @@
               <td>2</td>
               <td>Jakarta 2</td>
               <td>4502</td>
-              <td>215/td>
+              <td>215</td>
               <td>40</td>
               <td>11</td>
               <td>18</td>
@@ -86,7 +86,7 @@
               <td>3</td>
               <td>JTangerang</td>
               <td>2121</td>
-              <td>125/td>
+              <td>125</td>
               <td>45</td>
               <td>22</td>
               <td>13</td>
