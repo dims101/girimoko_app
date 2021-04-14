@@ -57,7 +57,7 @@
               <div class="card-icon">
                 <i class="material-icons">assessment</i>
               </div>
-              <p class="card-title">AWB terkirim VS Tertunda</p>
+              <p class="card-title">AWB Terkirim VS Tertunda</p>
             </div>
             <div class="card-body">                
                 <figure class="highcharts-figure">

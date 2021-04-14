@@ -25,4 +25,10 @@ class PengirimanController extends Controller
     {
         return view('pengiriman.index');
     }
+
+
+    public function detail()
+    {
+        return view('pengiriman.detail');
+    }
 }

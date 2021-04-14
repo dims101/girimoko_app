@@ -4,8 +4,11 @@
 
 <div class="row">
 
-    <div class="col-sm-3">
-        <div class="card">                            
+    <div class="col-sm-3">        
+        <div class="card">
+            <div class="card-header card-header-info">   
+                <h5 class="card-title text-center">DDS 1</h5> 
+            </div>                        
             <div class="card-body">
                 <div class="progress1 mx-auto" data-value='70'>
                 <span class="progress-left">
@@ -18,11 +21,11 @@
                     <div class="h2 font-weight-bold mt-4 ml-2">70<sup class="small">%</sup></div>
                 </div>
                 </div>
-                <h5 class="card-title text-center mt-3">DDS 1</h5>
-                <p class="card-text text-center font-weight-bold">TAMBUN</p>  
+                
+                <p class="card-text text-center font-weight-bold mt-3">TAMBUN</p>  
 
                 <div class="text-right">
-                    <a href="" class="btn btn-round btn-primary">Detail</a>
+                    <a href="/detail" class="btn btn-round btn-primary">Detail</a>
                 </div>
                 
             </div>
