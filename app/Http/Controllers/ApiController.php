@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Awb;
+use App\Proforma;
 use Illuminate\Support\Facades\Auth;
 use Hash;
 
@@ -65,5 +67,70 @@ class ApiController extends Controller
             return response()->json($response);
         }
 
+    }
+    public function getAwb(Request $request){
+        $app_secret = $request->app_secret;
+        $no_awb = $request->no_awb;
+
+        if($app_secret != config('app.secret')){
+            $response = array(
+                'success' => '0',
+                'message' => 'Akses ditolak!'
+
+                );
+            return response()->json($response);
+        } else {
+            $data_awb = Awb::where('no_awb', $no_awb)->first();
+            if(empty($data_awb)){
+                $response = array(
+                    'success' => '0',
+                    'message' => 'AWB tidak ditemukan!'
+                );
+                return response()->json($response);
+            }else if($data_awb->status == "1"){
+                $response = array(
+                    'success' => '0',
+                    'message' => 'AWB telah sampai tujuan.'
+                );
+                return response()->json($response);
+            } else {
+                $kode_dealer = $data_awb->kode_dealer;
+                $nama_dealer = "Dealer 001";
+                $jml_koli = Proforma::get()->where('no_awb',$no_awb)->sum('koli');
+                $jml_proforma = Proforma::get()->where('no_awb',$no_awb)->count();
+
+                $response = array(
+                    'success' => '1',
+                    'message' => 'AWB berhasil ditemukan',
+                    'kode_dealer' => $kode_dealer,
+                    'nama_dealer' => $nama_dealer,
+                    'jml_koli' => $jml_koli,
+                    'jml_proforma' => $jml_proforma,
+                );
+                return response()->json($response);
+            }
+        }
+
+    }
+    public function getProforma(Request $request){
+        $app_secret = $request->app_secret;
+        $no_awb = $request->no_awb;
+
+        if($app_secret != config('app.secret')){
+            $response = array(
+                'success' => '0',
+                'message' => 'Akses ditolak!'
+
+                );
+            return response()->json($response);
+        } else {
+            $proforma = Proforma::get()->where('no_awb',$no_awb);
+            $response = array(
+                'success' => '1',
+                'message' => 'Success',
+                'data' => $proforma
+            );
+            return response()->json($response);
+        }
     }
 }
