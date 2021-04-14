@@ -11,7 +11,7 @@ Highcharts.chart('container-2', {
   
   chart: {
     height: 200,
-    type: 'column',
+    type: 'pie',
     
   },
   title: {
@@ -23,33 +23,25 @@ Highcharts.chart('container-2', {
   accessibility: {
     announceNewData: {
       enabled: true
+    },
+    point: {
+      valueSuffix: '%'
     }
   },
-  xAxis: {
-    type: 'category'
-  },
-  yAxis: {
-    title: {
-      text: 'Jumlah'
-    }
 
-  },
-  legend: {
-    enabled: false
-  },
   plotOptions: {
     series: {
-      borderWidth: 0,
       dataLabels: {
         enabled: true,
-        format: '{point.y}'
+        format: '<b>{point.name}</b><br>{point.y}</b> item<br/>',
+        distance: -35
       }
     }
   },
 
   tooltip: {
     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b>'
+    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> item<br/>'
   },
 
   series: [
@@ -57,27 +49,17 @@ Highcharts.chart('container-2', {
       name: "AWB",
       colorByPoint: true,
       data: [
-        
         {
           name: "Terkirim",
           y: 6,
-          drilldown: "Terkirim"
         },
         {
           name: "Tertunda",
           y: 14,
-          drilldown: "Tertunda"
         }
       ]
     }
-  ],
-  drilldown: {
-    series: [
-      {
-      }
-       
-    ]
-  }
+  ]
 });
 </script>
 
