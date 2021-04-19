@@ -33,7 +33,7 @@ Highcharts.chart('container-2', {
     series: {
       dataLabels: {
         enabled: true,
-        format: '<b>{point.name}</b><br><span style="font-size:15px">{point.y} %</span></b> <br/>',
+        format: '<b>{point.name}</b><br><span style="font-size:14px">{point.y} %</span></b> <br/>',
         // format: '<b>{point.name}</b><br>{point.y}</b> %<br/>',
         distance: -35
       }

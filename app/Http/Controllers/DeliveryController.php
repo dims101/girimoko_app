@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PengirimanController extends Controller
+class DeliveryController extends Controller
 {
      /**
      * Create a new controller instance.
@@ -23,12 +23,11 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        return view('pengiriman.index');
+        return view('delivery.index');
     }
-
 
     public function detail()
     {
-        return view('pengiriman.detail');
+        return view('delivery.detail');
     }
 }

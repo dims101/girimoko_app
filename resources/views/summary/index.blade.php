@@ -31,7 +31,7 @@
   </div>  
 
   <div class="container" id="mydata">
-    @include('pengiriman.page')
+    @include('summary.page')
   </div>
        
 <script>

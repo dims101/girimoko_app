@@ -22,5 +22,8 @@ Route::get('/','Auth\LoginController@showLoginForm');
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 
-Route::get('/pengiriman', 'PengirimanController@index');
-Route::get('/detail', 'PengirimanController@detail');
+Route::get('/summary', 'SummaryController@index');
+Route::get('/detail', 'SummaryController@detail');
+
+Route::get('/delivery', 'DeliveryController@index');
+Route::get('/dtl', 'DeliveryController@detail');
