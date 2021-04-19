@@ -15,14 +15,14 @@
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('home') }}">
           <i class="material-icons">dashboard</i>
-            <p>{{ __('Halaman Utama') }}</p>
+            <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
      
-      <li class="nav-item{{ $activePage == 'pengiriman' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage == 'summary' ? ' active' : '' }}">
         <a class="nav-link" href="/pengiriman">
-          <i class="material-icons">local_shipping</i>
-            <p>{{ __('Pengiriman') }}</p>
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Summary') }}</p>
         </a>
       </li>
       

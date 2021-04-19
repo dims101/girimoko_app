@@ -10,7 +10,7 @@
                 <h5 class="card-title text-center">DDS 1</h5> 
             </div>                        
             <div class="card-body">
-                <div class="progress1 mx-auto" data-value='70'>
+                <div class="progress mx-auto" data-value='70'>
                 <span class="progress-left">
                     <span class="progress-bar border-warning"></span>
                 </span>

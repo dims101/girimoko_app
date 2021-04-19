@@ -1,6 +1,6 @@
 @extends('layouts.app', [
   'activePage' => 'dashboard', 
-  'titlePage' => __('Halaman Utama')
+  'titlePage' => __('Dashboard')
   ])
 
   @section('content')  
@@ -19,16 +19,16 @@
     </div>
     </div> -->
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-4 col-sm-4">
           <div class="card card-stats">
             <div class="card-header card-header-success card-header-icon">
               <div class="card-icon">
-                <i class="material-icons">content_paste</i>
-                <!-- <i class="material-icons">content_copy</i> -->
+                <!-- <i class="material-icons">content_paste</i> -->
+                <i class="material-icons">content_copy</i>
               </div>
               <p class="card-title">Total AWB</p>           
             </div>
-            <div class="card-body">
+            <div class="card-stats mt-3">
                 <div class="green">
                     <div class="progress ml-5" style="background-color: orangered;">
                     <div class="inner">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer mt-4">
               <div class="stats">
                 <i class="material-icons">repeat_one</i>
                 <a href="#">Total dalam 1 hari</a>
@@ -51,50 +51,44 @@
         </div>
 
 
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-4 col-sm-4">
           <div class="card card-stats">
             <div class="card-header card-header-danger card-header-icon">
               <div class="card-icon">
-                <i class="material-icons">assessment</i>
+                <i class="material-icons">app_registration</i>
               </div>
               <p class="card-title">AWB Terkirim VS Tertunda</p>
             </div>
-            <div class="card-body">                
+            <div class="">                
                 <figure class="highcharts-figure">
                     <div id="container-2"></div>
                 </figure>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">bar_chart</i> Grafik Perbandingan
+                <i class="material-icons">content_copy</i> Berdasarkan DDS
               </div>
             </div>
           </div>
         </div>
 
 
-        <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-4 col-sm-4">
           <div class="card card-stats">
             <div class="card-header card-header-primary card-header-icon">
               <div class="card-icon">
-                <i class="material-icons">app_registration</i>
+                <i class="material-icons">assessment</i>
               </div>
               <p class="card-title">Persentase AWB Terkirim</p>             
             </div>
-            <div class="card-body">
-                <div class="green">
-                    <div class="progress ml-5">
-                    <div class="inner">
-                        <div class="percent" style="font-size: 5em;"><span>30</span>%</div>
-                        <div class="water"></div>
-                        <div class="glare"></div>
-                    </div>
-                    </div>
-                </div>
+            <div class="">
+              <figure class="highcharts-figure">
+                  <div id="container-3"></div>
+              </figure>              
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">content_copy</i> Berdasarkan DDS
+                <i class="material-icons">bar_chart</i> Grafik Perbandingan               
               </div>
             </div>
           </div>

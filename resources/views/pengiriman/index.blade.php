@@ -1,6 +1,6 @@
 @extends('layouts.app', [
-  'activePage' => 'pengiriman', 
-  'titlePage' => __('Monitoring Pengiriman')
+  'activePage' => 'summary', 
+  'titlePage' => __('Summary')
   ])
 
   @section('content')        
