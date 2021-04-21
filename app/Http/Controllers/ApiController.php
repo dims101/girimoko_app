@@ -7,6 +7,8 @@ use App\User;
 use App\Awb;
 use App\Proforma;
 use App\Dealer;
+use App\Pengiriman;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Hash;
 
@@ -90,7 +92,7 @@ class ApiController extends Controller
                 return response()->json($response);
             }else if($data_awb->status == "1"){
                 $response = array(
-                    'success' => '0',
+                    'success' => '2',
                     'message' => 'AWB telah sampai tujuan.'
                 );
                 return response()->json($response);
@@ -128,7 +130,7 @@ class ApiController extends Controller
                 );
             return response()->json($response);
         } else {
-            $proforma = Proforma::select('no_proforma','koli','no_awb')->where('no_awb',$no_awb)->get();
+            $proforma = Proforma::select('no_proforma','koli','no_awb','tipe')->where('no_awb',$no_awb)->get();
             // dd($proforma);
             $response = array(
                 'success' => '1',
@@ -174,10 +176,14 @@ class ApiController extends Controller
 
         }
     }
-    public function getAkun(Request $request){
+    public function storeAwb(Request $request){
         $username = $request->username;
+        $no_awb = $request->no_awb;  
+        $no_kendaraan = $request->no_kendaraan;
+        $penerima =$request->penerima;
+        $keterangan = $request->keterangan;
         $app_secret = $request->app_secret;
-
+        // dd($app_secret);
         if($app_secret != config('app.secret')){
             $response = array(
                 'success' => '0',
@@ -186,7 +192,49 @@ class ApiController extends Controller
                 );
             return response()->json($response);
         } else {
+            $dealer = Awb::where('no_awb',$no_awb)
+                            ->first();
+            $target = Dealer::select('target')
+                            ->where('kode_dealer',$dealer->kode_dealer)
+                            ->first();
             
+            // dd($dealer);
+            //tinggal cek tanggal besok sabtu apa minggu(belum dibuat)
+            $today = Carbon::now()->setTimezone('Asia/Jakarta');
+            $tanggal_terima = $today->toDateString();
+            $waktu_terima = $today->toTimeString();
+
+            if($request->hasFile('foto')){
+                $file = $request->file('foto');
+                // $file_name = $file->getClientOriginalName();
+                $file_extension = $file->getClientOriginalExtension();
+                $file_name = $no_awb .'-'.$tanggal_terima . '.' . $file_extension;
+                $file_path = $file->getRealPath();
+                $file_size = $file->getSize();     
+                $file->move(public_path('bukti_awb/'),$file_name);       
+            }
+
+            $pengiriman = Pengiriman::create([
+                'username'=>$username,
+                'tanggal_terima'=>$tanggal_terima,
+                'waktu_terima'=>$waktu_terima,
+                'penerima'=>$penerima,
+                'foto_awb'=> $file_name,
+                'no_kendaraan'=>$no_kendaraan,
+                'target_aktual'=>'1',
+            ]);
+            //validasi apakah sudah ada pengiriman sebelumnya(belum dibuat)
+            $awb = Awb::where('no_awb',$no_awb)
+                        ->update([
+                            'id_pengiriman'=>$pengiriman->id,
+                            'keterangan'=>$keterangan,
+                            'status'=>'1'
+                        ]);
+            
+            return response()->json('berhasil');
         }
+    }
+    public function storeImage(Request $request){
+        return response()->json($request->foto);
     }
 }
