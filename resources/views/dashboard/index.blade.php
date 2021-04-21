@@ -33,8 +33,8 @@
                     <div class="progress ml-5" style="background-color: orangered;">
                     <div class="inner">
                         <div class="text-center">
-                            <p class="teks"  style="color: white; font-size: 5em; ">20</p>
-                            <p class="teks2" style="color: white; font-size: 2em;">Item</p>
+                            <p class="teks"  style="color: white; font-size: 4em; ">20</p>
+                            <p class="teks2" style="color: white; font-size: 1.5em;">Item</p>
                         </div>
                         <!-- <div class="glare"></div> -->
                     </div>
