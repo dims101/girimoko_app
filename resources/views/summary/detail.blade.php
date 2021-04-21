@@ -1,6 +1,6 @@
 @extends('layouts.app', [
-  'activePage' => 'pengiriman', 
-  'titlePage' => __('Monitoring Pengiriman')
+  'activePage' => 'summary', 
+  'titlePage' => __('Summary')
   ])
 
 @section('content')        
@@ -13,7 +13,7 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-header card-header-primary">
-        <h4 class="card-title"><span>DDS1</span> - <span">Tambun</span></h4>
+        <h4 class="card-title"><span>DDS1</span> - <span>Tambun</span></h4>
       </div>
       <div class="card-body row">
 
@@ -51,7 +51,7 @@
       <div class="card-body table-responsive">
         <table class="table table-hover">
         <!-- <table class="table table-borderless"> -->
-          <thead class="text-danger">
+          <thead class="text-primary">
             <th>No.</th>
             <th>Rayon</th>
             <th>AWB</th>
@@ -96,7 +96,7 @@
         </table>
       </div>
       <div class="text-right pb-3 pr-4">
-          <a href="/pengiriman" class="btn btn-round btn-warning">Kembali</a>
+          <a href="/summary" class="btn btn-round btn-warning">Kembali</a>
       </div>
     </div>
   </div> 

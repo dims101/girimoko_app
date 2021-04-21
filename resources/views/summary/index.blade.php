@@ -1,6 +1,6 @@
 @extends('layouts.app', [
-  'activePage' => 'pengiriman', 
-  'titlePage' => __('Monitoring Pengiriman')
+  'activePage' => 'summary', 
+  'titlePage' => __('Summary')
   ])
 
   @section('content')        
@@ -31,7 +31,7 @@
   </div>  
 
   <div class="container" id="mydata">
-    @include('pengiriman.page')
+    @include('summary.page')
   </div>
        
 <script>

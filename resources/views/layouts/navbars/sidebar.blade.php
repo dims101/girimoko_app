@@ -6,7 +6,7 @@
   -->
   <div class="logo">
     <a href="#" class="simple-text logo-normal">
-      {{ __('GIRIMOKO') }}
+      {{ __('AWB Tracking System') }}
     </a>
 	<!-- <a href="#"><img style="width: 100px;" src="/material/img/girimoko.jpeg" class="simple-text logo-normal"></a> -->
   </div>
@@ -15,24 +15,24 @@
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('home') }}">
           <i class="material-icons">dashboard</i>
-            <p>{{ __('Halaman Utama') }}</p>
+            <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
      
-      <li class="nav-item{{ $activePage == 'pengiriman' ? ' active' : '' }}">
-        <a class="nav-link" href="/pengiriman">
-          <i class="material-icons">local_shipping</i>
-            <p>{{ __('Pengiriman') }}</p>
+      <li class="nav-item{{ $activePage == 'summary' ? ' active' : '' }}">
+        <a class="nav-link" href="/summary">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Summary') }}</p>
         </a>
       </li>
       
-      <!-- <li class="nav-item{{ $activePage == 'map' ? ' active' : '' }}">
-        <a class="nav-link" href="#">
-          <i class="material-icons">location_ons</i>
-            <p>{{ __('Lokasi') }}</p>
+      <li class="nav-item{{ $activePage == 'delivery' ? ' active' : '' }}">
+        <a class="nav-link" href="/delivery">
+          <i class="material-icons">local_shipping</i>
+            <p>{{ __('DDS Delivery Report') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
+      <!-- <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
         <a class="nav-link" href="">
           <i class="material-icons">notifications</i>
           <p>{{ __('Notifications') }}</p>
