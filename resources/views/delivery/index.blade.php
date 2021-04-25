@@ -1,3 +1,4 @@
+
 @extends('layouts.app', [
   'activePage' => 'delivery', 
   'titlePage' => __('DDS Delivery Report')
@@ -61,7 +62,7 @@
             <th>Detail</th>
           </thead>
           <tbody>
-            <tr class="">
+            <!-- <tr class="">
               <td>1</td>
               <td>5123</td>
               <td>Tomang</td>
@@ -70,10 +71,31 @@
               <td>Terkirim</td>    
               <td>
                 <div class="">
-                    <a href="/dtl" class="badge badge-round badge-primary"><i class="material-icons">pending</i></a>
+                    <a href="/delivery/detail" class="badge badge-round badge-primary"><i class="material-icons">pending</i></a>
                 </div>
               </td>
-            </tr>
+            </tr> -->
+            @foreach ($awbs as $awb)
+              <tr>
+                <td>{{$loop->iteration}}</td>
+                <td>{{$awb->no_awb}}</td>
+                <td>{{$awb->kode_dealer}}</td>
+                <td>{{$awb->nama_dealer}}</td>
+                <td>{{$awb->dds}}</td>
+                <td>
+                  @if ($awb->status == 1)
+                    AWB telah sampai
+                  @else
+                    AWB sedang dikirim
+                  @endif
+                </td>
+                <td>
+                  <div class="">
+                      <a href="/delivery/detail/{{$awb->no_awb}}" class="badge badge-round badge-primary"><i class="material-icons">pending</i></a>
+                  </div>
+                </td>
+              </tr>
+            @endforeach
             
           </tbody>
         </table>

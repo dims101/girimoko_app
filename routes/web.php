@@ -26,4 +26,4 @@ Route::get('/summary', 'SummaryController@index');
 Route::get('/detail', 'SummaryController@detail');
 
 Route::get('/delivery', 'DeliveryController@index');
-Route::get('/dtl', 'DeliveryController@detail');
+Route::get('/delivery/detail/{no_awb}', 'DeliveryController@detail');
