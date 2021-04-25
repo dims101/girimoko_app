@@ -27,8 +27,12 @@ class DeliveryController extends Controller
     {
         // return view('delivery.index');
         // $awbs = Awb::all();
+        $bulan = 01;
+        $tahun = 1970;
         $awbs = Awb::select(DB::raw('awbs.no_awb,awbs.no_awb,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status'))
-                        ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')
+                        ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
+                        ->whereMonth('tanggal_ds',date('m',strtotime($bulan)))
+                        ->whereYear('tanggal_ds',date('Y',strtotime($tahun)))
                         ->get();
         // dd($awbs);
         return view('delivery.index',compact('awbs'));
