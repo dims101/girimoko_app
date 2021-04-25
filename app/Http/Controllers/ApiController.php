@@ -10,6 +10,7 @@ use App\Dealer;
 use App\Pengiriman;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 use Hash;
 
 class ApiController extends Controller
@@ -176,14 +177,9 @@ class ApiController extends Controller
 
         }
     }
-    public function storeAwb(Request $request){
-        $username = $request->username;
-        $no_awb = $request->no_awb;  
-        $no_kendaraan = $request->no_kendaraan;
-        $penerima =$request->penerima;
-        $keterangan = $request->keterangan;
+    public function storeAwb(Request $request){        
         $app_secret = $request->app_secret;
-        // dd($app_secret);
+
         if($app_secret != config('app.secret')){
             $response = array(
                 'success' => '0',
@@ -192,27 +188,29 @@ class ApiController extends Controller
                 );
             return response()->json($response);
         } else {
+            $username = $request->username;
+            $no_awb = $request->no_awb;  
+            $no_kendaraan = $request->no_kendaraan;
+            $penerima =$request->penerima;
+            $keterangan = $request->keterangan;
+
             $dealer = Awb::where('no_awb',$no_awb)
                             ->first();
             $target = Dealer::select('target')
                             ->where('kode_dealer',$dealer->kode_dealer)
                             ->first();
             
-            // dd($dealer);
             //tinggal cek tanggal besok sabtu apa minggu(belum dibuat)
             $today = Carbon::now()->setTimezone('Asia/Jakarta');
             $tanggal_terima = $today->toDateString();
             $waktu_terima = $today->toTimeString();
 
-            if($request->hasFile('foto')){
-                $file = $request->file('foto');
-                // $file_name = $file->getClientOriginalName();
-                $file_extension = $file->getClientOriginalExtension();
-                $file_name = $no_awb .'-'.$tanggal_terima . '.' . $file_extension;
-                $file_path = $file->getRealPath();
-                $file_size = $file->getSize();     
-                $file->move(public_path('bukti_awb/'),$file_name);       
-            }
+            // $file = str_replace('data:image/jpeg;base64,', '', $request->foto);
+            // $file = str_replace(' ', '+', $file);
+            // $file = base64_decode($file);
+            $file = Image::make($request->foto)->stream('jpg',100);
+            $file_name = $no_awb .'-'.$tanggal_terima . '.jpg';
+            file_put_contents(public_path('bukti_awb/'.$file_name), $file);
 
             $pengiriman = Pengiriman::create([
                 'username'=>$username,
@@ -228,13 +226,15 @@ class ApiController extends Controller
                         ->update([
                             'id_pengiriman'=>$pengiriman->id,
                             'keterangan'=>$keterangan,
-                            'status'=>'1'
+                            'status'=>'0'
                         ]);
-            
-            return response()->json('berhasil');
+            $response = array(
+                'success' => '1',
+                'message' => 'Berhasil!'
+
+                );
+            return response()->json($response);
         }
     }
-    public function storeImage(Request $request){
-        return response()->json($request->foto);
-    }
+    
 }
