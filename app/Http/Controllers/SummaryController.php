@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Dealer;
+use DB;
 
 class SummaryController extends Controller
 {
@@ -23,12 +25,25 @@ class SummaryController extends Controller
      */
     public function index()
     {
+        // $summary = Dealer::All();
+        // //     // dd(count($proyek));                       
+        // return view('summary.index',['summary'=>$summary]);
         return view('summary.index');
     }
 
 
-    public function detail()
+    public function detail($kota)
     {
-        return view('summary.detail');
+        // $detail = Dealer::select(DB::raw('dealers.depo','dealers.rayon'))
+        //         ->leftjoin('awbs','dealers.kode_dealer','=','awbs.kode_dealer')
+        //         ->where('depo',$kota)
+        //         ->first();
+        //         return($detail);
+        // return view('summary.detail', compact('detail'));
+        // return view('summary.detail');
+        $detail = Dealer::select('dds','depo')
+                        ->where('depo',$kota)
+                        ->first();
+        return view('summary.detail',compact('detail'));
     }
 }
