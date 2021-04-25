@@ -29,23 +29,37 @@
           </div>                          
         </form> 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <h5 class="title text-right mt-2">Filter :&nbsp;&nbsp;</h5>
-        <div class="col-sm-4 row filter container text-right">
+        <h5 class="title mt-2 col-sm-1">Filter :&nbsp;&nbsp;</h5>
+        <div class="col-sm-4 row filter container">
           <!-- <div class="row filter container"> -->
-            <select  name="tahun" id="tahun" class="form-control col-sm-3">
-            <option value="">- Dealer -</option>                                             
+            <select  name="bulan" id="bulan" class="form-control col-sm-3">
+            <option value="">-- Bulan --</option>  
+            <option value="">January</option>  
+            <option value="">February</option>  
+            <option value="">Maret</option>  
+            <option value="">April</option>  
+            <option value="">Mei</option> 
+            <option value="">Juni</option>  
+            <option value="">July</option>  
+            <option value="">Agustus</option>
+            <option value="">September</option>
+            <option value="">Oktober</option>  
+            <option value="">November</option>  
+            <option value="">Desember</option>                                         
             </select>
-            <select name="plant" id="plant" class="form-control col-sm-3">
-            <option value="">- DDS -</option>      
+            <select name="dds" id="dds" class="form-control col-sm-3">
+            <option value="">-- Tahun --</option> 
+                
             </select>
             <select name="status" id="status" class="form-control col-sm-3">
-            <option value="">- Status -</option>                        
-                                  
+            <option value="">-- DDS --</option>                        
+           
             </select>
-          <!-- </div> -->
-          <!-- <label for="">Tahun</label>
-          <label for="">Status</label>
-          <label for="">Plant</label> -->
+            <select name="status" id="status" class="form-control col-sm-3">
+            <option value="">-- Status --</option>                        
+           
+            </select>
+          <
       </div>
       
       </div>    
@@ -104,4 +118,20 @@
     </div>
   </div> 
 </div>  
+
+<script>
+$(document).ready(function(){
+	$(".filter").click(function(){
+	  var str=  $("#dealer").val();
+	  var str1=  $("#dds").val();
+    var str2=  $("#status").val();
+   
+	  
+		$.get( "{{ url('/delivery/filter?dealer=') }}"+str+"&&"+"dds="+str1+"&&"+"status="+str2, function( data ) {
+			$( "#mydata" ).html( data );  
+	  });
+	  
+	});  
+  }); 
+</script>
 @endsection
