@@ -8,15 +8,15 @@
   <div class="alert alert-success" role="alert">
       {{ session('status') }}
   </div>
-@endif       
+@endif    
+@if($detail<>null)     
 <div class="content">
   <div class="container-fluid">
     <div class="card">
       <div class="card-header card-header-primary">
-        <h4 class="card-title"><span>DDS1</span> - <span>Tambun</span></h4>
+        <h4 class="card-title"><span>{{$detail->dds}}</span> - <span>{{$detail->depo}}</span></h4>
       </div>
       <div class="card-body row">
-
      
         <form class="navbar-form col-sm-6">
           <div class="input-group no-border">
@@ -101,4 +101,20 @@
     </div>
   </div> 
 </div>  
+
+@else
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title"><span>Tidak</span> Ada <span>Data</span></h4>
+              </div>
+                <div class="card-body mt-2 text-center">
+                    <label for="" class="card-title">Data Tidak Ditemukan</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @endif 
 @endsection
