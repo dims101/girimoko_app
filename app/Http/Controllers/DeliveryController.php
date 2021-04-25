@@ -34,6 +34,25 @@ class DeliveryController extends Controller
         return view('delivery.index',compact('awbs'));
     }
 
+
+    // public function liveFilter(Request $request)
+    // {   
+    //     $dealer = $request->dealer;
+    //     $dds = $request->dds;
+    //     $status = $request->status; 
+
+    //     $awbs = Awb::select(DB::raw('awbs.no_awb,awbs.no_awb,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status'))
+    //                 ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')
+    //                 ->where('kode_dealer','LIKE',"%{$dealer}%")
+    //                 ->where('dds','LIKE',"%{$dds}%")
+    //                 ->where('status','LIKE',"%{$status}%")
+    //                 // ->orwhere('project_no','LIKE',"%{$search}%")
+    //                 ->paginate(8); ;
+    //     return view('delivery.index',['awbs'=>$awbs]);
+        
+    // }
+
+
     public function detail($no_awb)
     {   
         //try catch sini 

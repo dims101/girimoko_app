@@ -27,3 +27,4 @@ Route::get('/detail/{kota}', 'SummaryController@detail');
 
 Route::get('/delivery', 'DeliveryController@index');
 Route::get('/delivery/detail/{no_awb}', 'DeliveryController@detail');
+Route::get('/delivery/filter/','DeliveryController@liveFilter')->name('liveFilter');
