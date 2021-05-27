@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class AwbController extends Controller
 {
+    public function index()
+    {
+        $awb = Awb::All();
+        return view('awb.import',compact('awb'));
+    }
+
     public function import(Request $request){
         $request->validate([
             'file' => 'required|mimes:csv,xls,xlsx',
