@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Awb;
 use App\Dealer;
 use DB;
 
@@ -27,8 +28,8 @@ class SummaryController extends Controller
     {
         // $summary = Dealer::All();
         // //     // dd(count($proyek));                       
-        // return view('summary.index',['summary'=>$summary]);
-        return view('summary.index');
+        $sum = Awb::All();
+        return view('summary.index', compact('sum'));
     }
 
 

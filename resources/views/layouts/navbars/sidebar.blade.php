@@ -32,6 +32,13 @@
             <p>{{ __('DDS Delivery Report') }}</p>
         </a>
       </li>
+
+      <li class="nav-item{{ $activePage == 'import_excel' ? ' active' : '' }}">
+        <a class="nav-link" href="/awb/excel">
+          <i class="material-icons">upload_file</i>
+            <p>{{ __('Import File Excel') }}</p>
+        </a>
+      </li>
       <!-- <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
         <a class="nav-link" href="">
           <i class="material-icons">notifications</i>
