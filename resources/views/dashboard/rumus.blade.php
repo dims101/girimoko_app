@@ -52,11 +52,11 @@ Highcharts.chart('container-2', {
       data: [
         {
           name: "Terkirim",
-          y: 6,
+          y: {{$data['terkirim']}},
         },
         {
           name: "Tertunda",
-          y: 14,
+          y: {{$data['tertunda']}},
         }
       ]
     }
@@ -119,27 +119,27 @@ Highcharts.chart('container-2', {
       data: [
         {
           name: "DDS1 Tambun",
-          y: 30,
+          y: <?=$awb_dds[0]?>,
           drilldown: "DDS1 Tambun"
         },
         {
           name: "DDS2 Bandung",
-          y: 45,
+          y: <?=$awb_dds[1]?>,
           drilldown: "DDS2 Bandung"
         },
         {
           name: "DDS3 Purwokerto",
-          y: 20,
+          y: <?=$awb_dds[2]?>,
           drilldown: "DDS3 Purwokerto"
         },
         {
           name: "DDS3 Semarang",
-          y: 28,
+          y: <?=$awb_dds[3]?>,
           drilldown: "DDS3 Semarang"
         },
         {
           name: "DDS3 Solo",
-          y: 25,
+          y: <?=$awb_dds[4]?>,
           drilldown: "DDS3 Solo"
         }
         
@@ -206,53 +206,7 @@ Highcharts.chart('container-2', {
     {
       name: "Total AWB",
       colorByPoint: true,
-      data: [
-        {
-          name: "06/04/2021",
-          y: 7,
-          drilldown: "06/04/2021"
-        },
-        {
-          name: "07/04/2021",
-          y: 5,
-          drilldown: "07/04/2021"
-        },
-        {
-          name: "08/04/2021",
-          y: 9,
-          drilldown: "08/04/2021"
-        },
-        {
-          name: "09/04/2021",
-          y: 6,
-          drilldown: "09/04/2021"
-        },
-        {
-          name: "10/04/2021",
-          y: 4,
-          drilldown: "10/04/2021"
-        },
-        {
-          name: "11/04/2021",
-          y: 5,
-          drilldown: "11/04/2021"
-        },
-        {
-          name: "12/04/2021",
-          y: 8,
-          drilldown: "12/04/2021"
-        },
-        {
-          name: "13/04/2021",
-          y: 6,
-          drilldown: "13/04/2021"
-        },
-        {
-          name: "14/04/2021",
-          y: 7,
-          drilldown: "14/04/2021"
-        }
-      ]
+      data: <?=$data['awb_tertunda']?>
     }
   ],
   drilldown: {

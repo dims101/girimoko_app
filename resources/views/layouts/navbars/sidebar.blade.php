@@ -5,7 +5,7 @@
       Tip 2: you can also add an image using data-image tag
   -->
   <div class="logo">
-    <a href="#" class="simple-text logo-normal">
+    <a href="/" class="simple-text logo-normal">
       {{ __('AWB Tracking System') }}
     </a>
 	<!-- <a href="#"><img style="width: 100px;" src="/material/img/girimoko.jpeg" class="simple-text logo-normal"></a> -->

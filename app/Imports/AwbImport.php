@@ -34,7 +34,7 @@ class AwbImport implements ToCollection, WithHeadingRow, SkipsOnError
                     'no_awb' => $row['no_awb'],
                     'no_ds' => $row['no_ds'],
                     'kode_dealer' => $row['kode_dealer'],
-                    'tanggal_ds' => date('Y-m-d', strtotime(strval($row['tgl_ds']))),
+                    'tanggal_ds' => date('Y-d-m', strtotime($row['tgl_ds'])),
                 ]);
             // }
 

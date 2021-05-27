@@ -9,7 +9,7 @@
                 <h5 class="card-title text-center">DDS 1</h5> 
             </div>                        
             <div class="card-body">
-                <div class="progress mx-auto" data-value='70'>
+                <div class="progress mx-auto" data-value={{$persentase_tambun}}>
                 <span class="progress-left">
                     <span class="progress-bar border-warning"></span>
                 </span>
@@ -17,7 +17,7 @@
                     <span class="progress-bar border-warning"></span>
                 </span>
                 <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                    <div class="h2 font-weight-bold mt-4 ml-2">70<sup class="small">%</sup></div>
+                    <div class="h2 font-weight-bold mt-4 ml-2">{{$persentase_tambun}}<sup class="small">%</sup></div>
                 </div>
                 </div>
                 
@@ -37,7 +37,7 @@
                 <h5 class="card-title text-center">DDS 2</h5> 
             </div>                        
             <div class="card-body">
-                <div class="progress mx-auto" data-value='60'>
+                <div class="progress mx-auto" data-value='{{$persentase_bandung}}'>
                 <span class="progress-left">
                     <span class="progress-bar border-warning"></span>
                 </span>
@@ -45,7 +45,7 @@
                     <span class="progress-bar border-warning"></span>
                 </span>
                 <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                    <div class="h2 font-weight-bold mt-4 ml-2">60<sup class="small">%</sup></div>
+                    <div class="h2 font-weight-bold mt-4 ml-2">{{$persentase_bandung}}<sup class="small">%</sup></div>
                 </div>
                 </div>
                 
@@ -65,7 +65,7 @@
                 <h5 class="card-title text-center">DDS 3</h5> 
             </div>                        
             <div class="card-body">
-                <div class="progress mx-auto" data-value='80'>
+                <div class="progress mx-auto" data-value='{{$persentase_pemalang}}'>
                 <span class="progress-left">
                     <span class="progress-bar border-warning"></span>
                 </span>
@@ -73,7 +73,7 @@
                     <span class="progress-bar border-warning"></span>
                 </span>
                 <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                    <div class="h2 font-weight-bold mt-4 ml-2">80<sup class="small">%</sup></div>
+                    <div class="h2 font-weight-bold mt-4 ml-2">{{$persentase_pemalang}}<sup class="small">%</sup></div>
                 </div>
                 </div>
                 
@@ -93,7 +93,7 @@
                 <h5 class="card-title text-center">DDS 3</h5> 
             </div>                        
             <div class="card-body">
-                <div class="progress mx-auto" data-value='75'>
+                <div class="progress mx-auto" data-value='{{$persentase_semarang}}'>
                 <span class="progress-left">
                     <span class="progress-bar border-warning"></span>
                 </span>
@@ -101,7 +101,7 @@
                     <span class="progress-bar border-warning"></span>
                 </span>
                 <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                    <div class="h2 font-weight-bold mt-4 ml-2">75<sup class="small">%</sup></div>
+                    <div class="h2 font-weight-bold mt-4 ml-2">{{$persentase_semarang}}<sup class="small">%</sup></div>
                 </div>
                 </div>
                 
@@ -121,7 +121,7 @@
                 <h5 class="card-title text-center">DDS 3</h5> 
             </div>                        
             <div class="card-body">
-                <div class="progress mx-auto" data-value='82'>
+                <div class="progress mx-auto" data-value='{{$persentase_solo}}'>
                 <span class="progress-left">
                     <span class="progress-bar border-warning"></span>
                 </span>
@@ -129,7 +129,7 @@
                     <span class="progress-bar border-warning"></span>
                 </span>
                 <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                    <div class="h2 font-weight-bold mt-4 ml-2">82<sup class="small">%</sup></div>
+                    <div class="h2 font-weight-bold mt-4 ml-2">{{$persentase_solo}}<sup class="small">%</sup></div>
                 </div>
                 </div>
                 

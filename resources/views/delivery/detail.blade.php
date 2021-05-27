@@ -13,7 +13,14 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-header card-header-primary">
-        <h4 class="card-title"><span>{{$awbs->dds}}</span> - <span>{{$awbs->depo}} ({{$awbs->rayon}})</span></h4>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="card-title"><span>{{$awbs->dds}}</span> - <span>{{$awbs->depo}} ({{$awbs->rayon}})</span></h4>          
+          </div>
+          <div class="col-md-6 text-right">
+              <h5 class="card-title">{{$awbs->status == null ? 'Sedang dikirim' : 'Telah diterima' }}</h5>
+          </div>
+        </div>
       </div>
       <div class="card-body">
       <div class="row">
@@ -74,7 +81,7 @@
           <thead class="text-primary">
             <th>No.</th>
             <th>No. Performa</th>
-            <th>TotalKoli</th>
+            <th>Total Koli</th>
             <th>Tipe Produk</th>
             <th>Keterangan</th>
           </thead>
@@ -97,10 +104,43 @@
           </tbody>
         </table>
       </div>
+      
       <div class="text-right pb-3 pr-4">
+      <!-- Button trigger modal -->
+          <button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Lihat bukti Awb
+          </button>
           <a href="/delivery" class="btn btn-round btn-warning">Kembali</a>
       </div>
     </div>
   </div> 
 </div>  
+<!-- BaseModal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{$awbs->no_awb}} - {{$awbs->nama_dealer}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        @if(empty($awbs->foto_awb))
+          <img src="{{asset('bukti_awb')}}/default-image.jpg" class="img-fluid" alt="">
+        @else
+          <img src="{{asset('bukti_awb')}}/{{$awbs->foto_awb}}" class="img-fluid" alt="">
+        @endif
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-round btn-warning" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+</script>
 @endsection

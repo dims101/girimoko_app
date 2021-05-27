@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 use Hash;
+use DB;
 
 class ApiController extends Controller
 {
@@ -226,12 +227,63 @@ class ApiController extends Controller
                         ->update([
                             'id_pengiriman'=>$pengiriman->id,
                             'keterangan'=>$keterangan,
-                            'status'=>'0'
+                            'status'=>'1'
+                            //toggle status
                         ]);
             $response = array(
                 'success' => '1',
                 'message' => 'Berhasil!'
 
+                );
+            return response()->json($response);
+        }
+    }
+
+    public function getFinalAwb(Request $request){
+        $app_secret = $request->app_secret;
+
+        if($app_secret != config('app.secret')){
+            $response = array(
+                'success' => '0',
+                'message' => 'Akses ditolak!'
+
+                );
+            return response()->json($response);
+        } else {
+            if(empty($request->filter)){
+                 $awbs = Awb::select(DB::raw('
+                                awbs.no_awb as kode_awb,
+                                awbs.kode_dealer,
+                                awbs.tanggal_ds as tgl_kirim,
+                                pengirimans.tanggal_terima as tgl_terima,
+                                pengirimans.username as supir
+                            '))
+                            ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
+                            ->where('awbs.status','!=',null)
+                            ->get();
+            
+            } else {
+                $filter = $request->filter;
+                $awbs = Awb::select(DB::raw('
+                                awbs.no_awb as kode_awb,
+                                awbs.kode_dealer,
+                                awbs.tanggal_ds as tgl_kirim,
+                                pengirimans.tanggal_terima as tgl_terima,
+                                pengirimans.username as supir
+                            '))
+                            ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
+                            ->where('awbs.status','!=',null)
+                            ->where('no_awb','LIKE','%'.$filter.'%')
+                            ->Orwhere('kode_dealer','LIKE','%'.$filter.'%')
+                            ->Orwhere('tanggal_ds','LIKE','%'.$filter.'%')
+                            ->Orwhere('tanggal_terima','LIKE','%'.$filter.'%')
+                            ->Orwhere('username','LIKE','%'.$filter.'%')
+                            ->get();
+            }
+            $response = array(
+                'success' => '1',
+                'message' => 'Success',
+                'data'     => $awbs
                 );
             return response()->json($response);
         }

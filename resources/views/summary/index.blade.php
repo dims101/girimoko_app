@@ -11,23 +11,15 @@
     @endif
   
   <div class="container">
-  <div class="card">
-    <div class="card-header card-header-warning row">         
-        <i class="material-icons">manage_search</i>
-        <h4 class="card-title">&nbsp;&nbsp;Total AWB : <span>200</span>&nbsp;</h4><h4> | Ontime : <span>140</span> | Delay : <span>60</span></h4>             
-    </div>
-  <div class="card-body">
-      <form class="navbar-form">
-        <div class="input-group no-border">
-          <input value="" type="text" name="search" class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
-          <button type="submit" class="btn btn-white btn-round btn-just-icon">
-          <i class="material-icons">search</i>
-          <div class="ripple-container"></div>
-          </button> 
-        </div>                          
-      </form> 
-  </div>                       
-  </div>   
+    <div class="card">
+      <div class="card-header card-header-warning row">         
+          <i class="material-icons">manage_search</i>
+          <h4 class="card-title">&nbsp;&nbsp;Total AWB : <span>{{$awbs['total']}}</span>&nbsp;</h4> <h4> | Ontime : <span>{{$awbs['ontime']}}</span> | Delay : <span>{{$awbs['delay']}} </span> | Belum terkirim : <span>{{$awbs['belum_terkirim']}}</span></h4>             
+      </div>
+      <div class="card-body">
+        
+      </div>                       
+    </div>   
   </div>  
 
   <div class="container" id="mydata">

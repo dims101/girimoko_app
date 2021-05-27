@@ -33,7 +33,7 @@
                     <div class="progress ml-5" style="background-color: orangered;">
                     <div class="inner">
                         <div class="text-center">
-                            <p class="teks"  style="color: white; font-size: 4em; ">20</p>
+                            <p class="teks"  style="color: white; font-size: 3em; ">{{$data['total']}}</p>
                             <p class="teks2" style="color: white; font-size: 1.5em;">Item</p>
                         </div>
                         <!-- <div class="glare"></div> -->
@@ -44,7 +44,7 @@
             <div class="card-footer mt-4">
               <div class="stats">
                 <i class="material-icons">repeat_one</i>
-                <a href="#">Total dalam 1 hari</a>
+                <a href="#">Total bulan ini</a>
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@
       </div>
       <div class="card-body row">
      
-        <form class="navbar-form col-sm-6">
+        <!-- <form class="navbar-form col-sm-6">
           <div class="input-group no-border">
             <input value="" type="text" name="search" class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
             <button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -26,12 +26,12 @@
             <div class="ripple-container"></div>
             </button> 
           </div>                          
-        </form> 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </form>  -->
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <h5 class="title text-right mt-2">Filter :&nbsp;&nbsp;</h5>
-        <div class="col-sm-4 row filter container text-right">
+        <div class="col-sm-4 row filter container text-right"> -->
           <!-- <div class="row filter container"> -->
-            <select  name="tahun" id="tahun" class="form-control col-sm-3">
+            <!-- <select  name="tahun" id="tahun" class="form-control col-sm-3">
             <option value="">- Rayon -</option>                                             
             </select>
             <select name="plant" id="plant" class="form-control col-sm-3">
@@ -40,12 +40,12 @@
             <select name="status" id="status" class="form-control col-sm-3">
             <option value="">- Status -</option>                        
                                   
-            </select>
+            </select> -->
           <!-- </div> -->
           <!-- <label for="">Tahun</label>
           <label for="">Status</label>
           <label for="">Plant</label> -->
-      </div>
+      <!-- </div> -->
       
       </div>    
       <div class="card-body table-responsive">
