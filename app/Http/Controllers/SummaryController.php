@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Dealer;
 use App\Awb;
+use App\Depo;
 use DB;
 
 class SummaryController extends Controller
@@ -81,12 +82,72 @@ class SummaryController extends Controller
         $detail = Dealer::select('dds','depo')
                         ->where('depo',$kota)
                         ->first();
-        $total = Awb::select(DB::raw('count(awbs.no_awb) as total'))
+        
+        $rayon = Depo::where('depo',$kota)
+                        ->pluck('rayon');
+        $all = $this->all($rayon);
+        $count = count($all);
+        $ontime = $this->detailAwb($rayon,1);
+        $delay1 = $this->detailAwb($rayon,2);
+        $delay2 = $this->detailAwb($rayon,3);
+        $delay3 = $this->detailAwb($rayon,4);
+        $delay4 = $this->detailAwb($rayon,5);
+        $tunda = $this->detailAwb($rayon,null);
+        $data = [
+            'rayon' => $rayon,
+            'all' => $all,
+            'ontime' => $ontime,
+            'delay1' => $delay1,
+            'delay2' => $delay2,
+            'delay3' => $delay3,
+            'delay4' => $delay4,
+            'tunda' => $tunda,
+        ];
+        // return $data['all'];die; 
+        // $total = Awb::select(DB::raw('count(awbs.no_awb) as total'))
+        //                 ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
+        //                 ->where('rayon', $rayon[9])
+        //                 ->where('status',1)
+        //                 ->first();
+        //                 return $total;die; 
+        return view('summary.detail',compact('detail','data','count'));
+    }
+    public function detailAwb($rayon,$status){
+        $awb =array();
+        $count = count($rayon);
+        // return $count;
+        for($i=0;$i<$count;$i++){
+            $total = Awb::select(DB::raw('count(awbs.no_awb) as total'))
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
-                        ->where('rayon','Tangerang-Labuan')
-                        ->where('status',1)
+                        ->where('rayon', $rayon[$i])
+                        ->where('status',$status)
                         ->first();
-        return $total;die;
-        return view('summary.detail',compact('detail'));
+            $total = $total->total;
+            // if(is_null($total)){
+            //     $total = 0;
+            // }
+            $awb[] = $total;
+        }
+        return $awb;
+        
+    }
+    public function all($rayon){
+        $awb =array();
+        $count = count($rayon);
+        // return $count;
+        for($i=0;$i<$count;$i++){
+            $total = Awb::select(DB::raw('count(awbs.no_awb) as total'))
+                        ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
+                        ->where('rayon', $rayon[$i])
+                        // ->where('status',$status)
+                        ->first();
+            $total = $total->total;
+            // if(is_null($total)){
+            //     $total = 0;
+            // }
+            $awb[] = $total;
+        }
+        return $awb;
+        
     }
 }

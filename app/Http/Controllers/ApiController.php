@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 use Hash;
 use DB;
+use DateTime;
+use DatePeriod;
+use DateInterval;
 
 class ApiController extends Controller
 {
@@ -200,11 +203,40 @@ class ApiController extends Controller
             $target = Dealer::select('target')
                             ->where('kode_dealer',$dealer->kode_dealer)
                             ->first();
-            
-            //tinggal cek tanggal besok sabtu apa minggu(belum dibuat)
+
+            $tanggal_ds = $dealer->tanggal_ds;
+            // return $tanggal_ds;die;
+            //tinggal cek tanggal besok sabtu apa minggu(belum dibuat)(sudah)
             $today = Carbon::now()->setTimezone('Asia/Jakarta');
             $tanggal_terima = $today->toDateString();
             $waktu_terima = $today->toTimeString();
+            // return $tanggal_terima;die;
+            $begin = new DateTime($tanggal_ds);
+            $end = new DateTime($tanggal_terima);
+
+            $daterange     = new DatePeriod($begin, new DateInterval('P1D'), $end);
+            //mendapatkan range antara dua tanggal dan di looping
+            $i=0;
+            $x     =    0;
+            $end     =    1;
+
+            foreach($daterange as $date){
+                $daterange     = $date->format("Y-m-d");
+                $datetime     = DateTime::createFromFormat('Y-m-d', $daterange);
+
+                //Convert tanggal untuk mendapatkan nama hari
+                $day         = $datetime->format('D');
+
+                //Check untuk menghitung yang bukan hari sabtu dan minggu
+                if($day!="Sun" && $day!="Sat") {
+                    //echo $i;
+                    $x    +=    $end-$i;
+                    
+                }
+                $end++;
+                $i++;
+            }  
+            $status = $x-1;
 
             // $file = str_replace('data:image/jpeg;base64,', '', $request->foto);
             // $file = str_replace(' ', '+', $file);
@@ -220,14 +252,14 @@ class ApiController extends Controller
                 'penerima'=>$penerima,
                 'foto_awb'=> $file_name,
                 'no_kendaraan'=>$no_kendaraan,
-                'target_aktual'=>'1',
+                'target_aktual'=> $status,
             ]);
             //validasi apakah sudah ada pengiriman sebelumnya(belum dibuat)
             $awb = Awb::where('no_awb',$no_awb)
                         ->update([
                             'id_pengiriman'=>$pengiriman->id,
                             'keterangan'=>$keterangan,
-                            'status'=>'1'
+                            'status'=>$status
                             //toggle status
                         ]);
             $response = array(

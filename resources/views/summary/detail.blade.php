@@ -49,6 +49,7 @@
       
       </div>    
       <div class="card-body table-responsive">
+      
         <table class="table table-hover">
         <!-- <table class="table table-borderless"> -->
           <thead class="text-primary">
@@ -60,38 +61,24 @@
             <th>Delay 2 hari</th>
             <th>Delay 3 hari</th>
             <th>Delay >3 hari</th>
+            <th>Belum terkirim</th>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Jakarta 1</td>
-              <td>5123</td>
-              <td>300</td>
-              <td>50</td>
-              <td>20</td>
-              <td>10</td>
-              <td>8</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jakarta 2</td>
-              <td>4502</td>
-              <td>215</td>
-              <td>40</td>
-              <td>11</td>
-              <td>18</td>
-              <td>6</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>JTangerang</td>
-              <td>2121</td>
-              <td>125</td>
-              <td>45</td>
-              <td>22</td>
-              <td>13</td>
-              <td>5</td>
-            </tr>
+          @for ($i=0;$i<$count;$i++)
+              <tr>
+                  <td>{{$i+1}}</td>
+                  <td>{{$data['rayon'][$i]}}</td>
+                  <td>{{$data['all'][$i]}}</td>
+                  <td>{{$data['ontime'][$i]}}</td>
+                  <td>{{$data['delay1'][$i]}}</td>
+                  <td>{{$data['delay2'][$i]}}</td>
+                  <td>{{$data['delay3'][$i]}}</td>
+                  <td>{{$data['delay4'][$i]}}</td>
+                  <td>{{$data['tunda'][$i]}}</td>
+              </tr>
+          
+          @endfor
+          
           </tbody>
         </table>
       </div>
