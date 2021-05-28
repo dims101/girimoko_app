@@ -87,11 +87,11 @@ class SummaryController extends Controller
                         ->pluck('rayon');
         $all = $this->all($rayon);
         $count = count($all);
-        $ontime = $this->detailAwb($rayon,1);
-        $delay1 = $this->detailAwb($rayon,2);
-        $delay2 = $this->detailAwb($rayon,3);
-        $delay3 = $this->detailAwb($rayon,4);
-        $delay4 = $this->detailAwb($rayon,5);
+        $ontime = $this->detailAwb($rayon,0);
+        $delay1 = $this->detailAwb($rayon,1);
+        $delay2 = $this->detailAwb($rayon,2);
+        $delay3 = $this->detailAwb($rayon,3);
+        $delay4 = $this->detailAwb($rayon,4);
         $tunda = $this->detailAwb($rayon,null);
         $data = [
             'rayon' => $rayon,

@@ -236,7 +236,10 @@ class ApiController extends Controller
                 $end++;
                 $i++;
             }  
-            $status = $x-1;
+            $status = $x;
+            if ($status >3){
+                $status = 4;
+            }
 
             // $file = str_replace('data:image/jpeg;base64,', '', $request->foto);
             // $file = str_replace(' ', '+', $file);
