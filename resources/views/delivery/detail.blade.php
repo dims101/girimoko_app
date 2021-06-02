@@ -110,7 +110,7 @@
           <button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target="#exampleModal">
             Lihat bukti Awb
           </button>
-          <a href="/delivery" class="btn btn-round btn-warning">Kembali</a>
+          <a href="{{ url()->previous() }}" class="btn btn-round btn-warning">Kembali</a>
       </div>
     </div>
   </div> 

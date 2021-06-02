@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Dealer;
 use App\Awb;
 use App\Depo;
@@ -27,7 +28,10 @@ class SummaryController extends Controller
      */
     public function index()
     {
-        $total = Awb::all();
+        $date = Carbon::now();
+        $total = Awb::whereMonth('tanggal_ds',$date)
+                        ->whereYear('tanggal_ds',$date)
+                        ->get();
         $ontime = count($total->where('status','1'));
         $delay = count($total->where('status','>=','2'));
         $belum_terkirim = count($total->where('status',null));
@@ -56,10 +60,13 @@ class SummaryController extends Controller
     }
 
     public function persentaseDepo($depo,$dds){
+        $date = Carbon::now();
         $depo = Awb::select(DB::raw('awbs.status, dealers.dds, dealers.depo'))
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
                         ->where('dds',$dds)
                         ->where('depo',$depo)
+                        ->whereMonth('tanggal_ds',$date)
+                        ->whereYear('tanggal_ds',$date)
                         ->get();
         $ontime = count($depo->where('status',1));
         $belum_terkirim = count($depo->where('status',null));
@@ -79,6 +86,7 @@ class SummaryController extends Controller
         //         return($detail);
         // return view('summary.detail', compact('detail'));
         // return view('summary.detail');
+        
         $detail = Dealer::select('dds','depo')
                         ->where('depo',$kota)
                         ->first();
@@ -113,6 +121,7 @@ class SummaryController extends Controller
         return view('summary.detail',compact('detail','data','count'));
     }
     public function detailAwb($rayon,$status){
+        $date = Carbon::now();
         $awb =array();
         $count = count($rayon);
         // return $count;
@@ -121,6 +130,8 @@ class SummaryController extends Controller
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
                         ->where('rayon', $rayon[$i])
                         ->where('status',$status)
+                        ->whereMonth('tanggal_ds',$date)
+                        ->whereYear('tanggal_ds',$date)
                         ->first();
             $total = $total->total;
             // if(is_null($total)){
@@ -132,6 +143,7 @@ class SummaryController extends Controller
         
     }
     public function all($rayon){
+        $date = Carbon::now();
         $awb =array();
         $count = count($rayon);
         // return $count;
@@ -139,6 +151,8 @@ class SummaryController extends Controller
             $total = Awb::select(DB::raw('count(awbs.no_awb) as total'))
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
                         ->where('rayon', $rayon[$i])
+                        ->whereMonth('tanggal_ds',$date)
+                        ->whereYear('tanggal_ds',$date)
                         // ->where('status',$status)
                         ->first();
             $total = $total->total;

@@ -31,6 +31,9 @@ class HomeController extends Controller
                         ->whereYear('tanggal_ds',$date)
                         ->get();
         $total = count($awbs);
+        if ($total == 0){
+            $total =1;
+        }
         $terkirim = round(count($awbs->whereNotNull('status'))/$total*100,1);
         $tertunda = round(count($awbs->whereNull('status'))/$total*100,1);   
         
@@ -70,7 +73,11 @@ class HomeController extends Controller
                                 ->whereNull('status')
                                 ->groupBy('tanggal_ds')
                                 ->get();
+        if($total == 1){
+            $total =0;
+        }
         $data = compact('total','tertunda','terkirim','awb_tertunda');
+        
         return view('dashboard.index',compact('data','awb_dds'));
     }
 }
