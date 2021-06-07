@@ -18,7 +18,7 @@
             <h4 class="card-title"><span>{{$awbs->dds}}</span> - <span>{{$awbs->depo}} ({{$awbs->rayon}})</span></h4>          
           </div>
           <div class="col-md-6 text-right">
-              <h5 class="card-title">{{$awbs->status == null ? 'Sedang dikirim' : 'Telah diterima' }}</h5>
+              <h5 class="card-title">{{$awbs->status == null ? 'Sedang dikirim' : 'Telah diterima' }} {{$isdelay}}</h5>
           </div>
         </div>
       </div>
@@ -44,19 +44,19 @@
                 <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
                 <td><h5 class="card-subtitle text-muted  ">{{date("l, d-m-Y", strtotime($awbs->tanggal_ds))}}</h5></td>
               </tr>
+              <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
+              <tr>
+                <td><h5 class="card-subtitle text-muted  ">{{__(" Tanggal Terima")}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
+                <td><h5 class="card-subtitle text-muted  ">{{$awbs->tanggal_terima != null ? date("l, d-m-Y", strtotime($awbs->tanggal_terima)) : "-"}}</h5></td>
+              </tr>
               </table>
           </div>
       </div>
 
       <div class="col-md-6">
           <div class="card-body mt-1">
-              <table class="table-borderless">
-              <tr>
-                <td><h5 class="card-subtitle text-muted  ">{{__(" Tanggal Terima")}}</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">{{$awbs->tanggal_terima != null ? date("l, d-m-Y", strtotime($awbs->tanggal_terima)) : "-"}}</h5></td>
-              </tr>
-              <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
+              <table class="table-borderless">              
               <tr>
                 <td><h5 class="card-subtitle text-muted  ">{{__(" Waktu Terima")}}</h5></td>
                 <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
@@ -67,6 +67,12 @@
                 <td><h5 class="card-subtitle text-muted  ">{{__(" Penerima")}}</h5></td>
                 <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
                 <td><h5 class="card-subtitle text-muted  ">{{$awbs->penerima !=   null ? $awbs->penerima : "-"}}</h5></td>
+              </tr>
+              <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
+              <tr>
+                <td style="vertical-align: top;"><h5 class="card-subtitle text-muted  ">{{__(" Keterangan")}}</h5></td>
+                <td style="vertical-align: top;"><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
+                <td><h5 class="card-subtitle text-muted  ">{{$awbs->keterangan}}</h5></td>
               </tr>
               </table>
           </div>
@@ -83,7 +89,6 @@
             <th>No. Performa</th>
             <th>Total Koli</th>
             <th>Tipe Produk</th>
-            <th>Keterangan</th>
           </thead>
           <tbody>
           @if(count($proformas) != null)
@@ -92,8 +97,7 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{$proforma->no_proforma}}</td>
                 <td>{{$proforma->koli}}</td>
-                <td>{{$proforma->ripe}}</td>
-                <td>{{$proforma->keterangan}}</td>
+                <td>{{$proforma->tipe}}</td>
               </tr>
             @endforeach
           @else

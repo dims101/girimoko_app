@@ -114,7 +114,7 @@
                 <td>{{$awb->tanggal_ds}}</td>
                 <td>{{$awb->dds}}</td>
                 <td>
-                  @if ($awb->status == 1)
+                  @if ($awb->status <> null)
                     AWB telah sampai
                   @else
                     AWB sedang dikirim

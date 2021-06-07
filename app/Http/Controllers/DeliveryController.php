@@ -53,7 +53,7 @@ class DeliveryController extends Controller
             $status = $request->status;            
             $awbs->where('status',$status);
         }
-        $awbs = $awbs->paginate(2)->appends(request()->query());
+        $awbs = $awbs->paginate(10)->appends(request()->query());
         return view('delivery.index',compact('awbs'));
          
     }
@@ -67,7 +67,8 @@ class DeliveryController extends Controller
                             ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
                             ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%');
-        })->paginate(2);        
+        })->paginate(2);    
+        //ini apa    
         $awbs->appends($request->only('keyword'));            
     
     return view('delivery.index',compact('awbs')); 
@@ -120,6 +121,7 @@ class DeliveryController extends Controller
             $awbs = Awb::select(DB::raw(
                                         'awbs.no_awb,awbs.tanggal_ds,
                                         awbs.status,
+                                        awbs.keterangan,
                                         dealers.dds,
                                         dealers.depo,
                                         dealers.nama_dealer,
@@ -134,16 +136,29 @@ class DeliveryController extends Controller
                         ->where('no_awb',$no_awb)
                         ->first();
         }
+        // return $awbs->status;die; 
+        if($awbs->status == null){
+            $isdelay = "";
+        } elseif ($awbs->status == 0){
+            $isdelay = "(Ontime)";
+        } elseif ($awbs->status == 1){
+            $isdelay = "(Delay 1 hari)";
+        } elseif ($awbs->status == 2){
+            $isdelay = "(Delay 2 hari)";
+        } elseif ($awbs->status == 3){
+            $isdelay = "(Delay 3 hari)";
+        } else {
+            $isdelay = "(Delay >3 hari)";
+        }
         $proformas = Proforma::select(DB::raw(
             'proformas.no_proforma,
             proformas.koli,
-            proformas.tipe,
-            awbs.keterangan'                                    
+            proformas.tipe'                                    
             ))
         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
         ->where('proformas.no_awb',$no_awb)
         ->get();
         // return $awbs;die;
-        return view('delivery.detail',compact('awbs','proformas'));
+        return view('delivery.detail',compact('awbs','proformas','isdelay'));
     }
 }
