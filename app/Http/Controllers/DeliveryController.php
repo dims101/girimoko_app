@@ -58,6 +58,12 @@ class DeliveryController extends Controller
          
     }
     public function cari(Request $request){
+
+        // $bulan = $request->bulan;
+        // $tahun = $request->tahun;
+        // $dds = $request->dds;
+        // $status = $request->status; 
+        // $search = $request->cari;
         
         $awbs = Awb::when($request->keyword, function ($query) use ($request) {
             $query->select(DB::raw('awbs.no_awb, awbs.tanggal_ds, dealers.kode_dealer, dealers.nama_dealer, dealers.dds, awbs.status'))
