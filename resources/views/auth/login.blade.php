@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Girimoko</title>
+	<title>AWB Tracking System</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -27,7 +27,9 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{{ asset('assets') }}/images/img-01.png" alt="IMG">
+					<h2 class="text-warning">AWB Tracking System</h2>
+					<img src="{{ asset('assets') }}/images/img-02.png" alt="IMG">
+					<h1 class="text-success">""""""""""""""""""</h1>
 				</div>
 
 				<form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
@@ -68,20 +70,20 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-12">
+					<!-- <div class="text-center p-t-12">
 						<span class="txt1">
 							Lupa
 						</span>
 						<a class="txt2" href="#">
 							Username / Password?
 						</a>
-					</div>
+					</div> -->
 
 					<div class="text-center p-t-136">
-						<a class="txt2" href="#">
+						<!-- <a class="txt2" href="#">
 							Buat Akun Baru?
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
+						</a> -->
 					</div>
 				</form>
 			</div>

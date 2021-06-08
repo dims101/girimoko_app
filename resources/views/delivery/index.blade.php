@@ -92,7 +92,7 @@
             <th>Status</th>   
             <th>Detail</th>
           </thead>
-          <tbody>
+          
             <!-- <tr class="">
               <td>1</td>
               <td>5123</td>
@@ -107,6 +107,7 @@
               </td>
             </tr> -->
             @foreach ($awbs as $awb)
+            <tbody>
               <tr>
                 <td>{{$awb->no_awb}}</td>
                 <td>{{$awb->kode_dealer}}</td>
@@ -115,9 +116,9 @@
                 <td>{{$awb->dds}}</td>
                 <td>
                   @if ($awb->status <> null)
-                    AWB telah sampai
+                    <span class="badge badge-success">AWB telah sampai</span>                   
                   @else
-                    AWB sedang dikirim
+                    <span class="badge badge-warning">AWB sedang dikirim</span>
                   @endif
                 </td>
                 <td>
@@ -138,18 +139,44 @@
 </div>  
 
 <script>
-$(document).ready(function(){
-	$(".filter").click(function(){
-	  var str=  $("#dealer").val();
-	  var str1=  $("#dds").val();
-    var str2=  $("#status").val();
+// $(document).ready(function(){
+//     var str=  $("#search").val();
+	  
+// 			$.get( "{{ url('/delivery/search?cari=') }}"+str, function( data ) {
+// 			$( "#mydata" ).html( data );  
+// 	    });
+      
+//     });
+
+//   $(document).ready(function(){
+// 	$("#search").keyup(function(){
+// 	  var str=  $("#search").val();
+//     var bulan=  $("#bulan").val();
+//     var tahun= $("#tahun").val();
+//     var dds= $("#dds").val();
+//     var status= $("#status").val();
+	  
+
+// 		$.get( "{{ url('/delivery/search?cari=') }}"+str+"&&"+"bulan="+bulan+"&&"+"tahun="+tahun+"&&"+"status="+status, function( data ) {
+// 			$( "#mydata" ).html( data );  
+// 	    });
+	  
+// 	});  
+//   }); 
+
+
+// $(document).ready(function(){
+// 	$(".filter").click(function(){
+// 	  var str=  $("#dealer").val();
+// 	  var str1=  $("#dds").val();
+//     var str2=  $("#status").val();
    
 	  
-		$.get( "{{ url('/delivery/filter?dealer=') }}"+str+"&&"+"dds="+str1+"&&"+"status="+str2, function( data ) {
-			$( "#mydata" ).html( data );  
-	  });
+// 		$.get( "{{ url('/delivery/filter?dealer=') }}"+str+"&&"+"dds="+str1+"&&"+"status="+str2, function( data ) {
+// 			$( "#mydata" ).html( data );  
+// 	  });
 	  
-	});  
-  }); 
+// 	});  
+//   }); 
 </script>
 @endsection

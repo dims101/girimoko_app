@@ -80,4 +80,17 @@ class HomeController extends Controller
         
         return view('dashboard.index',compact('data','awb_dds'));
     }
+
+    public function home()
+    {
+        return view('home.index');
+    }
+
+    public function import()
+    {
+        // $awb = Awb::All();
+        // return view('home.import',compact('awb'));
+        return view('home.import');
+    }
+
 }

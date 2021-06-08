@@ -95,7 +95,7 @@ class ApiController extends Controller
                     'message' => 'AWB tidak ditemukan!'
                 );
                 return response()->json($response);
-            }else if($data_awb->status == "1"){
+            }else if($data_awb->status <> null){
                 $response = array(
                     'success' => '2',
                     'message' => 'AWB telah sampai tujuan.'

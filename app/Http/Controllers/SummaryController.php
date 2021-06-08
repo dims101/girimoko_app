@@ -32,8 +32,8 @@ class SummaryController extends Controller
         $total = Awb::whereMonth('tanggal_ds',$date)
                         ->whereYear('tanggal_ds',$date)
                         ->get();
-        $ontime = count($total->where('status','1'));
-        $delay = count($total->where('status','>=','2'));
+        $ontime = count($total->where('status','0'));
+        $delay = count($total->where('status','>=','1'));
         $belum_terkirim = count($total->where('status',null));
         $total= count($total);
         $awbs = compact('total','ontime','delay','belum_terkirim');
@@ -68,12 +68,12 @@ class SummaryController extends Controller
                         ->whereMonth('tanggal_ds',$date)
                         ->whereYear('tanggal_ds',$date)
                         ->get();
-        $ontime = count($depo->where('status',1));
-        $belum_terkirim = count($depo->where('status',null));
-        if ($belum_terkirim < 1){
-            $belum_terkirim =1;
+        $terkirim = count($depo->where('status','!=', null));
+        $total = count($depo);
+        if ($total < 1){
+            $total =1;
         }
-        $persentase_depo = round($ontime/$belum_terkirim*100,2);
+        $persentase_depo = round($terkirim/$total*100,1);
         return $persentase_depo;
     }
 

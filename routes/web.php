@@ -19,11 +19,14 @@ Auth::routes();
 Route::get('/','Auth\LoginController@showLoginForm');
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@home');
+Route::get('/importawb', 'HomeController@import');
 
 Route::get('/summary', 'SummaryController@index');
 Route::get('/detail/{kota}', 'SummaryController@detail');
 
-Route::get('/delivery/cari', 'DeliveryController@cari');
+Route::get('/delivery/cari/', 'DeliveryController@cari');
+// Route::get('/delivery/search/', 'DeliveryController@liveSearch')->name('liveSearch');
 Route::get('/delivery', 'DeliveryController@index');
 Route::get('/delivery/detail/{no_awb}', 'DeliveryController@detail');
 // Route::get('/delivery/filter/','DeliveryController@liveFilter')->name('liveFilter');
