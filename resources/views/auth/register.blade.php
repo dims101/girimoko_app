@@ -1,5 +1,5 @@
 @extends('layouts.app' ,[
-  'activePage' => 'dashboard', 
+  'activePage' => 'register', 
   'titlePage' => __('Register')
   ])
 
@@ -91,10 +91,14 @@
                             <div class="col-md-6">
                                 <select name="level" id="level" class="form-control @error('level') is-invalid @enderror">
                                     <option value="">--Pilih Level--</option>
+                                    @if(auth()->user()->level == "Super Admin")
                                     <option value="super_admin">Super Admin</option>
                                     <option value="admin">Admin</option>
+                                    @endif
+                                    @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin")
                                     <option value="user">User</option>
                                     <option value="driver">Driver</option>
+                                    @endif
                                 </select>                                
 
                                 @error('level')

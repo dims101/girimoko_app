@@ -1,5 +1,5 @@
 @extends('layouts.app', [
-  'activePage' => 'dashboard', 
+  'activePage' => 'dashboard_admin', 
   'titlePage' => __('Girimoko')
   ])
 

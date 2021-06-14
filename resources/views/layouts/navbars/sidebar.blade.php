@@ -12,6 +12,7 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
+    @if (auth()->user()->level == "user" or auth()->user()->level == "Super Admin")
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('home') }}">
           <i class="material-icons">dashboard</i>
@@ -32,13 +33,27 @@
             <p>{{ __('DDS Delivery Report') }}</p>
         </a>
       </li>
-
-      <!-- <li class="nav-item{{ $activePage == 'import_excel' ? ' active' : '' }}">
+    @endif
+      @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin") 
+      <li class="nav-item{{ $activePage == 'dashboard_admin' ? ' active' : '' }}">
+        <a class="nav-link" href="/home">
+          <i class="material-icons">dashboard</i>
+            <p>{{ __('Dashboard Admin') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}">
+        <a class="nav-link" href="/register">
+          <i class="material-icons">add</i>
+            <p>{{ __('Tambah pengguna') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'import_excel' ? ' active' : '' }}">
         <a class="nav-link" href="/awb/excel">
           <i class="material-icons">upload_file</i>
             <p>{{ __('Import File Excel') }}</p>
         </a>
-      </li> -->
+      </li>
+      @endif
       <!-- <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
         <a class="nav-link" href="">
           <i class="material-icons">notifications</i>

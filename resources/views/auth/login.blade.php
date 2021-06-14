@@ -29,7 +29,6 @@
 				<div class="login100-pic js-tilt" data-tilt>
 					<h2 class="text-warning">AWB Tracking System</h2>
 					<img src="{{ asset('assets') }}/images/img-02.png" alt="IMG">
-					<h1 class="text-success">""""""""""""""""""</h1>
 				</div>
 
 				<form class="login100-form validate-form" method="POST" action="{{ route('login') }}">

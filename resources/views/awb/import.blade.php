@@ -17,73 +17,15 @@
         <h4 class="card-title"><span>Import Exel</span></h4>
       </div>
 
-    <div class="card-body row">
-      <form method="post" action="/awb/import" enctype="multipart/form-data">
-        @csrf
-        <div class="card-body row ml-2">
-          <input type="file" name="file" required="required">
-            <button type="submit" class="btn btn-warning">Import</button>
-        </div>          
-      </form>
-
-      @if($awb<>null) 
-      <div class="card-body table-responsive">
-      <table class='table table-hover'>
-			<thead class="text-primary">
-				<tr>
-					<th>No</th>
-					<th>No Awb</th>
-					<th>No DDS</th>
-					<th>Kode Dealer</th>
-          <th>Tanggal DDS</th>
-          <th>Status</th>
-          <th>keterangan</th>
-          <th>Id Pengiriman</th>
-				</tr>
-			</thead>
-			<tbody>
-				@php $i=1 @endphp
-				@foreach($awb as $w)
-				<tr>
-					<td>{{ $i++ }}</td>
-					<td>{{$w->no_awb}}</td>
-					<td>{{$w->no_ds}}</td>
-					<td>{{$w->kode_dealer}}</td>
-          <td>{{$w->tanggal_ds}}</td>
-          <td>{{$w->status}}</td>
-          <td>{{$w->keterangan}}</td>
-          <td>{{$w->id_pengiriman}}</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
-    </div>
-
-    @else
-      <div class="card-body table-responsive">
-      <table class='table table-hover'>
-			<thead class="text-primary">
-				<tr>
-					<th>No</th>
-					<th>No Awb</th>
-					<th>No DDS</th>
-					<th>Kode Dealer</th>
-          <th>Tanggal DDS</th>
-          <th>Status</th>
-          <th>keterangan</th>
-          <th>Id Pengiriman</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					Data Tidak Ditemukan!!!
-				</tr>
-			</tbody>
-		</table>
-    </div>
-    @endif
-
-    </div>
+      <div class="card-body row">
+        <form method="post" action="/awb/import" enctype="multipart/form-data">
+          @csrf
+          <div class="card-body row ml-2">
+            <input type="file" name="file" required="required">
+              <button type="submit" class="btn btn-warning">Import</button>
+          </div>          
+        </form>
+      </div>
     </div>
   </div>
 </div>
