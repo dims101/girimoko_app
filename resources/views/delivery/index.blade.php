@@ -63,13 +63,13 @@
                   <option value="DDS 1">DDS 1</option>   
                 </select>
                 <select name="status" id="status" class="form-control col-sm-3">
-                  <option value="0">-- Status --</option>     
-                  <option value="1">On Time</option>     
-                  <option value="2">Delay 1h</option>     
-                  <option value="3">Delay 2h</option>     
-                  <option value="4">Delay 3h</option>     
-                  <option value="5">Delay >3h</option>     
-                  <option value="">Belum terkirim</option>     
+                  <option value="">-- Status --</option>     
+                  <option value="0">On Time</option>     
+                  <option value="1">Delay 1h</option>     
+                  <option value="2">Delay 2h</option>     
+                  <option value="3">Delay 3h</option>     
+                  <option value="4">Delay >3h</option>     
+                  <option value="delay">Belum terkirim</option>     
                 </select>   
                 <div class="col-sm-12 text-right">
                   <button type="submit" class="btn btn-sm btn-primary">Filter</button>
@@ -106,28 +106,36 @@
                 </div>
               </td>
             </tr> -->
-            @foreach ($awbs as $awb)
-            <tbody>
-              <tr>
-                <td>{{$awb->no_awb}}</td>
-                <td>{{$awb->kode_dealer}}</td>
-                <td>{{$awb->nama_dealer}}</td>
-                <td>{{$awb->tanggal_ds}}</td>
-                <td>{{$awb->dds}}</td>
-                <td>
-                  @if ($awb->status <> null)
-                    <span class="badge badge-success">AWB telah sampai</span>                   
-                  @else
-                    <span class="badge badge-warning">AWB sedang dikirim</span>
-                  @endif
-                </td>
-                <td>
-                  <div class="">
-                      <a href="/delivery/detail/{{$awb->no_awb}}" class="badge badge-round badge-primary"><i class="material-icons">pending</i></a>
-                  </div>
-                </td>
-              </tr>
-            @endforeach
+            @if (count($awbs) == null)
+              <tbody>
+                <tr class="text-center">
+                  <td colspan="6"><h4>Data tidak ditemukan.</h4></td>
+                </tr>
+              </tbody>
+            @else
+              @foreach ($awbs as $awb)
+              <tbody>
+                <tr>
+                  <td>{{$awb->no_awb}}</td>
+                  <td>{{$awb->kode_dealer}}</td>
+                  <td>{{$awb->nama_dealer}}</td>
+                  <td>{{$awb->tanggal_ds}}</td>
+                  <td>{{$awb->dds}}</td>
+                  <td>
+                    @if ($awb->status <> null)
+                      <span class="badge badge-success">AWB telah sampai</span>                   
+                    @else
+                      <span class="badge badge-warning">AWB sedang dikirim</span>
+                    @endif
+                  </td>
+                  <td>
+                    <div class="">
+                        <a href="/delivery/detail/{{$awb->no_awb}}" class="badge badge-round badge-primary"><i class="material-icons">pending</i></a>
+                    </div>
+                  </td>
+                </tr>
+              @endforeach
+            @endif
             
           </tbody>
         </table>

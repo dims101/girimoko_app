@@ -20,6 +20,7 @@ class AwbImport implements ToCollection, WithHeadingRow, SkipsOnError
                 'no_proforma'=>$row['no_proforma'],
                 'koli'=>$row['koli'],
                 'no_awb'=>$row['no_awb'],
+                'tipe'=>'YGP',
             ]);
         }
         
@@ -30,12 +31,13 @@ class AwbImport implements ToCollection, WithHeadingRow, SkipsOnError
             // $awb = Awb::find($row['no_awb']);
             // dd($rows);
             // if($awb == null){
-                Awb::create([
-                    'no_awb' => $row['no_awb'],
-                    'no_ds' => $row['no_ds'],
-                    'kode_dealer' => $row['kode_dealer'],
-                    'tanggal_ds' => date('Y-d-m', strtotime($row['tgl_ds'])),
-                ]);
+                
+            Awb::create([
+                'no_awb' => $row['no_awb'],
+                'no_ds' => $row['no_ds'],
+                'kode_dealer' => $row['kode_dealer'],
+                'tanggal_ds' => date('Y-m-d', strtotime($row['tgl_ds'])),
+            ]);
             // }
 
             

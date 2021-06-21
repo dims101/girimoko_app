@@ -25,5 +25,6 @@ class AwbController extends Controller
         $file->move('awb_excel',$nama_file);
         //bawah buat import
         Excel::import(new AwbImport, public_path('/awb_excel/'.$nama_file));
+        return redirect()->back()->with('message', 'Berhasil di impor!');;
     }
 }

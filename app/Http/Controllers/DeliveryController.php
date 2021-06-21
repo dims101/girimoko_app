@@ -27,13 +27,11 @@ class DeliveryController extends Controller
      */
     public function index(Request $request)
     {
+        // return $request->status;
         $date = Carbon::now();
         $awbs = Awb::select(DB::raw('awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status'))
-                        ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer');                        
-                        // ->whereMonth('tanggal_ds',$bulan)
-                        // ->whereYear('tanggal_ds',$tahun)
-                        // ->get()
-                        // ->paginate(2);
+                        ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
+                        ->orderBy('awbs.tanggal_ds','ASC');
         if(!empty($request->bulan)){
             // $bulan = $date->format('m');
             $bulan = $request->bulan;
@@ -49,10 +47,15 @@ class DeliveryController extends Controller
             $awbs->where('dds',$dds);
         }
         
-        if($request->status != 0){
+        if($request->status == null){
+            
+        } else if($request->status == "delay"){          
+            $awbs->whereNull('status');
+        } else {
             $status = $request->status;            
             $awbs->where('status',$status);
         }
+        
         $awbs = $awbs->paginate(10)->appends(request()->query());
         return view('delivery.index',compact('awbs'));
          
@@ -72,8 +75,9 @@ class DeliveryController extends Controller
                             ->orWhere('dealers.kode_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
-                            ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%');
-        })->paginate(2);    
+                            ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
+                            ->orderBy('awbs.tanggal_ds','ASC');
+        })->paginate(10);    
         //ini apa    
         $awbs->appends($request->only('keyword'));            
     

@@ -55,7 +55,7 @@ Highcharts.chart('container-2', {
           y: {{$data['terkirim']}},
         },
         {
-          name: "Tertunda",
+          name: "Belum <br>terkirim",
           y: {{$data['tertunda']}},
         }
       ]
@@ -165,7 +165,7 @@ Highcharts.chart('container-2', {
     type: 'column'
   },
   title: {
-    text: 'AWB yang Belum Terkirim Tanggal Sebelumnya'
+    text: 'AWB yang Belum Terkirim Bulan ini'
   },
   subtitle: {
     text: ''

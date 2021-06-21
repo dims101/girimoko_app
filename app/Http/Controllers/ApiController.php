@@ -116,6 +116,7 @@ class ApiController extends Controller
                     'kode_dealer' => $kode_dealer,
                     'nama_dealer' => $nama_dealer,
                     'jml_koli' => $jml_koli,
+                    'status' => 'Delay 1 Hari',
                     'jml_proforma' => $jml_proforma,
                 );
                 return response()->json($response);
@@ -228,7 +229,7 @@ class ApiController extends Controller
                 $day         = $datetime->format('D');
 
                 //Check untuk menghitung yang bukan hari sabtu dan minggu
-                if($day!="Sun" && $day!="Sat") {
+                if($day!="Sun") {
                     //echo $i;
                     $x    +=    $end-$i;
                     
@@ -292,8 +293,9 @@ class ApiController extends Controller
                  $awbs = Awb::select(DB::raw('
                                 awbs.no_awb as kode_awb,
                                 awbs.kode_dealer,
-                                awbs.tanggal_ds as tgl_kirim,
-                                pengirimans.tanggal_terima as tgl_terima,
+                                date_format(awbs.tanggal_ds, "%d-%m-%Y") as tgl_kirim,
+                                awbs.status as status_pengiriman,
+                                date_format(pengirimans.tanggal_terima, "%d-%m-%Y") as tgl_terima,
                                 pengirimans.username as supir
                             '))
                             ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')

@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -24,6 +26,33 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    public function showRegistrationForm()
+    {
+        $logged  = auth()->user()->level;
+        if($logged == "Super Admin"){
+            $users = User::all();
+        } else {
+            $users = User::where('level','driver')
+                            ->get();
+        }
+        return view('auth.register',compact('users'));
+    }
+    
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath())->with('message','Pengguna baru berhasil ditambahkan!');
+    }
 
     /**
      * Where to redirect users after registration.
@@ -37,10 +66,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    
 
     /**
      * Get a validator for an incoming registration request.

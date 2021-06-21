@@ -70,7 +70,7 @@ class HomeController extends Controller
             
             
             $awb_tertunda = Awb::select(DB::raw('tanggal_ds as name, count(no_awb) as y'))
-            //belum ada filter bulan ini
+                                    ->whereMonth('tanggal_ds',$date)
                                     ->whereNull('status')
                                     ->groupBy('tanggal_ds')
                                     ->get();
