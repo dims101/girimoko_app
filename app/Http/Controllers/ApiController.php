@@ -80,6 +80,7 @@ class ApiController extends Controller
         $app_secret = $request->app_secret;
         $no_awb = $request->no_awb;
 
+
         if($app_secret != config('app.secret')){
             $response = array(
                 'success' => '0',
@@ -104,11 +105,58 @@ class ApiController extends Controller
             } else {
                 $kode_dealer = $data_awb->kode_dealer;
                 $dealer = Dealer::where('kode_dealer',$kode_dealer)->first();
+                $tanggal_start = Awb::where('no_awb',$no_awb)
+                                    ->first();
+                $tanggal_start = $tanggal_start->tanggal_ds;
                 // $nama_dealer = $dealer['nama_dealer'];
                 $nama_dealer = $dealer->nama_dealer;
                 
                 $jml_koli = Proforma::get()->where('no_awb',$no_awb)->sum('koli');
                 $jml_proforma = Proforma::get()->where('no_awb',$no_awb)->count();
+                //delay here
+                $today = Carbon::now()->setTimezone('Asia/Jakarta');
+                $tanggal_terima = $today->toDateString();
+                $begin = new DateTime($tanggal_start);
+                $end = new DateTime($tanggal_terima);
+    
+                $daterange     = new DatePeriod($begin, new DateInterval('P1D'), $end);
+                //mendapatkan range antara dua tanggal dan di looping
+                $i=0;
+                $x     =    0;
+                $end     =    1;
+    
+                foreach($daterange as $date){
+                    $daterange     = $date->format("Y-m-d");
+                    $datetime     = DateTime::createFromFormat('Y-m-d', $daterange);
+    
+                    //Convert tanggal untuk mendapatkan nama hari
+                    $day         = $datetime->format('D');
+    
+                    //Check untuk menghitung yang bukan hari sabtu dan minggu
+                    if($day!="Sun") {
+                        //echo $i;
+                        $x    +=    $end-$i;
+                        
+                    }
+                    $end++;
+                    $i++;
+                }  
+                $status = $x-1;
+                if($status == -1 or $status == 0){
+                    $status = "Ontime";
+                }
+                if ($status >3){
+                    $status = "Delay >3 hari";
+                }
+                if($status == 1){
+                    $status = "Delay 1 hari";
+                }
+                if($status == 2){
+                    $status = "Delay 2 hari";
+                }
+                if($status == 3){
+                    $status = "Delay 3 hari";
+                }
 
                 $response = array(
                     'success' => '1',
@@ -116,7 +164,7 @@ class ApiController extends Controller
                     'kode_dealer' => $kode_dealer,
                     'nama_dealer' => $nama_dealer,
                     'jml_koli' => $jml_koli,
-                    'status' => 'Delay 1 Hari',
+                    'status' => $status,
                     'jml_proforma' => $jml_proforma,
                 );
                 return response()->json($response);
@@ -204,7 +252,7 @@ class ApiController extends Controller
             $target = Dealer::select('target')
                             ->where('kode_dealer',$dealer->kode_dealer)
                             ->first();
-
+            //atas lead time
             $tanggal_ds = $dealer->tanggal_ds;
             // return $tanggal_ds;die;
             //tinggal cek tanggal besok sabtu apa minggu(belum dibuat)(sudah)
