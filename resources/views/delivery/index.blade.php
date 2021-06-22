@@ -57,10 +57,10 @@
                 </select>
                 <select name="tahun" id="tahun" class="form-control col-sm-3">
                   <option value="">-- Tahun --</option>                 
-                  <option value="2018">2018</option>                 
-                  <option value="2019">2019</option>                 
-                  <option value="2020">2020</option>                 
-                  <option value="2021">2021</option>                 
+                  <option value="2018" @if (request()->filled('tahun') == 2018) selected @endif>2018</option>                 
+                  <option value="2019" @if (request()->filled('tahun') == 2019) selected @endif>2019</option>                 
+                  <option value="2020" @if (request()->filled('tahun') == 2020) selected @endif>2020</option>                 
+                  <option value="2021" @if (request()->filled('tahun') == 2021) selected @endif>2021</option>                 
                 </select>
                 <select name="dds" id="dds" class="form-control col-sm-3">
                   <option value="">-- DDS --</option>   
@@ -68,11 +68,11 @@
                 </select>
                 <select name="status" id="status" class="form-control col-sm-3">
                   <option value="">-- Status --</option>     
-                  <option value="0">On Time</option>     
-                  <option value="1">Delay 1h</option>     
-                  <option value="2">Delay 2h</option>     
-                  <option value="3">Delay 3h</option>     
-                  <option value="4">Delay >3h</option>     
+                  <option value="0" @if (request()->filled('tahun') == 0) selected @endif>On Time</option>     
+                  <option value="1" @if (request()->filled('tahun') == 1) selected @endif>Delay 1h</option>     
+                  <option value="2" @if (request()->filled('tahun') == 2) selected @endif>Delay 2h</option>     
+                  <option value="3" @if (request()->filled('tahun') == 3) selected @endif>Delay 3h</option>     
+                  <option value="4" @if (request()->filled('tahun') == 4) selected @endif>Delay >3h</option>     
                   <option value="delay">Belum terkirim</option>     
                 </select>   
                 <div class="col-sm-12 text-right">
