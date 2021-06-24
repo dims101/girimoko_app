@@ -110,11 +110,15 @@
       </div>
       
       <div class="text-right pb-3 pr-4">
-      <!-- Button trigger modal -->
-          <button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target="#exampleModal">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Lihat bukti Awb
           </button>
-          <a href="{{ url()->previous() }}" class="btn btn-round btn-warning">Kembali</a>
+          @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin") 
+            <a href="/delivery/edit/{{$awbs->no_awb}}" class="btn btn-success">Edit</a>
+          @endif
+          <button class="btn btn-danger">Hapus</button>
+          <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
       </div>
     </div>
   </div> 
@@ -137,7 +141,7 @@
         @endif
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-round btn-warning" data-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Tutup</button>
       </div>
     </div>
   </div>

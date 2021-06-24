@@ -26,13 +26,6 @@
             <p>{{ __('Summary') }}</p>
         </a>
       </li>
-      
-      <li class="nav-item{{ $activePage == 'delivery' ? ' active' : '' }}">
-        <a class="nav-link" href="/delivery">
-          <i class="material-icons">local_shipping</i>
-            <p>{{ __('DDS Delivery Report') }}</p>
-        </a>
-      </li>
     @endif
       @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin") 
       <li class="nav-item{{ $activePage == 'dashboard_admin' ? ' active' : '' }}">
@@ -54,6 +47,12 @@
         </a>
       </li>
       @endif
+      <li class="nav-item{{ $activePage == 'delivery' ? ' active' : '' }}">
+        <a class="nav-link" href="/delivery">
+          <i class="material-icons">local_shipping</i>
+            <p>{{ __('DDS Delivery Report') }}</p>
+        </a>
+      </li>
       <!-- <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
         <a class="nav-link" href="">
           <i class="material-icons">notifications</i>

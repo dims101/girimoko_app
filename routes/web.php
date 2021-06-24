@@ -26,7 +26,9 @@ Route::get('/summary', 'SummaryController@index');
 Route::get('/detail/{kota}', 'SummaryController@detail');
 
 Route::get('/delivery/cari/', 'DeliveryController@cari');
+Route::put('/delivery/store', 'DeliveryController@store');
 // Route::get('/delivery/search/', 'DeliveryController@liveSearch')->name('liveSearch');
 Route::get('/delivery', 'DeliveryController@index');
 Route::get('/delivery/detail/{no_awb}', 'DeliveryController@detail');
+Route::get('/delivery/edit/{no_awb}', 'DeliveryController@edit');
 // Route::get('/delivery/filter/','DeliveryController@liveFilter')->name('liveFilter');

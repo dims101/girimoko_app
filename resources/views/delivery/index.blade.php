@@ -42,18 +42,18 @@
                 <div class="row">
                 <select  name="bulan" id="bulan" class="form-control col-sm-3">
                   <option value="">-- Bulan --</option>  
-                  <option value="01"@if (request()->filled('bulan') == 01) selected @endif >Januari</option>  
-                  <option value="02" @if (request()->filled('bulan') == 02) selected @endif >Februari</option>  
-                  <option value="03" @if (request()->filled('bulan') == 03) selected @endif >Maret</option>  
-                  <option value="04" @if (request()->filled('bulan') == 04) selected @endif >April</option>  
-                  <option value="05" @if (request()->filled('bulan') == 05) selected @endif >Mei</option> 
-                  <option value="06" @if (request()->filled('bulan') == 06) selected @endif >Juni</option>  
-                  <option value="07" @if (request()->filled('bulan') == 07) selected @endif >Juli</option>  
-                  <option value="08" @if (request()->filled('bulan') == 08) selected @endif >Agustus</option>
-                  <option value="09" @if (request()->filled('bulan') == 09) selected @endif >September</option>
-                  <option value="10" @if (request()->filled('bulan') == 10) selected @endif >Oktober</option>  
-                  <option value="11" @if (request()->filled('bulan') == 11) selected @endif >November</option>  
-                  <option value="12" @if (request()->filled('bulan') == 12) selected @endif >Desember</option>                                         
+                  <option value="01" @if (request()->filled('bulan') == "01") selected @endif >Januari</option>  
+                  <option value="02" @if (request()->filled('bulan') == "02") selected @endif >Februari</option>  
+                  <option value="03" @if (request()->filled('bulan') == "03") selected @endif >Maret</option>  
+                  <option value="04" @if (request()->filled('bulan') == "04") selected @endif >April</option>                                      
+                  <option value="05" @if (request()->filled('bulan') == "05") selected @endif >April</option>                                      
+                  <option value="06" @if (request()->filled('bulan') == "06") selected @endif >April</option>                                      
+                  <option value="07" @if (request()->filled('bulan') == "07") selected @endif >April</option>                                      
+                  <option value="08" @if (request()->filled('bulan') == "08") selected @endif >April</option>                                      
+                  <option value="09" @if (request()->filled('bulan') == "09") selected @endif >April</option>                                      
+                  <option value="10" @if (request()->filled('bulan') == "10") selected @endif >April</option>                                      
+                  <option value="11" @if (request()->filled('bulan') == "11") selected @endif >April</option>                                      
+                  <option value="12" @if (request()->filled('bulan') == "12") selected @endif >April</option>                                      
                 </select>
                 <select name="tahun" id="tahun" class="form-control col-sm-3">
                   <option value="">-- Tahun --</option>                 

@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 use DB;
 use App\Awb;
+use App\Dealer;
+use App\Pengiriman;
 use Carbon\Carbon;
 use App\Proforma;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use DateTime;
+use DatePeriod;
+use DateInterval;
+
 class DeliveryController extends Controller
+
 {
      /**
      * Create a new controller instance.
@@ -60,6 +67,80 @@ class DeliveryController extends Controller
         return view('delivery.index',compact('awbs'));
          
     }
+
+    public function edit($no_awb){
+        $awbs = Awb::where('no_awb', $no_awb)
+                    ->first();
+        $nama_dealer = Dealer::where('kode_dealer',$awbs->kode_dealer)
+                        ->pluck('nama_dealer');
+        $nama_dealer = $nama_dealer[0]; 
+        $pengiriman = Pengiriman::where('id',$awbs->id_pengiriman)
+                        ->first();
+        if(!$pengiriman){
+            $pengiriman  = new \stdClass();
+            $pengiriman->no_kendaraan ='';
+            $pengiriman->id =null;
+            $pengiriman->tanggal_terima ='';
+            $pengiriman->waktu_terima ='';
+            $pengiriman->penerima ='';
+        } 
+        // return $pengiriman;die;
+        return view('delivery.edit', compact('awbs','nama_dealer','pengiriman'));
+    }
+
+    public function store(Request $request){
+        // return $request->no_kendaraan;die;
+        Pengiriman::where('id',$request->id)->update([
+            'no_kendaraan'=> $request->no_kendaraan,
+            'tanggal_terima'=> $request->tanggal_terima,
+            'waktu_terima'=> $request->waktu_terima,
+            'penerima'=> $request->penerima,
+        ]);
+        $awbs = Awb::where('no_awb', $request->no_awb)
+                    ->first();
+        $tanggal_terima = $request->tanggal_terima;
+        $waktu_terima = $request->waktu_terima;
+        // return $tanggal_terima;die;
+        $begin = new DateTime($awbs->tanggal_ds);
+        $end = new DateTime($tanggal_terima);
+
+        $daterange     = new DatePeriod($begin, new DateInterval('P1D'), $end);
+        //mendapatkan range antara dua tanggal dan di looping
+        $i=0;
+        $x     =    0;
+        $end     =    1;
+
+        foreach($daterange as $date){
+            $daterange     = $date->format("Y-m-d");
+            $datetime     = DateTime::createFromFormat('Y-m-d', $daterange);
+
+            //Convert tanggal untuk mendapatkan nama hari
+            $day         = $datetime->format('D');
+
+            //Check untuk menghitung yang bukan hari sabtu dan minggu
+            if($day!="Sun") {
+                //echo $i;
+                $x    +=    $end-$i;
+                
+            }
+            $end++;
+            $i++;
+        }  
+        $status = $x-1;
+        if($status == -1){
+            $status = 0;
+        }
+        if ($status >3){
+            $status = 4;
+        }
+        // return $status;
+        Awb::where('no_awb',$request->no_awb)
+                ->update([
+                    'status'=>$status
+                ]);
+        return redirect()->back()->with('message','Data berhasil diubah');
+    }
+
     public function cari(Request $request){
 
         // $bulan = $request->bulan;
