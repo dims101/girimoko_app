@@ -40,6 +40,12 @@
             <p>{{ __('Tambah pengguna') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'dealer' ? ' active' : '' }}">
+        <a class="nav-link" href="/dealer">
+          <i class="material-icons">home</i>
+            <p>{{ __('Dealer') }}</p>
+        </a>
+      </li>
       <li class="nav-item{{ $activePage == 'import_excel' ? ' active' : '' }}">
         <a class="nav-link" href="/awb/excel">
           <i class="material-icons">upload_file</i>

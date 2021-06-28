@@ -17,62 +17,8 @@
         <h4 class="card-title"><span>Girimoko</span></h4>
       </div>
 
-    <div class="card-body">
-    
-    <div class="card-body row ml-2">
-        <a  href="/add-dealer" class="btn btn-warning"><i class="material-icons">add</i> Tambah Dealer</a>
-    </div>
-
-    <div class="card-body table-responsive">
-      <table class='table table-hover'>
-			<thead class="text-primary">
-				<tr>
-					<th>No</th>
-					<th>Kode Dealer</th>
-					<th>Nama Dealer</th>
-					<th>Alamat</th>
-          <th>Provinsi</th>
-          <th>Kota</th>
-          <th>Kode Pos</th>
-          <th>DDS</th>
-          <th>Depo</th>
-          <th>Rayon</th>
-          <th>Opsi</th>
-				</tr>
-			</thead>
-			<tbody>
-      @php 
-        $i=1 
-      @endphp
-      @foreach($dealer as $d)
-				<tr>
-					<td>{{ $i++ }}</td>
-					<td>{{$d->kode_dealer}}</td>
-					<td>{{$d->nama_dealer}}</td>
-					<td>{{$d->alamat}}</td>
-          <td>{{$d->provinsi}}</td>
-          <td>{{$d->kota}}</td>
-          <td>{{$d->kodepos}}</td>
-          <td>{{$d->dds}}</td>
-          <td>{{$d->depo}}</td>
-          <td>{{$d->rayon}}</td>
-          <td>
-          <div class="">
-            <a href="dealer/{{ $d->id }}/edit" class="badge badge-round badge-info"><i class="material-icons">drive_file_rename_outline</i></a>
-            <form action="dealer/{{ $d->id }}" method="post" >    
-              @method('delete')
-              @csrf  
-              <!-- <a href="dealer/{{ $d->id }}" class="badge badge-round badge-danger" onclick="return confirm('Yakin menghapus?');"><i class="material-icons" >delete_outline</i></a> -->
-              <button type="submit" name="submit" class="badge badge-round badge-danger" onclick="return confirm('Yakin menghapus?');"><i class="material-icons" >delete_outline</i></button>
-            </form>          
-          </div>
-          </td>
-				</tr>
-      @endforeach
-			</tbody>
-		</table>
-    </div>
-    
+    <div class="card-body">   
+        
     </div>
 
     </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app', [
-  'activePage' => 'dashboard_admin', 
-  'titlePage' => __('Panel Admin')
+  'activePage' => 'dealer', 
+  'titlePage' => __('Dealer')
   ])
 
   @section('content')
@@ -14,20 +14,21 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-header card-header-primary">
-        <h4 class="card-title"><span>Tambah Dealer</span></h4>
+        <h4 class="card-title"><span>Edit Dealer</span></h4>
       </div>
 
     <div class="card-body">
     
-    <form method="POST" action="dealer/store">
-    @csrf
-    
+    <form method="POST" action="/dealer/{{$dealer->id}}" enctype="multipart/form-data">
+    @method('patch')
+      @csrf     
+     
     <div class="form-group row">
       <div class="col-md-4 col-form-label text-md-right">
           <label for="kode_dealer" class="">{{ __('Kode Dealer') }}</label>
       </div>
       <div class="col-md-6">
-          <input id="kode_dealer" type="text" class="form-control @error('kode_dealer') is-invalid @enderror" name="kode_dealer" value="{{ old('kode_dealer') }}" required autocomplete="kode_dealer" autofocus>
+          <input id="kode_dealer" type="text" class="form-control @error('kode_dealer') is-invalid @enderror" name="kode_dealer" value="{{ $dealer->kode_dealer }}" required autocomplete="kode_dealer">
           @error('kode_dealer')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -41,7 +42,7 @@
           <label for="nama_dealer" class="">{{ __('Nama Dealer') }}</label>
       </div>
       <div class="col-md-6">
-          <input id="nama_dealer" type="text" class="form-control @error('nama_dealer') is-invalid @enderror" name="nama_dealer" value="{{ old('nama_dealer') }}" required autocomplete="nama_dealer">
+          <input id="nama_dealer" type="text" class="form-control @error('nama_dealer') is-invalid @enderror" name="nama_dealer" value="{{ $dealer->nama_dealer }}" required autocomplete="nama_dealer">
           @error('nama_dealer')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -55,7 +56,7 @@
           <label for="alamat" class="">{{ __('Alamat') }}</label>
       </div>
       <div class="col-md-6">
-          <textarea id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat"></textarea>
+          <textarea id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required autocomplete="alamat">{{ $dealer->alamat }}</textarea>
           @error('alamat')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -69,7 +70,7 @@
           <label for="provinsi" class="">{{ __('Provinsi') }}</label>
       </div>
       <div class="col-md-6">
-          <input id="provinsi" type="text" class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" value="{{ old('provinsi') }}" required autocomplete="provinsi">
+          <input id="provinsi" type="text" class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" value="{{ $dealer->provinsi }}" required autocomplete="provinsi">
           @error('provinsi')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -83,7 +84,7 @@
           <label for="kota" class="">{{ __('Kota') }}</label>
       </div>
       <div class="col-md-6">
-          <input id="kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" value="{{ old('kota') }}" required autocomplete="kota">
+          <input id="kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" value="{{ $dealer->kota }}" required autocomplete="kota">
           @error('kota')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -97,7 +98,7 @@
           <label for="kodepos" class="">{{ __('Kode Pos') }}</label>
       </div>
       <div class="col-md-6">
-          <input id="kodepos" type="number" class="form-control @error('kodepos') is-invalid @enderror" name="kodepos" value="{{ old('kodepos') }}" required autocomplete="kodepos">
+          <input id="kodepos" type="number" class="form-control @error('kodepos') is-invalid @enderror" name="kodepos" value="{{ $dealer->kodepos }}" required autocomplete="kodepos">
           @error('kodepos')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -111,7 +112,7 @@
           <label for="dds" class="">{{ __('DDS') }}</label>
       </div>
       <div class="col-md-6">
-          <input id="dds" type="text" class="form-control @error('dds') is-invalid @enderror" name="dds" value="{{ old('dds') }}" required autocomplete="dds">
+          <input id="dds" type="text" class="form-control @error('dds') is-invalid @enderror" name="dds" value="{{ $dealer->dds }}" required autocomplete="dds">
           @error('dds')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -125,7 +126,7 @@
           <label for="depo" class="">{{ __('Depo') }}</label>
       </div>
       <div class="col-md-6">
-          <input id="depo" type="text" class="form-control @error('depo') is-invalid @enderror" name="depo" value="{{ old('depo') }}" required autocomplete="depo">
+          <input id="depo" type="text" class="form-control @error('depo') is-invalid @enderror" name="depo" value="{{ $dealer->depo }}" required autocomplete="depo">
           @error('depo')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -139,7 +140,7 @@
           <label for="rayon" class="">{{ __('Rayon') }}</label>
       </div>
       <div class="col-md-6">
-          <input id="rayon" type="text" class="form-control @error('rayon') is-invalid @enderror" name="rayon" value="{{ old('rayon') }}" required autocomplete="rayon">
+          <input id="rayon" type="text" class="form-control @error('rayon') is-invalid @enderror" name="rayon" value="{{ $dealer->rayon }}" required autocomplete="rayon">
           @error('rayon')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -150,9 +151,10 @@
 
     <div class="form-group row mb-2 text-right">
       <div class="col-md-6 offset-md-5">
-          <button type="submit" class="btn btn-warning">
-              {{ __('Simpan') }}
+          <button type="submit" class="btn btn-success">
+              {{ __('Simpan Perubahan') }}
           </button>
+          <a href="/dealer" class="btn btn-warning">Kembali</a>
       </div>
     </div>
     </form>

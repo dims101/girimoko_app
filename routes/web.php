@@ -20,11 +20,12 @@ Route::get('/','Auth\LoginController@showLoginForm');
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@home');
-Route::get('/add-dealer', 'HomeController@tambah');
-Route::post('/dealer/store', 'HomeController@store');
-Route::get('/dealer/{dealer}/edit', 'HomeController@edit');
-Route::patch('/dealer/{dealer}', 'HomeController@update');
-Route::delete('/dealer/{dealer}', 'HomeController@destroy');
+Route::get('/dealer', 'DealerController@index');
+Route::get('/add-dealer', 'DealerController@tambah');
+Route::post('/dealer/store', 'DealerController@store');
+Route::get('/dealer/{dealer}/edit', 'DealerController@edit');
+Route::patch('/dealer/{dealer}', 'DealerController@update');
+Route::delete('/dealer/{dealer}', 'DealerController@destroy');
 Route::get('/importawb', 'HomeController@import');
 
 Route::get('/summary', 'SummaryController@index');
