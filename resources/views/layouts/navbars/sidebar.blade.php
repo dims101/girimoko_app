@@ -30,8 +30,8 @@
       @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin") 
       <li class="nav-item{{ $activePage == 'dashboard_admin' ? ' active' : '' }}">
         <a class="nav-link" href="/home">
-          <i class="material-icons">dashboard</i>
-            <p>{{ __('Dashboard Admin') }}</p>
+          <i class="material-icons">admin_panel_settings</i>
+            <p>{{ __('Panel Admin') }}</p>
         </a>
       </li>
       <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}">
