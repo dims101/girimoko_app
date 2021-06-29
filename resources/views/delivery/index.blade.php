@@ -22,7 +22,7 @@
         <form class="navbar-form col-sm-6" action="/delivery/cari" method="get">
                 
           <div class="input-group no-border">
-            @if(!request()->filled('keyword'))
+            @if(!request()->get('keyword'))
             <input type="text" name="keyword" class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
             @else
             <input type="text" name="keyword" value="{{request()->keyword}}"class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
@@ -42,25 +42,25 @@
                 <div class="row">
                 <select  name="bulan" id="bulan" class="form-control col-sm-3">
                   <option value="">-- Bulan --</option>  
-                  <option value="01" @if (request()->filled('bulan') == "01") selected @endif >Januari</option>  
-                  <option value="02" @if (request()->filled('bulan') == "02") selected @endif >Februari</option>  
-                  <option value="03" @if (request()->filled('bulan') == "03") selected @endif >Maret</option>  
-                  <option value="04" @if (request()->filled('bulan') == "04") selected @endif >April</option>                                      
-                  <option value="05" @if (request()->filled('bulan') == "05") selected @endif >April</option>                                      
-                  <option value="06" @if (request()->filled('bulan') == "06") selected @endif >April</option>                                      
-                  <option value="07" @if (request()->filled('bulan') == "07") selected @endif >April</option>                                      
-                  <option value="08" @if (request()->filled('bulan') == "08") selected @endif >April</option>                                      
-                  <option value="09" @if (request()->filled('bulan') == "09") selected @endif >April</option>                                      
-                  <option value="10" @if (request()->filled('bulan') == "10") selected @endif >April</option>                                      
-                  <option value="11" @if (request()->filled('bulan') == "11") selected @endif >April</option>                                      
-                  <option value="12" @if (request()->filled('bulan') == "12") selected @endif >April</option>                                      
+                  <option value="01" <?=request()->get('bulan') == "01" ? 'selected' : '' ?> >Januari</option>  
+                  <option value="02" <?=request()->get('bulan') == "02" ? 'selected' : '' ?> >Februari</option>  
+                  <option value="03" <?=request()->get('bulan') == "03" ? 'selected' : '' ?> >Maret</option>  
+                  <option value="04" <?=request()->get('bulan') == "04" ? 'selected' : '' ?> >April</option>                                      
+                  <option value="05" <?=request()->get('bulan') == "05" ? 'selected' : '' ?> >Mei</option>                                      
+                  <option value="06" <?=request()->get('bulan') == "06" ? 'selected' : '' ?> >Juni</option>                                      
+                  <option value="07" <?=request()->get('bulan') == "07" ? 'selected' : '' ?> >Juli</option>                                      
+                  <option value="08" <?=request()->get('bulan') == "08" ? 'selected' : '' ?> >Agustus</option>                                      
+                  <option value="09" <?=request()->get('bulan') == "09" ? 'selected' : '' ?> >September</option>                                      
+                  <option value="10" <?=request()->get('bulan') == "10" ? 'selected' : '' ?> >Oktober</option>                                      
+                  <option value="11" <?=request()->get('bulan') == "11" ? 'selected' : '' ?> >November</option>                                      
+                  <option value="12" <?=request()->get('bulan') == "12" ? 'selected' : '' ?> >Desember</option>                                      
                 </select>
                 <select name="tahun" id="tahun" class="form-control col-sm-3">
                   <option value="">-- Tahun --</option>                 
-                  <option value="2018" @if (request()->filled('tahun') == 2018) selected @endif>2018</option>                 
-                  <option value="2019" @if (request()->filled('tahun') == 2019) selected @endif>2019</option>                 
-                  <option value="2020" @if (request()->filled('tahun') == 2020) selected @endif>2020</option>                 
-                  <option value="2021" @if (request()->filled('tahun') == 2021) selected @endif>2021</option>                 
+                  <option value="2018" @if (request()->get('tahun') == 2018) selected @endif>2018</option>                 
+                  <option value="2019" @if (request()->get('tahun') == 2019) selected @endif>2019</option>                 
+                  <option value="2020" @if (request()->get('tahun') == 2020) selected @endif>2020</option>                 
+                  <option value="2021" @if (request()->get('tahun') == 2021) selected @endif>2021</option>                 
                 </select>
                 <select name="dds" id="dds" class="form-control col-sm-3">
                   <option value="">-- DDS --</option>   
@@ -68,11 +68,11 @@
                 </select>
                 <select name="status" id="status" class="form-control col-sm-3">
                   <option value="">-- Status --</option>     
-                  <option value="0" @if (request()->filled('tahun') == 0) selected @endif>On Time</option>     
-                  <option value="1" @if (request()->filled('tahun') == 1) selected @endif>Delay 1h</option>     
-                  <option value="2" @if (request()->filled('tahun') == 2) selected @endif>Delay 2h</option>     
-                  <option value="3" @if (request()->filled('tahun') == 3) selected @endif>Delay 3h</option>     
-                  <option value="4" @if (request()->filled('tahun') == 4) selected @endif>Delay >3h</option>     
+                  <option value="0" @if (request()->get('tahun') == 0) selected @endif>On Time</option>     
+                  <option value="1" @if (request()->get('tahun') == 1) selected @endif>Delay 1h</option>     
+                  <option value="2" @if (request()->get('tahun') == 2) selected @endif>Delay 2h</option>     
+                  <option value="3" @if (request()->get('tahun') == 3) selected @endif>Delay 3h</option>     
+                  <option value="4" @if (request()->get('tahun') == 4) selected @endif>Delay >3h</option>     
                   <option value="delay">Belum terkirim</option>     
                 </select>   
                 <div class="col-sm-12 text-right">

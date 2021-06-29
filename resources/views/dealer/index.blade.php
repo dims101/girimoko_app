@@ -31,14 +31,15 @@
 			<thead class="text-primary">
 				<tr>
 					<th>No</th>
+					<th>Kode</th>
 					<th>Nama Dealer</th>
 					<th>Alamat</th>
-                    <th>Kota</th>
-                    <th>Kode Pos</th>
-                    <th>DDS</th>
-                    <th>Depo</th>
-                    <th>Rayon</th>
-                    <th>Opsi</th>
+          <th>Kota</th>
+          <th>Pos</th>
+          <th>DDS</th>
+          <th>Depo</th>
+          <th>Rayon</th>
+          <th>Opsi</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -48,13 +49,14 @@
       @foreach($dealer as $d)
 				<tr>
 					<td>{{ $i++ }}</td>
+					<td>{{$d->kode_dealer}}</td>
 					<td>{{$d->nama_dealer}}</td>
 					<td>{{$d->alamat}}</td>
-                    <td>{{$d->kota}}</td>
-                    <td>{{$d->kodepos}}</td>
-                    <td>{{$d->dds}}</td>
-                    <td>{{$d->depo}}</td>
-                    <td>{{$d->rayon}}</td>
+          <td>{{$d->kota}}</td>
+          <td>{{$d->kodepos}}</td>
+          <td>{{$d->dds}}</td>
+          <td>{{$d->depo}}</td>
+          <td>{{$d->rayon}}</td>
           <td>
           <div class="">
             <a href="dealer/{{ $d->id }}/edit" class="badge badge-sm badge-round badge-info"><i class="material-icons">drive_file_rename_outline</i></a>

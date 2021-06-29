@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dealer;
+use DB;
 
 class DealerController extends Controller
 {   
@@ -13,7 +14,18 @@ class DealerController extends Controller
     }
 
     public function tambah(){
-        return view('dealer.tambah');
+        $dds = Dealer::select(DB::raw('dds'))
+                ->distinct()
+                ->get();
+        $depo = Dealer::select(DB::raw('depo'))
+                ->distinct()
+                ->get();
+        $rayon = Dealer::select(DB::raw('rayon'))
+                ->distinct()
+                ->get();
+                // ->unique('dds');
+        // return $dds;die;
+        return view('dealer.tambah',compact('dds','depo','rayon'));
     }
 
     public function store(Request $request){
@@ -34,9 +46,18 @@ class DealerController extends Controller
 
     public function edit(Dealer $dealer)
     {
+        $dds = Dealer::select(DB::raw('dds'))
+                ->distinct()
+                ->get();
+        $depo = Dealer::select(DB::raw('depo'))
+                ->distinct()
+                ->get();
+        $rayon = Dealer::select(DB::raw('rayon'))
+                ->distinct()
+                ->get();
         $dealer = Dealer::where('id',$dealer->id)->first();
         
-        return view('dealer.edit',['dealer'=>$dealer], compact('dealer'));
+        return view('dealer.edit',['dealer'=>$dealer], compact('dealer','dds','depo','rayon'));
         
     }
 

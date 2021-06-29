@@ -21,7 +21,7 @@
                             {{ session('message') }}
                         </div>
                     @endif  
-                    <form method="POST" action="/delivery/store">
+                    <form method="POST" action="/delivery/store" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="row">
@@ -58,6 +58,41 @@
 
                             <div class="form-group row">
                                 <div class="col-md-4 col-form-label text-md-left">
+                                    <label for="no_kendaraan" class="">{{ __('No. Kendaraan') }}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input value="{{$pengiriman->no_kendaraan}}" id="no_kendaraan" type="text" class="form-control" name="no_kendaraan" required autofocus>
+                                </div>                                
+                                    @error('no_kendaraan')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div> 
+                            
+                            <div class="row ml-1">
+                                <div class="col-md-4 col-form-label text-md-left">
+                                    <label for="foto" class="">{{ __('Foto AWB') }}</label>
+                                </div>
+                                <div class="col-md-6 text-md-right">                                
+                                    @if($pengiriman->foto_awb<>null)
+                                    <a href="/bukti_awb/{{$pengiriman->foto_awb}}" target="_blank">
+                                    <img src="/bukti_awb/{{$pengiriman->foto_awb}}" alt="" class="img-thumbnail">
+                                    </a>
+                                    @endif
+                                    <input name="foto_awb" id="foto" type="file" class="form-control" >
+                                </div>                                
+                                    @error('foto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div> 
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <div class="col-md-4 col-form-label text-md-left">
                                     <label for="tgl_kirim" class="">{{ __('Tanggal Kirim') }}</label>
                                 </div>
                                 <div class="col-md-6">
@@ -70,23 +105,7 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <div class="col-md-4 col-form-label text-md-left">
-                                    <label for="no_kendaraan" class="">{{ __('No. Kendaraan') }}</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input value="{{$pengiriman->no_kendaraan}}" id="no_kendaraan" type="text" class="form-control" name="no_kendaraan" required autofocus>
-                                </div>                                
-                                    @error('no_kendaraan')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                            </div> 
-
-                        </div>
-                        <div class="col-md-6">
+                            
                             <div class="form-group row">
                                 <div class="col-md-4 col-form-label text-md-left">
                                     <label for="tanggal_terima" class="">{{ __('Tanggal Terima') }}</label>
@@ -130,33 +149,36 @@
                                     @enderror
                             </div> 
 
-                            <div class="row">
+                            <div class="form-group row">
                                 <div class="col-md-4 col-form-label text-md-left">
-                                    <label for="foto" class="">{{ __('Foto AWB') }}</label>
+                                    <label for="keterangan" class="">{{ __('Keterangan') }}</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input id="foto" type="file" class="form-control" >
+                                    <textarea  id="keterangan" type="text" class="form-control" name="keterangan" required >{{$awbs->keterangan}}</textarea>
                                 </div>                                
-                                    @error('foto')
+                                    @error('keterangan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                             </div> 
-
-                            <div class="form-group row mb-2 text-left">
-                                <div class="col-md-12 offset-md-5">
-                                    @if($pengiriman->id != null)
-                                    <input type="hidden" name="id" value="{{$pengiriman->id}}">
-                                    <input type="hidden" name="no_awb" value="{{$awbs->no_awb}}">
-                                    <button type="submit" class="btn btn-success">
-                                        {{ __('Simpan') }}
-                                    </button>
-                                    @endif
-                                    <a href="/delivery/detail/{{$awbs->no_awb}}" class="btn btn-warning">Kembali</a>
+                            
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group row mb-2 text-left">
+                                        <div class="col-md-12 offset-md-5">
+                                            @if($pengiriman->id != null)
+                                            <input type="hidden" name="id" value="{{$pengiriman->id}}">
+                                            <input type="hidden" name="no_awb" value="{{$awbs->no_awb}}">
+                                            <button type="submit" class="btn btn-success">
+                                                {{ __('Simpan') }}
+                                            </button>
+                                            @endif
+                                            <a href="/delivery/detail/{{$awbs->no_awb}}" class="btn btn-warning">Kembali</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            
                         </div>
                         </form>
                     </div>

@@ -10,6 +10,7 @@ use App\Proforma;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Intervention\Image\ImageManagerStatic as Image;
 use DateTime;
 use DatePeriod;
 use DateInterval;
@@ -83,21 +84,29 @@ class DeliveryController extends Controller
             $pengiriman->tanggal_terima ='';
             $pengiriman->waktu_terima ='';
             $pengiriman->penerima ='';
+            $pengiriman->foto_awb =null;
         } 
         // return $pengiriman;die;
         return view('delivery.edit', compact('awbs','nama_dealer','pengiriman'));
     }
 
     public function store(Request $request){
-        // return $request->no_kendaraan;die;
+        // return $request;die;
+        if($request->file('foto_awb')<>null){
+            $file = Image::make($request->foto_awb)->stream('jpg',100);
+            $file_name = $request->no_awb .'-'.$request->tanggal_terima . '.jpg';
+            file_put_contents(public_path('bukti_awb/'.$file_name), $file);
+        }
         Pengiriman::where('id',$request->id)->update([
             'no_kendaraan'=> $request->no_kendaraan,
             'tanggal_terima'=> $request->tanggal_terima,
             'waktu_terima'=> $request->waktu_terima,
             'penerima'=> $request->penerima,
+            'foto_awb'=> $file_name,
         ]);
         $awbs = Awb::where('no_awb', $request->no_awb)
                     ->first();
+        
         $tanggal_terima = $request->tanggal_terima;
         $waktu_terima = $request->waktu_terima;
         // return $tanggal_terima;die;
@@ -136,7 +145,8 @@ class DeliveryController extends Controller
         // return $status;
         Awb::where('no_awb',$request->no_awb)
                 ->update([
-                    'status'=>$status
+                    'status'=>$status,
+                    'keterangan'=>$request->keterangan,
                 ]);
         return redirect()->back()->with('message','Data berhasil diubah');
     }
