@@ -106,7 +106,9 @@ class DeliveryController extends Controller
         ]);
         $awbs = Awb::where('no_awb', $request->no_awb)
                     ->first();
-        
+        $target = Dealer::select('target')
+                    ->where('kode_dealer',$dealer->kode_dealer)
+                    ->first();
         $tanggal_terima = $request->tanggal_terima;
         $waktu_terima = $request->waktu_terima;
         // return $tanggal_terima;die;
@@ -135,7 +137,7 @@ class DeliveryController extends Controller
             $end++;
             $i++;
         }  
-        $status = $x-1;
+        $status = $x-$target;
         if($status == -1){
             $status = 0;
         }

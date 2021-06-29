@@ -105,6 +105,9 @@ class ApiController extends Controller
             } else {
                 $kode_dealer = $data_awb->kode_dealer;
                 $dealer = Dealer::where('kode_dealer',$kode_dealer)->first();
+                $target = Dealer::select('target')
+                            ->where('kode_dealer',$dealer->kode_dealer)
+                            ->first();
                 $tanggal_start = Awb::where('no_awb',$no_awb)
                                     ->first();
                 $tanggal_start = $tanggal_start->tanggal_ds;
@@ -141,7 +144,7 @@ class ApiController extends Controller
                     $end++;
                     $i++;
                 }  
-                $status = $x-1;
+                $status = $x-$target;
                 if($status == -1 or $status == 0){
                     $status = "Ontime";
                 }
@@ -285,7 +288,7 @@ class ApiController extends Controller
                 $end++;
                 $i++;
             }  
-            $status = $x-1;
+            $status = $x-$target;
             if($status == -1){
                 $status = 0;
             }

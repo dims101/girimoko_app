@@ -15,6 +15,7 @@ class CreateDeposTable extends Migration
     {
         Schema::create('depos', function (Blueprint $table) {
             $table->id();
+            $table->string('dds');
             $table->string('depo');
             $table->string('rayon');
             $table->timestamps();

@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->level == 'user' or auth()->user()->level == 'Super Admin'){
+        // if(auth()->user()->level == 'user' or auth()->user()->level == 'Super Admin'){
             $date = Carbon::now();
             $awbs = Awb::whereMonth('tanggal_ds',$date)
                             ->whereYear('tanggal_ds',$date)
@@ -80,9 +80,9 @@ class HomeController extends Controller
             $data = compact('total','tertunda','terkirim','awb_tertunda');
             
             return view('dashboard.index',compact('data','awb_dds'));
-        } else {
-            return redirect('/home');
-        }
+        // } else {
+        //     return redirect('/home');
+        // }
         
     }
     public function home(){
