@@ -48,6 +48,7 @@ class SummaryController extends Controller
         // $belum_terkirim = count($tambun->where('status',null));
         // $persentase_tambun = round($ontime/$belum_terkirim*100,2);
         $persentase_tambun = $this->persentaseDepo('TAMBUN','DDS 1');
+        $persentase_tambun2 = $this->persentaseDepo('TAMBUN','DDS 2');
         $persentase_bandung = $this->persentaseDepo('BANDUNG','DDS 2');
         $persentase_pemalang = $this->persentaseDepo('pemalang','DDS 3');
         $persentase_semarang = $this->persentaseDepo('semarang','DDS 3');
@@ -56,7 +57,7 @@ class SummaryController extends Controller
         //kalau tidak ada awb jadi error, fix besok(patch notes)
         
         // return $persentase_bandung;
-        return view('summary.index',compact('persentase_tambun','persentase_bandung','persentase_pemalang','persentase_semarang','persentase_solo','awbs'));
+        return view('summary.index',compact('persentase_tambun','persentase_tambun2','persentase_bandung','persentase_pemalang','persentase_semarang','persentase_solo','awbs'));
     }
 
     public function persentaseDepo($depo,$dds){
@@ -77,8 +78,9 @@ class SummaryController extends Controller
         return $persentase_depo;
     }
 
-    public function detail($kota)
+    public function detail($dds,$kota)
     {
+        
         // $detail = Dealer::select(DB::raw('dealers.depo','dealers.rayon'))
         //         ->leftjoin('awbs','dealers.kode_dealer','=','awbs.kode_dealer')
         //         ->where('depo',$kota)
@@ -86,14 +88,18 @@ class SummaryController extends Controller
         //         return($detail);
         // return view('summary.detail', compact('detail'));
         // return view('summary.detail');
-        
+        $dds = chunk_split($dds, 3, " ");
+        // return $dds ;die;
         $detail = Dealer::select('dds','depo')
                         ->where('depo',$kota)
+                        ->where('dds',$dds)
                         ->first();
-        
+        // return $detail;die;
         $rayon = Depo::where('depo',$kota)
+                        ->where('dds',$dds)
                         ->pluck('rayon');
         $all = $this->all($rayon);
+        // return $all;die;
         $count = count($all);
         $ontime = $this->detailAwb($rayon,0);
         $delay1 = $this->detailAwb($rayon,1);

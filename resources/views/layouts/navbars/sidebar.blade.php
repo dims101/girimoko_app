@@ -12,28 +12,25 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-    @if (auth()->user()->level == "user" or auth()->user()->level == "Super Admin")
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('home') }}">
           <i class="material-icons">dashboard</i>
             <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
-     
       <li class="nav-item{{ $activePage == 'summary' ? ' active' : '' }}">
         <a class="nav-link" href="/summary">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Summary') }}</p>
         </a>
       </li>
-    @endif
       @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin") 
-      <li class="nav-item{{ $activePage == 'dashboard_admin' ? ' active' : '' }}">
+      <!-- <li class="nav-item{{ $activePage == 'dashboard_admin' ? ' active' : '' }}">
         <a class="nav-link" href="/home">
           <i class="material-icons">admin_panel_settings</i>
             <p>{{ __('Panel Admin') }}</p>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}">
         <a class="nav-link" href="/register">
           <i class="material-icons">add</i>

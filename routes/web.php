@@ -29,7 +29,7 @@ Route::delete('/dealer/{dealer}', 'DealerController@destroy');
 Route::get('/importawb', 'HomeController@import');
 
 Route::get('/summary', 'SummaryController@index');
-Route::get('/detail/{kota}', 'SummaryController@detail');
+Route::get('/detail/{dds}/{kota}', 'SummaryController@detail');
 
 Route::get('/delivery/cari/', 'DeliveryController@cari');
 Route::put('/delivery/store', 'DeliveryController@store');

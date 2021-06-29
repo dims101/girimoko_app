@@ -117,7 +117,7 @@
           @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin") 
             <a href="/delivery/edit/{{$awbs->no_awb}}" class="btn btn-success">Edit</a>
           @endif
-          <button class="btn btn-danger">Hapus</button>
+          
           <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
       </div>
     </div>
