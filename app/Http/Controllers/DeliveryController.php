@@ -92,11 +92,7 @@ class DeliveryController extends Controller
 
     public function store(Request $request){
         // return $request;die;
-        if($request->file('foto_awb')<>null){
-            $file = Image::make($request->foto_awb)->stream('jpg',100);
-            $file_name = $request->no_awb .'-'.$request->tanggal_terima . '.jpg';
-            file_put_contents(public_path('bukti_awb/'.$file_name), $file);
-        }
+        
         Pengiriman::where('id',$request->id)->update([
             'no_kendaraan'=> $request->no_kendaraan,
             'tanggal_terima'=> $request->tanggal_terima,
@@ -104,10 +100,15 @@ class DeliveryController extends Controller
             'penerima'=> $request->penerima,
             'foto_awb'=> $file_name,
         ]);
+        if($request->file('foto_awb')<>null){
+            $file = Image::make($request->foto_awb)->stream('jpg',100);
+            $file_name = $request->no_awb .'-'.$request->tanggal_terima . '.jpg';
+            file_put_contents(public_path('bukti_awb/'.$file_name), $file);
+        }
         $awbs = Awb::where('no_awb', $request->no_awb)
                     ->first();
         $target = Dealer::select('target')
-                    ->where('kode_dealer',$dealer->kode_dealer)
+                    ->where('kode_dealer',$request->kode_dealer)
                     ->first();
         $tanggal_terima = $request->tanggal_terima;
         $waktu_terima = $request->waktu_terima;

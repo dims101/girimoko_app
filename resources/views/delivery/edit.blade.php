@@ -170,6 +170,7 @@
                                             @if($pengiriman->id != null)
                                             <input type="hidden" name="id" value="{{$pengiriman->id}}">
                                             <input type="hidden" name="no_awb" value="{{$awbs->no_awb}}">
+                                            <input type="hidden" name="kode_dealer" value="{{$awbs->kode_dealer}}">
                                             <button type="submit" class="btn btn-success">
                                                 {{ __('Simpan') }}
                                             </button>
