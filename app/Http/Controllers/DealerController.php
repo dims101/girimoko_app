@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dealer;
+use App\Depo;
 use DB;
 
 class DealerController extends Controller
@@ -59,6 +60,26 @@ class DealerController extends Controller
         
         return view('dealer.edit',['dealer'=>$dealer], compact('dealer','dds','depo','rayon'));
         
+    }
+
+    public function selected(Request $request){
+        $dds = $request->dds;
+        $depo = Depo::where('dds',$dds)
+                        ->groupBy('depo')
+                        ->pluck('depo');
+        return response()->json($depo);
+    }
+    public function rayon(Request $request){
+        $depo = $request->depo;
+        $dds = $request->dds;
+        if ($dds<>null){
+        $rayon = Depo::where('dds',$dds)
+                        ->where('depo',$depo)
+                        ->groupBy('rayon')
+                        ->pluck('rayon');
+        }
+        $rayon = ['a','b'];
+        return response()->json($rayon);
     }
 
     public function update(Request $request, Dealer $dealer)
