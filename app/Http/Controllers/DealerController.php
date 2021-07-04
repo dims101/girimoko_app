@@ -72,13 +72,13 @@ class DealerController extends Controller
     public function rayon(Request $request){
         $depo = $request->depo;
         $dds = $request->dds;
-        if ($dds<>null){
+        // if ($dds<>null){
         $rayon = Depo::where('dds',$dds)
                         ->where('depo',$depo)
                         ->groupBy('rayon')
                         ->pluck('rayon');
-        }
-        $rayon = ['a','b'];
+        // }
+        // $rayon = ['a','b'];
         return response()->json($rayon);
     }
 

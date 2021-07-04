@@ -185,7 +185,66 @@
     </div>
   </div>
 </div>
+<script>
+//     $(function () {
+//     $('#dds').on('change', function () {
+//         axios.post("{{ route('selected') }}", {dds: $(this).val()})
+//             .then(function (response) {
+//                 $('#depo').empty();
 
+//                 $.each(response.data, function (depo) {
+//                     $('#depo').append(new Option(depo))
+//                 })
+//             });
+//     });
+// });
+$(function () {
+    $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
+
+    $('#dds').on('change', function () {
+        $.ajax({
+            url: "{{ route('selected') }}",
+            method: 'POST',
+            dataType : 'json',
+            data: {dds: $(this).val(),
+            _token : "{{Session::token()}}"},
+            success: function (response) {
+                $('#depo').empty();
+                $('#depo').append(new Option('--Pilih--',''));
+                $.each(response, function (depo,depo) {
+                    $('#depo').append(new Option(depo,depo))
+                })
+            },
+            error: function(jqXHR, status, err){
+                alert(jqXHR.responseText);
+            }
+        })
+    });
+    $('#depo').on('change', function () {
+        $.ajax({
+            url: "{{ route('rayon') }}",
+            method: 'POST',
+            dataType : 'json',
+            data: {depo: $(this).val(),
+            _token : "{{Session::token()}}",
+            dds: $('#dds').val(),
+            },
+            success: function (response) {
+                $('#rayon').empty();
+                $('#rayon').append(new Option('--Pilih--',''));
+                $.each(response, function (rayon,rayon) {
+                    $('#rayon').append(new Option(rayon,rayon))
+                })
+            },
+            error: function(jqXHR, status, err){
+                alert(jqXHR.responseText);
+            }
+        })
+    });
+});
+</script>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

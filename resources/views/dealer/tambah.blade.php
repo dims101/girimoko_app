@@ -216,8 +216,9 @@ $(function () {
             method: 'POST',
             dataType : 'json',
             data: {depo: $(this).val(),
-            _token : "{{Session::token()}}"},
-            dds :$('#dds').val(),
+            _token : "{{Session::token()}}",
+            dds: $('#dds').val(),
+            },
             success: function (response) {
                 $('#rayon').empty();
                 $('#rayon').append(new Option('--Pilih--',''));

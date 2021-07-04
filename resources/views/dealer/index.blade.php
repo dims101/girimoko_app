@@ -58,7 +58,7 @@
           <td>{{$d->depo}}</td>
           <td>{{$d->rayon}}</td>
           <td>
-          <div class="">
+          <div class="btn-group">
             <a href="dealer/{{ $d->id }}/edit" class="badge badge-sm badge-round badge-info"><i class="material-icons">drive_file_rename_outline</i></a>
             <form action="dealer/{{ $d->id }}" method="post" >    
               @method('delete')
