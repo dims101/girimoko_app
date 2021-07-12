@@ -29,7 +29,7 @@
 
     <div class="card-body">
     
-    <form class="navbar-form col-sm-6" action="/dealer/cari" method="get">
+    <form class="navbar-form col-sm-6" action="/cari" method="get">
                 
       <div class="input-group no-border">
         @if(!request()->get('keyword'))
