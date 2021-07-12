@@ -26,6 +26,7 @@ Route::post('/dealer/store', 'DealerController@store');
 Route::get('/dealer/{dealer}/edit', 'DealerController@edit');
 Route::patch('/dealer/{dealer}', 'DealerController@update');
 Route::delete('/dealer/{dealer}', 'DealerController@destroy');
+Route::get('/dealer/cari/', 'DealerController@cari');
 Route::post('/selected', 'DealerController@selected')->name('selected');
 Route::post('/rayon', 'DealerController@rayon')->name('rayon');
 Route::get('/importawb', 'HomeController@import');

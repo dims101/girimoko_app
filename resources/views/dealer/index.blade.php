@@ -25,7 +25,25 @@
         
       </div>
 
+      
+
     <div class="card-body">
+    
+    <form class="navbar-form col-sm-6" action="/dealer/cari" method="get">
+                
+      <div class="input-group no-border">
+        @if(!request()->get('keyword'))
+        <input type="text" name="keyword" class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
+        @else
+        <input type="text" name="keyword" value="{{request()->keyword}}"class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
+        @endif
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+        <i class="material-icons">search</i>
+        <div class="ripple-container"></div>
+        </button> 
+      </div>                          
+    </form>
+
     <div class="card-body table-responsive">
       <table class='table table-hover'>
 			<thead class="text-primary">
@@ -46,9 +64,9 @@
       @php 
         $i=1 
       @endphp
-      @foreach($dealer as $d)
+      @foreach($dealer as $index => $d)
 				<tr>
-					<td>{{ $i++ }}</td>
+					<td>{{ $index + $dealer->firstItem() }}</td>
 					<td>{{$d->kode_dealer}}</td>
 					<td>{{$d->nama_dealer}}</td>
 					<td>{{$d->alamat}}</td>
@@ -72,6 +90,7 @@
       @endforeach
 			</tbody>
 		</table>
+    {{$dealer->links()}}
     </div>
     
     </div>
