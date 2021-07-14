@@ -54,11 +54,12 @@
                 <thead class="table-secondary">
                     <tr>
                         <td>No</td>
+                        <td>Tanggal</td>
                         <td>AWB</td>
                         <td>Kode</td>
                         <td>Dealer</td>
                         <td>DDS</td>
-                        <td>Status</td>
+                        <td>Lokasi terakhir</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,11 +90,13 @@
                 ds: $('#ds').val()
             },
             success: function(response) {
-                // alert(response['status']);
+                alert(response[0]['lokasi']);
                 //fungsi ada di sini
                 $('#myTable > tbody').empty();
-                $.each(response, function (status) {
-                $('#myTable > tbody:last-child').append('<tr><td>'+status['no_awb']+'</td></tr>');
+                var i=1;
+                $.each(response, function (index,value) {
+                $('#myTable > tbody:last-child').append('<tr><td>'+i+'</td><td>'+value['tanggal_ds']+'</td><td>'+value['no_awb']+'</td><td>'+value['kode_dealer']+'</td><td>'+value['nama_dealer']+'</td><td>'+value['dds']+'</td><td>'+value['lokasi']+'</td></tr>'); 
+                i++;
                 });
             },
             error: function(jqXHR, status, err){

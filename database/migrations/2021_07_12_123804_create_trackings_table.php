@@ -16,9 +16,10 @@ class CreateTrackingsTable extends Migration
         Schema::create('trackings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('dds');
+            $table->string('ds');
             $table->string('lokasi');
             $table->string('id_user');
+            $table->string('comment');
         });
     }
 

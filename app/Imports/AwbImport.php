@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Awb;
 use App\Proforma;
+use App\Tracking;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -42,6 +43,12 @@ class AwbImport implements ToCollection, WithHeadingRow, SkipsOnError
 
             
         }
+        Tracking::create([
+            'ds' => $rows[0]['no_ds'],
+            'id_user' => auth()->user()->id,
+            'lokasi' => 'DEPO UTAMA [BEKASI]',
+            'comment' => 'SHIPMENT RECEIVED BY GIRIMOKO OFFICER AT'
+        ]);
    }
    public function onError(Throwable $error)
    {
