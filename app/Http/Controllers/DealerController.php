@@ -114,9 +114,9 @@ class DealerController extends Controller
         // $dds = $request->dds;
         // $status = $request->status; 
         // $search = $request->cari;
-        
+      
         $dealer = Dealer::when($request->keyword, function ($query) use ($request) {
-            $query->select(DB::raw('dealers.alamat, dealers.kode_dealer, dealers.nama_dealer, dealers.dds, dealers.provinsi, dealers.kota, dealers.kodepos, dealers.depo, dealers.rayon'))
+            $query->select(DB::raw('dealers.id, dealers.alamat, dealers.kode_dealer, dealers.nama_dealer, dealers.dds, dealers.provinsi, dealers.kota, dealers.kodepos, dealers.depo, dealers.rayon'))
                             ->where('dealers.alamat','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.kode_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
@@ -128,9 +128,13 @@ class DealerController extends Controller
                             ->orWhere('dealers.rayon','LIKE','%'. $request->keyword . '%');
          })->paginate(6);    
         //ini apa    
-        $dealer->appends($request->only('keyword'));            
+        
+        $dealer->appends($request->only('keyword')); 
+                   
     
     return view('dealer.index',compact('dealer')); 
 
     }
+
+    
 }
