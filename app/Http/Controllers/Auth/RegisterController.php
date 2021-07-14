@@ -102,4 +102,34 @@ class RegisterController extends Controller
             //'remember_token' => Str::random(60),
         ]);
     }
+
+    public function edit(User $user)
+    {
+    
+        $user = User::where('id',$user->id)->first();
+        
+        return view('auth.edit_user',['user'=>$user], compact('user'));
+        
+    }
+
+    public function update(Request $request, User $user)
+    {
+        User::where('id', $user->id)
+                ->update([
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'level' => $request->level,
+                    'telepon' => $request->telepon,
+                    'password' => Hash::make($request->password)
+                ]);
+        return redirect('/register');
+    }
+
+    public function destroy(User $user)
+    {
+        User::destroy($user->id);
+        return redirect('/register');
+    }
+
+    
 }

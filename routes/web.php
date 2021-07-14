@@ -17,6 +17,9 @@ Route::get('/awb/excel', 'AwbController@index');
 Route::post('/awb/import','AwbController@import');
 Auth::routes();
 Route::get('/','Auth\LoginController@showLoginForm');
+Route::get('/user/{user}/edit', 'Auth\RegisterController@edit');
+Route::patch('/user/{user}', 'Auth\RegisterController@update');
+Route::delete('/user/{user}', 'Auth\RegisterController@destroy');
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@home');
