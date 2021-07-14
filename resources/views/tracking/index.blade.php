@@ -90,7 +90,7 @@
                 ds: $('#ds').val()
             },
             success: function(response) {
-                alert(response[0]['lokasi']);
+                // alert(response);
                 //fungsi ada di sini
                 $('#myTable > tbody').empty();
                 var i=1;
