@@ -28,7 +28,7 @@
                             <input type="text" id="ds" class="form-control" aria-describedby="passwordHelpInline" placeholder="Silahkan Masukan DS">
                         </div>
                         <div class="col-auto">
-                            <button id="update" class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Update</button>
+                            <button id="update" class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Track</button>
                         </div>
                     </div>
                 </div>

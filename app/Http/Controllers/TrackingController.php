@@ -18,17 +18,16 @@ class TrackingController extends Controller
         //     ['status' => 'OK'],
         //     ['status'=> 'NOT OK']
         // );
-        $last = Tracking::pluck('lokasi')
+        $last = Tracking::pluck('id')
                 ->last();
-        $last = $last[0];
         $response = Awb::select(
         DB::raw('awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,trackings.lokasi'))
         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')      
         ->leftjoin('trackings','awbs.no_ds','=','trackings.ds') 
         ->where('no_ds',$request->ds)
+        ->where('trackings.id',$last)
         ->get();
-       
-
-        return $response;
+        // return $last;die;
+        return response()->json($response);
     }
 }

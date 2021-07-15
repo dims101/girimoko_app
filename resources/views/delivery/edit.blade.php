@@ -111,7 +111,7 @@
                                     <label for="tanggal_terima" class="">{{ __('Tanggal Terima') }}</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input value="{{$pengiriman->tanggal_terima}}" id="tanggal_terima" type="date" class="form-control @error('tanggal_terima') is-invalid @enderror" name="tanggal_terima" required >
+                                    <input value="{{$pengiriman->tanggal_terima}}" id="tanggal_terima" type="date" class="form-control @error('tanggal_terima') is-invalid @enderror" name="tanggal_terima" disabled >
 
                                     @error('tanggal_terima')
                                         <span class="invalid-feedback" role="alert">
@@ -126,7 +126,7 @@
                                     <label for="waktu_terima" class="">{{ __('Waktu Terima') }}</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input value="{{$pengiriman->waktu_terima}}" id="waktu_terima" type="time" class="form-control" name="waktu_terima" required >
+                                    <input value="{{$pengiriman->waktu_terima}}" id="waktu_terima" type="time" class="form-control" name="waktu_terima" DISABLED >
                                 </div>                                
                                     @error('waktu_terima')
                                         <span class="invalid-feedback" role="alert">
