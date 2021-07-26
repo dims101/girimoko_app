@@ -71,7 +71,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-primary">Update lokasi</button>
+        <form action="/updatelokasi" method='post'>
+            <button type="submit" class="btn btn-primary">Update lokasi</button>
+        </form>
       </div>
     </div>
   </div>
@@ -79,6 +81,7 @@
 <script>
     $('#update').on('click', function(event) {
         let ds = document.getElementById("ds").value;
+        
         // alert(dds);
         // Kirim gambar dalam bentuk base64
         $.ajax({

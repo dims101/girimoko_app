@@ -21,7 +21,7 @@ class TrackingController extends Controller
         $last = Tracking::pluck('id')
                 ->last();
         $response = Awb::select(
-        DB::raw('awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,trackings.lokasi'))
+        DB::raw('awbs.no_awb,date_format(trackings.created_at ,"%d/%m/%Y %H:%i") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,trackings.lokasi'))
         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')      
         ->leftjoin('trackings','awbs.no_ds','=','trackings.ds') 
         ->where('no_ds',$request->ds)
