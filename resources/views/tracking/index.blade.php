@@ -25,7 +25,7 @@
                         <div class="col-auto">
                         </div>
                         <div class="col-auto">
-                            <input type="text" id="ds" class="form-control" aria-describedby="passwordHelpInline" placeholder="Silahkan Masukan DS">
+                            <input type="text" id="ds" class="form-control" aria-describedby="passwordHelpInline" placeholder="Silahkan Masukan DS" name="track">
                         </div>
                         <div class="col-auto">
                             <button id="update" class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Track</button>
@@ -41,7 +41,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Daftar AWB dalam Delivery Sheet</h5>
