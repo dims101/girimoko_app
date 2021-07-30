@@ -108,6 +108,7 @@ class ApiController extends Controller
                 $target = Dealer::select('target')
                             ->where('kode_dealer',$dealer->kode_dealer)
                             ->first();
+                $target = $target->target;
                 $tanggal_start = Awb::where('no_awb',$no_awb)
                                     ->first();
                 $tanggal_start = $tanggal_start->tanggal_ds;
