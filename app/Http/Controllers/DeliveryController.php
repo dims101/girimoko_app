@@ -95,8 +95,8 @@ class DeliveryController extends Controller
         
         Pengiriman::where('id',$request->id)->update([
             'no_kendaraan'=> $request->no_kendaraan,
-            'tanggal_terima'=> $request->tanggal_terima,
-            'waktu_terima'=> $request->waktu_terima,
+            // 'tanggal_terima'=> $request->tanggal_terima,
+            // 'waktu_terima'=> $request->waktu_terima,
             'penerima'=> $request->penerima,
             'foto_awb'=> $file_name,
         ]);
