@@ -79,6 +79,7 @@
 <script>
     $('#update').on('click', function(event) {
         let ds = document.getElementById("ds").value;
+        
         // alert(dds);
         // Kirim gambar dalam bentuk base64
         $.ajax({
