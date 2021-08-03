@@ -256,6 +256,7 @@ class ApiController extends Controller
             $target = Dealer::select('target')
                             ->where('kode_dealer',$dealer->kode_dealer)
                             ->first();
+                             $target = $target->target;
             //atas lead time
             $tanggal_ds = $dealer->tanggal_ds;
             // return $tanggal_ds;die;
