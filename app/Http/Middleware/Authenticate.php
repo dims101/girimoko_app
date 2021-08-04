@@ -15,6 +15,9 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+
+            // alert()->warning('Gagal Login','Username atau password salah');
+
             return route('login');
         }
     }

@@ -43,6 +43,15 @@ class LoginController extends Controller
     {
         return 'username';
     }
+
+    // protected function authenticated($request)
+    // {
+    //     $request->alert()->warning('Gagal Login','Username atau password salah');
+    //     return redirect()->intended($this->redirectPath());
+    // }
+
+
+    
     public function showLoginForm()
     {
         return view('auth.login');

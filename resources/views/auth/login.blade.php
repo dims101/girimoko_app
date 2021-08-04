@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>AWB Tracking System</title>
+	<title>Girimoko Tracking System</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -27,7 +27,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<h2 class="text-warning">AWB Tracking System</h2>
+					<h2 class="text-warning">Girimoko Tracking System</h2>
 					<img src="{{ asset('assets') }}/images/img-02.png" alt="IMG">
 				</div>
 
@@ -68,6 +68,11 @@
 							Login
 						</button>
 					</div>
+					@if ($errors->has('username'))
+						<span class="invalid-feedback">
+							<strong>{{ $errors->first('username') }}</strong>
+						</span>
+					@endif
 
 					<!-- <div class="text-center p-t-12">
 						<span class="txt1">
@@ -108,6 +113,7 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	@include('sweetalert::alert')
 
 </body>
 </html>
