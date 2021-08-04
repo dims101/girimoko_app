@@ -49,7 +49,7 @@
               <option value="2021"<?=request()->get('tahun') == "2021" ? 'selected' : '' ?>>2021</option>
             </select>
             <button  type="submit" class="btn btn-sm btn-warning ml-2 mb-2">Ubah</button>
-            <a style="margin-top:0px" href="" class="ml-2 btn btn-sm btn-success">Bulan ini</a>
+            <a style="margin-top:0px" href="/dashboard" class="ml-2 btn btn-sm btn-success">Bulan ini</a>
           </form>
         </div>                       
       </div>  
