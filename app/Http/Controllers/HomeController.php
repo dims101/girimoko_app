@@ -31,32 +31,50 @@ class HomeController extends Controller
     {
         // if(auth()->user()->level == 'user' or auth()->user()->level == 'Super Admin'){
             // return $request->bulan;die;
+            $now = Carbon::now();
+            if(empty($request->bulan)){
+                $bulan = $now->format('m');                
+            } else {
+                $bulan = $request->bulan;
+            }
+            if(empty($request->tahun)){
+                $tahun = $now->year;                
+            }else {
+                $tahun = $request->tahun;
+            }
+            // return $bulan;die;
             if(!empty($request->bulan or !empty($request->tahun))){
-                $stringdate = $request->tahun .'-'.$request->bulan . '-' . '01';
-                // return $stringdate;die;
-                $date = new Carbon($request->tahun .'-'.$request->bulan . '-' . '01');
-                // return $date;die;
+                $stringdate = $tahun .'-'.$bulan . '-' . '01';
+                $date = new Carbon($stringdate);
             } else {
                 $date = Carbon::now();
             }
             $awbs = Awb::whereMonth('tanggal_ds',$date)
                             ->whereYear('tanggal_ds',$date)
                             ->get();
-            // return $awbs;die;
             $total = count($awbs);
             if ($total == 0){
                 $total =1;
             }
             $terkirim = round(count($awbs->whereNotNull('status'))/$total*100,1);
             $tertunda = round(count($awbs->whereNull('status'))/$total*100,1);   
-            
+            // return $bulan;die;
             function depo($depo,$tahun,$bulan){
                 // $date = Carbon::now();//cari biar bisa panggil dari luar
+                $now = Carbon::now();
+                if(empty($request->bulan)){
+                    $bulan = $now->format('m');                
+                } else {
+                    $bulan = $request->bulan;
+                }
+                if(empty($request->tahun)){
+                    $tahun = $now->year;                
+                }else {
+                    $tahun = $request->tahun;
+                }
                 if(!empty($bulan or !empty($tahun))){
                     $stringdate = $tahun .'-'.$bulan . '-' . '01';
-                    // return $stringdate;die;
-                    $date = new Carbon($tahun .'-'.$bulan . '-' . '01');
-                    // return $date;die;
+                    $date = new Carbon($stringdate);
                 } else {
                     $date = Carbon::now();
                 }
