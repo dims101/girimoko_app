@@ -65,16 +65,18 @@
                 <select name="dds" id="dds" class="form-control col-sm-3">
                   <option value="">-- DDS --</option>   
                   <option value="DDS 1">DDS 1</option>   
+                  <option value="DDS 2">DDS 2</option>   
+                  <option value="DDS 3">DDS 3</option>   
                 </select>
                 <select name="status" id="status" class="form-control col-sm-3">
-                  <option value="">-- Status --</option>     
-                  <option value="0" @if (request()->get('tahun') == 0) selected @endif>On Time</option>     
-                  <option value="1" @if (request()->get('tahun') == 1) selected @endif>Delay 1h</option>     
-                  <option value="2" @if (request()->get('tahun') == 2) selected @endif>Delay 2h</option>     
-                  <option value="3" @if (request()->get('tahun') == 3) selected @endif>Delay 3h</option>     
-                  <option value="4" @if (request()->get('tahun') == 4) selected @endif>Delay >3h</option>     
-                  <option value="delay">Belum terkirim</option>     
-                </select>   
+                  <option value="" <?=request()->get('status') == null ? 'selected' : '' ?> >-- Status --</option>     
+                  <option value="0" <?=request()->get('status') == "0" ? 'selected' : '' ?> >On Time</option>     
+                  <option value="1" <?=request()->get('status') == "1" ? 'selected' : '' ?> >Delay 1h</option>     
+                  <option value="2" <?=request()->get('status') == "2" ? 'selected' : '' ?> >Delay 2h</option>     
+                  <option value="3" <?=request()->get('status') == "3" ? 'selected' : '' ?> >Delay 3h</option>     
+                  <option value="4" <?=request()->get('status') == "4" ? 'selected' : '' ?> >Delay >3h</option>     
+                  <option value="delay" <?=request()->get('status') == "delay" ? 'selected' : '' ?>>Belum terkirim</option>     
+                </select> 
                 <div class="col-sm-12 text-right">
                   <button type="submit" class="btn btn-sm btn-primary">Filter</button>
                   <a href="/delivery" class="btn btn-sm btn-danger">Clear</a>                
