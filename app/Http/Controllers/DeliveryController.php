@@ -35,11 +35,12 @@ class DeliveryController extends Controller
      */
     public function index(Request $request)
     {
-        // return $request->status;
+        // return $request->dds;
         $date = Carbon::now();
         $awbs = Awb::select(DB::raw('awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status'))
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
                         ->orderBy('awbs.tanggal_ds','ASC');
+                        // ->where('dds','DDS 1');
         if(!empty($request->bulan)){
             // $bulan = $date->format('m');
             $bulan = $request->bulan;
@@ -66,6 +67,7 @@ class DeliveryController extends Controller
         
         $awbs = $awbs->paginate(10)->appends(request()->query());
         return view('delivery.index',compact('awbs'));
+        // return $request->status;
          
     }
 
@@ -95,8 +97,8 @@ class DeliveryController extends Controller
         
         Pengiriman::where('id',$request->id)->update([
             'no_kendaraan'=> $request->no_kendaraan,
-            'tanggal_terima'=> $request->tanggal_terima,
-            'waktu_terima'=> $request->waktu_terima,
+            // 'tanggal_terima'=> $request->tanggal_terima,
+            // 'waktu_terima'=> $request->waktu_terima,
             'penerima'=> $request->penerima,
             'foto_awb'=> $file_name,
         ]);

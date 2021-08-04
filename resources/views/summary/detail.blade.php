@@ -50,7 +50,7 @@
       </div>    
       <div class="card-body table-responsive">
       
-        <table class="table table-hover">
+        <table class="table table-hover table-striped">
         <!-- <table class="table table-borderless"> -->
           <thead class="text-primary">
             <th>No.</th>

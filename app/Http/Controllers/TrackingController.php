@@ -18,19 +18,16 @@ class TrackingController extends Controller
         //     ['status' => 'OK'],
         //     ['status'=> 'NOT OK']
         // );
-        $last = Tracking::pluck('updated_at')
+        $last = Tracking::pluck('id')
                 ->last();
-        
-        // $response = Awb::select(DB::raw('awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds','trackings.lokasi'))
-        // ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')      
-        // ->leftjoin('trackings','awbs.no_ds','=','trackings.ds') 
-        // // ->where('no_ds',$request->ds)
-        // ->get();
-        $response = Awb::select(DB::raw('awbs.kode_dealer','trackings.lokasi','dealers.nama_dealer'))
-            ->leftjoin('trackings','awbs.no_ds','trackings.ds')
-            ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')
-            ->get();
-        // $response = Tracking::all();
-        return response()->json($response); 
+        $response = Awb::select(
+        DB::raw('awbs.no_awb,date_format(trackings.created_at ,"%d/%m/%Y %H:%i") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,trackings.lokasi'))
+        ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')      
+        ->leftjoin('trackings','awbs.no_ds','=','trackings.ds') 
+        ->where('no_ds',$request->ds)
+        ->where('trackings.id',$last)
+        ->get();
+        // return $last;die;
+        return response()->json($response);
     }
 }

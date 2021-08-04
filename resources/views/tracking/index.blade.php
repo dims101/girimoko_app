@@ -25,10 +25,10 @@
                         <div class="col-auto">
                         </div>
                         <div class="col-auto">
-                            <input type="text" id="ds" class="form-control" aria-describedby="passwordHelpInline" placeholder="Silahkan Masukan DS">
+                            <input type="text" id="ds" class="form-control" aria-describedby="passwordHelpInline" placeholder="Silahkan Masukan DS" name="track">
                         </div>
                         <div class="col-auto">
-                            <button id="update" class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Update</button>
+                            <button id="update" class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Track</button>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Daftar AWB dalam Delivery Sheet</h5>
@@ -71,7 +71,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-primary">Update lokasi</button>
+        <form action="/updatelokasi" method='post'>
+            <button type="submit" class="btn btn-primary">Update lokasi</button>
+        </form>
       </div>
     </div>
   </div>
@@ -79,6 +81,7 @@
 <script>
     $('#update').on('click', function(event) {
         let ds = document.getElementById("ds").value;
+        
         // alert(dds);
         // Kirim gambar dalam bentuk base64
         $.ajax({
@@ -90,7 +93,7 @@
                 ds: $('#ds').val()
             },
             success: function(response) {
-                alert(response[0]['lokasi']);
+                // alert(response);
                 //fungsi ada di sini
                 $('#myTable > tbody').empty();
                 var i=1;
