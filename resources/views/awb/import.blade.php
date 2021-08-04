@@ -22,7 +22,7 @@
           @csrf
           <div class="card-body row ml-2">
             <input type="file" name="file" required="required">
-              <button type="submit" class="btn btn-warning">Import</button>
+              <button type="submit" class="btn btn-sm btn-warning">Import</button>
           </div>          
         </form>
       </div>
