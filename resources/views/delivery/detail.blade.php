@@ -89,6 +89,7 @@
             <th>No. Performa</th>
             <th>Total Koli</th>
             <th>Tipe Produk</th>
+            <th>Keterangan</th>
           </thead>
           <tbody>
           @if(count($proformas) != null)

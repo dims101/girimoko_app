@@ -37,7 +37,8 @@ class DeliveryController extends Controller
     {
         // return $request->dds;
         $date = Carbon::now();
-        $awbs = Awb::select(DB::raw('awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status'))
+        $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status'))
+                        ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
                         ->orderBy('awbs.tanggal_ds','ASC');
                         // ->where('dds','DDS 1');
@@ -64,13 +65,13 @@ class DeliveryController extends Controller
             $status = $request->status;            
             $awbs->where('status',$status);
         }
-        
+        // $awbs->get();
+        // return $awbs;die;
         $awbs = $awbs->paginate(10)->appends(request()->query());
         return view('delivery.index',compact('awbs'));
-        // return $request->status;
          
     }
-
+ 
     public function edit($no_awb){
         $awbs = Awb::where('no_awb', $no_awb)
                     ->first();
@@ -93,7 +94,7 @@ class DeliveryController extends Controller
     }
 
     public function store(Request $request){
-        // return $request;die;
+        return $request;die;
         
         Pengiriman::where('id',$request->id)->update([
             'no_kendaraan'=> $request->no_kendaraan,
@@ -201,9 +202,11 @@ class DeliveryController extends Controller
     
 
 
-    public function detail($no_awb)
+    public function detail($no_proforma)
     {   
         //try catch sini 
+        $no_awb = Proforma::where('no_proforma',$no_proforma)
+                        ->pluck('no_awb');
         $status = Awb::select('status')
                         ->where('no_awb',$no_awb)
                         ->first();
@@ -262,7 +265,7 @@ class DeliveryController extends Controller
             proformas.tipe'                                    
             ))
         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
-        ->where('proformas.no_awb',$no_awb)
+        ->where('proformas.no_proforma',$no_proforma)
         ->get();
         // return $awbs;die;
         return view('delivery.detail',compact('awbs','proformas','isdelay'));

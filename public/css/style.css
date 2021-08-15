@@ -363,6 +363,16 @@ div.h4 {
     transform: rotate(360deg);
   }
 }
+.modal-dialog-scrollable {
+  height: calc(100% - 1rem);
+}
+.modal-dialog-scrollable .modal-content {
+  max-height: 100%;
+  overflow: hidden;
+}
+.modal-dialog-scrollable .modal-body {
+  overflow-y: auto;
+}
 
 
 /*rating*/
