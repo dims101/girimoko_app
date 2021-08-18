@@ -7,6 +7,7 @@ use App\Dealer;
 use Illuminate\Pagination\Paginator;
 use App\Depo;
 use DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DealerController extends Controller
 {   
@@ -104,6 +105,7 @@ class DealerController extends Controller
     public function destroy(Dealer $dealer)
     {
         Dealer::destroy($dealer->id);
+        // Alert::question('Hapus Data', 'Yakin ingin Menghapus?');
         return redirect('/dealer');
     }
 

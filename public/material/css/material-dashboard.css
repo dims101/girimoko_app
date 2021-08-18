@@ -26,6 +26,7 @@
 }
 
 html {
+	
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -53,6 +54,7 @@ section {
 }
 
 body {
+	
   margin: 0;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 1rem;
@@ -430,6 +432,7 @@ template {
 }
 
 html {
+	overflow-y: auto;
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -962,6 +965,7 @@ pre {
   display: block;
   font-size: 87.5%;
   color: #212529;
+  
 }
 
 pre code {
@@ -972,7 +976,7 @@ pre code {
 
 .pre-scrollable {
   max-height: 340px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .container {

@@ -24,7 +24,7 @@
                 <p class="card-text text-center font-weight-bold mt-3">TAMBUN</p>  
 
                 <div class="text-right">
-                    <a href="/detail/dds1/tambun" class="btn btn-round btn-primary">Detail</a>
+                    <a href="/detail/dds1/tambun?bulan={{request()->get('bulan')}}&tahun={{request()->get('tahun')}}" class="btn btn-round btn-primary">Detail</a>
                 </div>
                 
             </div>
@@ -51,7 +51,7 @@
                 <p class="card-text text-center font-weight-bold mt-3">TAMBUN</p>  
 
                 <div class="text-right">
-                    <a href="/detail/dds2/tambun" class="btn btn-round btn-primary">Detail</a>
+                    <a href="/detail/dds2/tambun?bulan={{request()->get('bulan')}}&tahun={{request()->get('tahun')}}" class="btn btn-round btn-primary">Detail</a>
                 </div>
                 
             </div>
@@ -79,7 +79,7 @@
                 <p class="card-text text-center font-weight-bold mt-3">BANDUNG</p>  
 
                 <div class="text-right">
-                    <a href="/detail/dds2/bandung" class="btn btn-round btn-primary">Detail</a>
+                    <a href="/detail/dds2/bandung?bulan={{request()->get('bulan')}}&tahun={{request()->get('tahun')}}" class="btn btn-round btn-primary">Detail</a>
                 </div>
                 
             </div>
@@ -107,7 +107,7 @@
                 <p class="card-text text-center font-weight-bold mt-3">PEMALANG</p>  
 
                 <div class="text-right">
-                    <a href="/detail/dds3/pemalang" class="btn btn-round btn-primary">Detail</a>
+                    <a href="/detail/dds3/pemalang?bulan={{request()->get('bulan')}}&tahun={{request()->get('tahun')}}" class="btn btn-round btn-primary">Detail</a>
                 </div>
                 
             </div>
@@ -135,7 +135,7 @@
                 <p class="card-text text-center font-weight-bold mt-3">SEMARANG</p>  
 
                 <div class="text-right">
-                    <a href="/detail/dds3/semarang" class="btn btn-round btn-primary">Detail</a>
+                    <a href="/detail/dds3/semarang?bulan={{request()->get('bulan')}}&tahun={{request()->get('tahun')}}" class="btn btn-round btn-primary">Detail</a>
                 </div>
                 
             </div>
@@ -163,7 +163,7 @@
                 <p class="card-text text-center font-weight-bold mt-3">SOLO</p>  
 
                 <div class="text-right">
-                    <a href="/detail/dds3/solo" class="btn btn-round btn-primary">Detail</a>
+                    <a href="/detail/dds3/solo?bulan={{request()->get('bulan')}}&tahun={{request()->get('tahun')}}" class="btn btn-round btn-primary">Detail</a>
                 </div>
                 
             </div>

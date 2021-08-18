@@ -6,7 +6,7 @@
   -->
   <div class="logo">
     <a href="/" class="simple-text logo-normal">
-      {{ __('AWB Tracking System') }}
+      {{ __('Girimoko Tracking System') }}
     </a>
 	<!-- <a href="#"><img style="width: 100px;" src="/material/img/girimoko.jpeg" class="simple-text logo-normal"></a> -->
   </div>

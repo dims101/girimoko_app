@@ -113,7 +113,7 @@
               <div class="card-icon">
                 <i class="material-icons">app_registration</i>
               </div>
-              <p class="card-title">AWB Terkirim VS Tertunda</p>
+              <p class="card-title">AWB Terkirim VS Belum Terkirim</p>
             </div>
             <div class="">                
                 <figure class="highcharts-figure">
@@ -154,7 +154,7 @@
       <div class="card">
         <div class="card-header card-header-warning row">         
             <i class="material-icons">local_shipping </i>
-            <h4 class="card-title">&nbsp;&nbsp;{{ __('AWB Belum Terkirim') }}</h4>             
+            <h5 class="card-title">&nbsp;&nbsp;{{ __('AWB Belum Terkirim') }}</h5>             
         </div>
         <div class="card-body">
         <figure class="highcharts-figure">
