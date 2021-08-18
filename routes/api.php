@@ -24,5 +24,6 @@ Route::post('/login','ApiController@login');//api buat login
 Route::post('/getawb','ApiController@getAwb');//api buat scan awb
 Route::post('/getproforma','ApiController@getProforma');//api buat scan awb
 Route::post('/getdealer','ApiController@getDealer');//api buat scan awb
-Route::post('/storeawb','ApiController@storeAwb');//api buat scan awb
+Route::post('/storeawb','ApiController@storeAwb');//api buat simpan awb
+Route::post('/storeroforma','ApiController@storeProforma');//api buat simpan proforma
 Route::post('/storeimage','ApiController@storeImage');//api buat scan awb

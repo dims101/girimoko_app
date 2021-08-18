@@ -90,6 +90,7 @@
         <table class="table table-hover">
         <!-- <table class="table table-borderless"> -->
           <thead class="text-danger">
+            <th>Proforma</th>
             <th>AWB</th>
             <th>Kode</th>
             <th>Dealer</th>
@@ -122,6 +123,7 @@
               @foreach ($awbs as $awb)
               <tbody>
                 <tr>
+                  <td>{{$awb->no_proforma}}</td>
                   <td>{{$awb->no_awb}}</td>
                   <td>{{$awb->kode_dealer}}</td>
                   <td>{{$awb->nama_dealer}}</td>
@@ -129,14 +131,14 @@
                   <td>{{$awb->dds}}</td>
                   <td>
                     @if ($awb->status <> null)
-                      <span class="badge badge-success">AWB telah sampai</span>                   
+                      <span class="badge badge-success">Proforma telah sampai</span>                   
                     @else
-                      <span class="badge badge-warning">AWB sedang dikirim</span>
+                      <span class="badge badge-warning">Proforma sedang dikirim</span>
                     @endif
                   </td>
                   <td>
                     <div class="">
-                        <a href="/delivery/detail/{{$awb->no_awb}}" class="badge badge-round badge-primary"><i class="material-icons">pending</i></a>
+                        <a href="/delivery/detail/{{$awb->no_proforma}}" class="badge badge-round badge-primary"><i class="material-icons">pending</i></a>
                     </div>
                   </td>
                 </tr>

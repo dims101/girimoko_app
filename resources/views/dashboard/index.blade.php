@@ -83,7 +83,7 @@
                 <!-- <i class="material-icons">content_paste</i> -->
                 <i class="material-icons">content_copy</i>
               </div>
-              <p class="card-title">Total AWB</p>           
+              <p class="card-title">{{ __('Total AWB') }}</p>           
             </div>
             <div class="card-stats mt-3">
                 <div class="green">
@@ -113,7 +113,11 @@
               <div class="card-icon">
                 <i class="material-icons">app_registration</i>
               </div>
+<<<<<<< HEAD
               <p class="card-title">AWB Terkirim VS Belum Terkirim</p>
+=======
+              <p class="card-title">{{ __('AWB Terkirim VS Sedang dikirim') }}</p>
+>>>>>>> 69e2c4f7e557293728104ed8c06c3ca71da3a00c
             </div>
             <div class="">                
                 <figure class="highcharts-figure">
@@ -135,7 +139,7 @@
               <div class="card-icon">
                 <i class="material-icons">assessment</i>
               </div>
-              <p class="card-title">Persentase AWB Terkirim</p>             
+              <p class="card-title">{{ __('Persentase AWB Terkirim') }}</p>             
             </div>
             <div class="">
               <figure class="highcharts-figure">

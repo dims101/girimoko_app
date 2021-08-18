@@ -33,7 +33,8 @@ Highcharts.chart('container-2', {
     series: {
       dataLabels: {
         enabled: true,
-        format: '<b>{point.name}</b><br><span style="font-size:14px">{point.y} %</span></b> <br/>',
+        format: '<b><span style="font-size:14px">{point.name}</span></b><br><span style="font-size:15px">{point.y} %</span></b> <br/>',
+       
         // format: '<b>{point.name}</b><br>{point.y}</b> %<br/>',
         distance: -35
       }
@@ -41,8 +42,8 @@ Highcharts.chart('container-2', {
   },
 
   tooltip: {
-    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> %<br/>'
+    headerFormat: '<span style="font-size:18px">{series.name}</span><br>',
+    pointFormat: '<span style="color:{point.color}">{point.nama}</span>: <b>{point.y}</b> %<br/>', 
   },
 
   series: [
@@ -52,10 +53,12 @@ Highcharts.chart('container-2', {
       data: [
         {
           name: "Terkirim",
+          // y: 90,
           y: {{$data['terkirim']}},
         },
         {
-          name: "Belum <br>terkirim",
+          name: "sedang <br>dikirim",
+          // y: 10,
           y: {{$data['tertunda']}},
         }
       ]
@@ -165,7 +168,7 @@ Highcharts.chart('container-2', {
     type: 'column'
   },
   title: {
-    text: 'AWB yang Belum Terkirim Bulan ini'
+    text: 'AWB yang Sedang dikirim Bulan ini'
   },
   subtitle: {
     text: ''
