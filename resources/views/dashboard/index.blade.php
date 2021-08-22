@@ -113,11 +113,7 @@
               <div class="card-icon">
                 <i class="material-icons">app_registration</i>
               </div>
-<<<<<<< HEAD
-              <p class="card-title">AWB Terkirim VS Belum Terkirim</p>
-=======
               <p class="card-title">{{ __('AWB Terkirim VS Sedang dikirim') }}</p>
->>>>>>> 69e2c4f7e557293728104ed8c06c3ca71da3a00c
             </div>
             <div class="">                
                 <figure class="highcharts-figure">
