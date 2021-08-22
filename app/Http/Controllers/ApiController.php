@@ -188,7 +188,8 @@ class ApiController extends Controller
                 );
             return response()->json($response);
         } else {
-            $proforma = Proforma::select('no_proforma','koli','no_awb','tipe')->where('no_awb',$no_awb)->get();
+            $proforma = Proforma::select('no_proforma','koli','no_awb','tipe','total_koli','status','keterangan')
+                                    ->where('no_awb',$no_awb)->get();
             // dd($proforma);
             $response = array(
                 'success' => '1',
@@ -277,11 +278,42 @@ class ApiController extends Controller
             $no_kendaraan = $request->no_kendaraan;
             $penerima =$request->penerima;
             $keterangan = $request->keterangan;
-            if(!empty($request->proforma)){
-                $array = explode('-',$request->proforma);
-                foreach ($array as $a){
-                    $proformas[] = explode(',',$a);
+
+            $cek = Proforma::where('no_awb',$no_awb)
+                            ->whereNull('status')
+                            ->pluck('no_proforma')
+                            ->toArray();
+            // return $cek;die;
+
+            if (!empty($cek)){
+                $list = implode(', ', $cek);
+                $response = array(
+                    'success' => '0',
+                    'message' => 'No proforma '.$list.' belum dicek!'
+    
+                    );
+                return response()->json($response);die;
+            } else {
+                $daftar = Proforma::where('no_awb',$no_awb)
+                                ->pluck('no_proforma');
+                // return $daftar;die;
+                
+                foreach ($daftar as $d){
+                    
+                    $statusP = Proforma::where('no_proforma',$d)
+                                ->first();
+                    $statusP = $statusP->status;
+                    if($statusP == 3){
+                        $statusP = 1;
+                    } else if($statusP == 4){
+                        $statusP = 2;
+                    }
+                    Proforma::where('no_proforma',$d)
+                                ->update([
+                                   'status'=>$statusP, 
+                                ]);
                 }
+
             }
 
             $dealer = Awb::where('no_awb',$no_awb)
@@ -355,6 +387,7 @@ class ApiController extends Controller
                             'status'=>$status
                             //toggle status
                         ]);
+           
             if(!empty($proformas)){
                 foreach($proformas as $proforma){
                     Proforma::where('no_proforma',$proforma[0])
