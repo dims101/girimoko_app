@@ -116,7 +116,7 @@
             @if (count($awbs) == null)
               <tbody>
                 <tr class="text-center">
-                  <td colspan="8"><h4>Data tidak ditemukan.</h4></td>
+                  <td colspan="6"><h4>Data tidak ditemukan.</h4></td>
                 </tr>
               </tbody>
             @else
@@ -131,15 +131,9 @@
                   <td>{{$awb->dds}}</td>
                   <td>
                     @if ($awb->status <> null)
-                      <span class="badge badge-success">Awb telah sampai</span>                   
+                      <span class="badge badge-success">Proforma telah sampai</span>                   
                     @else
-                      <span class="badge badge-warning">Awb sedang dikirim</span>
-                    @endif
-                    <br>
-                    @if ($awb->total_koli - $awb->jumlah_koli == 0 and $awb->statusp <> null)
-                      <span class="badge badge-info">Completed</span>  
-                    @else
-                      <span class="badge badge-danger">Not Completed</span>  
+                      <span class="badge badge-warning">Proforma sedang dikirim</span>
                     @endif
                   </td>
                   <td>

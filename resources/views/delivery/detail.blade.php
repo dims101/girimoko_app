@@ -15,10 +15,10 @@
       <div class="card-header card-header-primary">
         <div class="row">
           <div class="col-md-6">
-            <h4 class="card-title"><span>{{$awbs->dds}}</span> - <span>{{$awbs->depo}} ({{$awbs->rayon}})</span></h4>          
+            <h4 class="card-title"><span>{{$proformas->dds}}</span> - <span>{{$proformas->depo}} ({{$proformas->rayon}})</span></h4>          
           </div>
           <div class="col-md-6 text-right">
-              <h5 class="card-title">{{$awbs->status == null ? 'Sedang dikirim' : 'Telah diterima' }} {{$isdelay}}</h5>
+              <h5 class="card-title {{$iscomplete == 'Completed' ? 'badge badge-success' : 'badge badge-danger'}}">{{$iscomplete}}</h5>
           </div>
         </div>
       </div>
@@ -28,84 +28,77 @@
           <div class="card-body mt-1">
               <table class="table-borderless">
               <tr>
-                <td><h5 class="card-subtitle text-muted  ">{{__(" Nomor AWB")}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  ">{{__(" Nomor Proforma")}}</h5></td>
                 <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">{{$awbs->no_awb}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  "></h5>{{$proformas->no_proforma}}</td>
               </tr>
               <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
               <tr>
-                <td><h5 class="card-subtitle text-muted  ">{{__(" Nama Dealer")}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  ">{{__(" Tipe Produk")}}</h5></td>
                 <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">{{$awbs->nama_dealer}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  "></h5>{{$proformas->tipe}}</td>
               </tr>
               <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
               <tr>
-                <td><h5 class="card-subtitle text-muted  ">{{__(" Tanggal Kirim")}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  ">{{__(" Total Koli")}}</h5></td>
                 <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">{{date("l, d-m-Y", strtotime($awbs->tanggal_ds))}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  "></h5>{{$proformas->total_koli}}</td>
               </tr>
               <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
               <tr>
-                <td><h5 class="card-subtitle text-muted  ">{{__(" Tanggal Terima")}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  ">{{__(" Dealer Tujuan")}}</h5></td>
                 <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">{{$awbs->tanggal_terima != null ? date("l, d-m-Y", strtotime($awbs->tanggal_terima)) : "-"}}</h5></td>
+                <td><h5 class="card-subtitle text-muted  "></h5>{{$proformas->nama_dealer}}</td>
               </tr>
               </table>
           </div>
       </div>
 
-      <div class="col-md-6">
-          <div class="card-body mt-1">
-              <table class="table-borderless">              
-              <tr>
-                <td><h5 class="card-subtitle text-muted  ">{{__(" Waktu Terima")}}</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">{{$awbs->waktu_terima != null ? $awbs->waktu_terima : "-"}}</h5></td>
-              </tr>
-              <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
-              <tr>
-                <td><h5 class="card-subtitle text-muted  ">{{__(" Penerima")}}</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">{{$awbs->penerima !=   null ? $awbs->penerima : "-"}}</h5></td>
-              </tr>
-              <tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
-              <tr>
-                <td style="vertical-align: top;"><h5 class="card-subtitle text-muted  ">{{__(" Keterangan")}}</h5></td>
-                <td style="vertical-align: top;"><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  ">{{$awbs->keterangan}}</h5></td>
-              </tr>
-              </table>
-          </div>
-      </div>
-
+      
       </div>
       </div> 
 
       <div class="card-body table-responsive">
         <table class="table table-hover">
         <!-- <table class="table table-borderless"> -->
-          <thead class="text-primary">
-            <th>No.</th>
-            <th>No. Performa</th>
-            <th>Total Koli</th>
-            <th>Tipe Produk</th>
+          <thead class="text-primary text-center">
+            <!-- <th>No.</th> -->
+            <th>No. Proforma</th> 
+            <th>No. AWB</th> 
+            <th>Jumlah Koli</th> 
+            <th>Tanggal Kirim</th>
+            <th>Tanggal Terima</th>
+            <th>Penerima</th>
+            <th>Status</th>
             <th>Keterangan</th>
           </thead>
           <tbody>
-          @if(count($proformas) != null)
-            @foreach ($proformas as $proforma)
-              <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$proforma->no_proforma}}</td>
-                <td>{{$proforma->koli}}</td>
-                <td>{{$proforma->tipe}}</td>
+            @foreach ($awbs as $awb)
+              <tr class="text-center">
+                <td>{{$awb->no_proforma}}</td>
+                <td>{{$awb->no_awb}}</td>
+                <td>{{$awb->koli}}</td>
+                <td>{{$awb->tanggal_ds}}</td>
+                <td>{{$awb->tanggal_terima}} - {{$awb->waktu_terima}}</td>
+                <td>{{$awb->penerima}}</td>
+                <td>
+                  @if($awb->status == null)
+                    Sedang Dikirim
+                  @elseif ($awb->status == 0)
+                    Ontime
+                  @elseif ($awb->status == 1)
+                    Delay 1 hari
+                  @elseif ($awb->status == 2)
+                    Delay 2 hari
+                  @elseif ($awb->status == 3)
+                    Delay 3 hari
+                  @else 
+                    Delay >3 hari
+                  @endif                  
+                </td>
+                <td>{{$awb->keterangan}}</td>
               </tr>
             @endforeach
-          @else
-            <tr>
-              <td colspan="5"><center>AWB sedang dikirim</center></td>
-            </tr>
-          @endif
           </tbody>
         </table>
       </div>
@@ -115,9 +108,6 @@
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Lihat bukti Awb
           </button>
-          @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin") 
-            <a href="/delivery/edit/{{$awbs->no_awb}}" class="btn btn-success">Edit</a>
-          @endif
           <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
       </div>
     </div>
@@ -128,17 +118,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{$awbs->no_awb}} - {{$awbs->nama_dealer}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center">
-        @if(empty($awbs->foto_awb))
           <img src="{{asset('bukti_awb')}}/default-image.jpg" class="img-fluid" alt="">
-        @else
-          <img src="{{asset('bukti_awb')}}/{{$awbs->foto_awb}}" class="img-fluid" alt="">
-        @endif
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" data-dismiss="modal">Tutup</button>
