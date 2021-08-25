@@ -136,7 +136,7 @@
                       <span class="badge badge-warning">Awb sedang dikirim</span>
                     @endif
                     <br>
-                    @if ($awb->total_koli - $awb->jumlah_koli == 0 and $awb->statusp <> null)
+                    @if ($awb->total_koli - $awb->koli == 0 and $awb->statusp <> null)
                       <span class="badge badge-info">Completed</span>  
                     @else
                       <span class="badge badge-danger">Not Completed</span>  
