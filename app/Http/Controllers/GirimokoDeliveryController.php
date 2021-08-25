@@ -37,11 +37,10 @@ class DeliveryController extends Controller
     {
         // return $request->dds;
         $date = Carbon::now();
-        $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
+        $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status'))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
-                        ->orderBy('awbs.no_awb','DESC')
-                        ->groupBy('proformas.no_proforma');
+                        ->orderBy('awbs.tanggal_ds','ASC');
                         // ->where('dds','DDS 1');
         if(!empty($request->bulan)){
             // $bulan = $date->format('m');
@@ -69,7 +68,6 @@ class DeliveryController extends Controller
         // $awbs->get();
         // return $awbs;die;
         $awbs = $awbs->paginate(10)->appends(request()->query());
-        // return $awbs;die;
         return view('delivery.index',compact('awbs'));
          
     }
@@ -207,119 +205,69 @@ class DeliveryController extends Controller
     public function detail($no_proforma)
     {   
         //try catch sini 
-        $proformas = Proforma::select(DB::raw(
-                        'proformas.no_proforma,
-                        dealers.nama_dealer,
-                        proformas.tipe,
-                        proformas.total_koli,
-                        dealers.rayon,
-                        dealers.dds,
-                        dealers.depo,
-                        proformas.status'
-                        ))
-                        ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
-                        ->leftjoin('dealers','awbs.kode_dealer','dealers.kode_dealer')
-                        ->where('proformas.no_proforma',$no_proforma)
+        $no_awb = Proforma::where('no_proforma',$no_proforma)
+                        ->pluck('no_awb');
+        $status = Awb::select('status')
+                        ->where('no_awb',$no_awb)
                         ->first();
-        $awbs = Awb::select(DB::raw(
-                        'awbs.no_awb,
-                        proformas.no_proforma,
-                        proformas.koli,
-                        awbs.tanggal_ds,
-                        pengirimans.tanggal_terima,
-                        pengirimans.waktu_terima,
-                        pengirimans.penerima,
-                        pengirimans.foto_awb,
-                        awbs.status,
-                        awbs.keterangan'
-                    ))
-                    ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
-                    ->leftjoin('proformas','awbs.no_awb','proformas.no_awb')
-                    ->where('no_proforma',$no_proforma)
-                    ->get();
-        // $awb_note = 
-        // return $awbs;die;
-        $cek = Proforma::select(DB::raw(
-                        'proformas.total_koli,
-                        sum(proformas.koli) as jumlah_koli'
-                    ))
-                    ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
-                    ->whereNotNull('awbs.status')
-                    ->where('proformas.no_proforma',$no_proforma)
-                    ->first();
-        
-        $iscomplete = $cek->total_koli - $cek->jumlah_koli;
-        if ($iscomplete = 0) {
-            $iscomplete = "Completed";
-        } else {
-            $iscomplete = "Not Completed";
+        $status = $status->status;
+
+        if($status == null){
+            $awbs = Awb::select(DB::raw(
+                                        'awbs.no_awb,
+                                        awbs.tanggal_ds,
+                                        awbs.status,
+                                        dealers.dds,
+                                        dealers.depo,
+                                        dealers.nama_dealer,
+                                        dealers.rayon'
+                                        ))
+                        ->leftjoin('dealers','awbs.kode_dealer','dealers.kode_dealer')
+                        ->where('no_awb',$no_awb)
+                        ->first();          
+            // $awbs->push('foto_awb','default-image.jpg');
+        }else{
+            $awbs = Awb::select(DB::raw(
+                                        'awbs.no_awb,awbs.tanggal_ds,
+                                        awbs.status,
+                                        awbs.keterangan,
+                                        dealers.dds,
+                                        dealers.depo,
+                                        dealers.nama_dealer,
+                                        dealers.rayon,
+                                        pengirimans.tanggal_terima,
+                                        pengirimans.waktu_terima,
+                                        pengirimans.penerima,
+                                        pengirimans.foto_awb'
+                                        ))
+                        ->leftjoin('dealers','awbs.kode_dealer','dealers.kode_dealer')
+                        ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
+                        ->where('no_awb',$no_awb)
+                        ->first();
         }
-        // return $iscomplete;die;
-        return view('delivery.detail',compact('awbs','proformas','iscomplete'));die;
-
-        // $no_awb = Proforma::where('no_proforma',$no_proforma)
-        //                 ->pluck('no_awb');
-        // $status = Awb::select('status')
-        //                 ->where('no_awb',$no_awb)
-        //                 ->first();
-        // $status = $status->status;
-
-        // if($status == null){
-        //     $awbs = Awb::select(DB::raw(
-        //                                 'awbs.no_awb,
-        //                                 awbs.tanggal_ds,
-        //                                 awbs.status,
-        //                                 dealers.dds,
-        //                                 dealers.depo,
-        //                                 dealers.nama_dealer,
-        //                                 dealers.rayon'
-        //                                 ))
-        //                 ->leftjoin('dealers','awbs.kode_dealer','dealers.kode_dealer')
-        //                 ->where('no_awb',$no_awb)
-        //                 ->first();          
-        //     // $awbs->push('foto_awb','default-image.jpg');
-        // }else{
-        //     $awbs = Awb::select(DB::raw(
-        //                                 'awbs.no_awb,awbs.tanggal_ds,
-        //                                 awbs.status,
-        //                                 awbs.keterangan,
-        //                                 dealers.dds,
-        //                                 dealers.depo,
-        //                                 dealers.nama_dealer,
-        //                                 dealers.rayon,
-        //                                 pengirimans.tanggal_terima,
-        //                                 pengirimans.waktu_terima,
-        //                                 pengirimans.penerima,
-        //                                 pengirimans.foto_awb'
-        //                                 ))
-        //                 ->leftjoin('dealers','awbs.kode_dealer','dealers.kode_dealer')
-        //                 ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
-        //                 ->where('no_awb',$no_awb)
-        //                 ->first();
-        // }
-        // // return $awbs->status;die; 
-        // if($awbs->status == null){
-        //     $isdelay = "";
-        // } elseif ($awbs->status == 0){
-        //     $isdelay = "(Ontime)";
-        // } elseif ($awbs->status == 1){
-        //     $isdelay = "(Delay 1 hari)";
-        // } elseif ($awbs->status == 2){
-        //     $isdelay = "(Delay 2 hari)";
-        // } elseif ($awbs->status == 3){
-        //     $isdelay = "(Delay 3 hari)";
-        // } else {
-        //     $isdelay = "(Delay >3 hari)";
-        // }
-        // // $proformas = Proforma::select(DB::raw(
-        // //     'proformas.no_proforma,
-        // //     proformas.koli,
-        // //     proformas.tipe'                                    
-        // //     ))
-        // // ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
-        // // ->where('proformas.no_proforma',$no_proforma)
-        // // ->get();
-        // // return $awbs;die;
-        // return view('delivery.detail',compact('awbs','proformas','isdelay'));
+        // return $awbs->status;die; 
+        if($awbs->status == null){
+            $isdelay = "";
+        } elseif ($awbs->status == 0){
+            $isdelay = "(Ontime)";
+        } elseif ($awbs->status == 1){
+            $isdelay = "(Delay 1 hari)";
+        } elseif ($awbs->status == 2){
+            $isdelay = "(Delay 2 hari)";
+        } elseif ($awbs->status == 3){
+            $isdelay = "(Delay 3 hari)";
+        } else {
+            $isdelay = "(Delay >3 hari)";
+        }
+        $proformas = Proforma::select(DB::raw(
+            'proformas.no_proforma,
+            proformas.koli,
+            proformas.tipe'                                    
+            ))
+        ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+        ->where('proformas.no_proforma',$no_proforma)
+        ->get();
+        // return $awbs;die;
+        return view('delivery.detail',compact('awbs','proformas','isdelay'));
     }
 }
