@@ -211,12 +211,14 @@ class DeliveryController extends Controller
         //try catch sini 
         $proformas = Proforma::select(DB::raw(
                         'proformas.no_proforma,
+                        awbs.no_awb,
                         dealers.nama_dealer,
                         proformas.tipe,
                         proformas.total_koli,
                         dealers.rayon,
                         dealers.dds,
                         dealers.depo,
+                        proformas.keterangan,
                         proformas.status'
                         ))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
@@ -249,14 +251,17 @@ class DeliveryController extends Controller
                     ->whereNotNull('awbs.status')
                     ->where('proformas.no_proforma',$no_proforma)
                     ->first();
-        
-        $iscomplete = $cek->total_koli - $cek->jumlah_koli;
-        // return $iscomplete;die;
-        if ($iscomplete == 0) {
-            $iscomplete = "Completed";
+        if (!empty($cek->jumlah_koli)){
+            $iscomplete = $cek->total_koli - $cek->jumlah_koli;
+            if ($iscomplete == 0) {
+                $iscomplete = "Completed";
+            } else {
+                $iscomplete = "Not Completed";
+            }
         } else {
-            $iscomplete = "Not Completed";
+            $iscomplete = "On delivery";
         }
+        // return $cek;die;
         // return $iscomplete;die;
         return view('delivery.detail',compact('awbs','proformas','iscomplete'));die;
 

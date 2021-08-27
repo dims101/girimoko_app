@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Dealer;
-use App\Proforma;
 use App\Awb;
 use App\Depo;
 use DB;
@@ -26,7 +25,7 @@ class SummaryController extends Controller
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
-     */ 
+     */
     public function index(Request $request)
     {   
         $date = Carbon::now();
@@ -45,17 +44,14 @@ class SummaryController extends Controller
             $stringdate = $tahun .'-'.$bulan . '-' . '01';
             $date = new Carbon($stringdate);
         }
-        $total = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,proformas.status as statusP,awbs.status'))
-                        ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
-                        ->whereMonth('awbs.tanggal_ds',$date)
-                        ->whereYear('awbs.tanggal_ds',$date)
+        $total = Awb::whereMonth('tanggal_ds',$date)
+                        ->whereYear('tanggal_ds',$date)
                         ->get();
-        // return $total;die;
         $ontime = count($total->where('status','0'));
         $delay = count($total->where('status','>=','1'));
         $belum_terkirim = count($total->where('status',null));
         $total= count($total);
-        $proformas = compact('total','ontime','delay','belum_terkirim');
+        $awbs = compact('total','ontime','delay','belum_terkirim');
         // return $awbs;die;
         
         // $tambun = Awb::select(DB::raw('awbs.status, dealers.dds, dealers.depo'))
@@ -72,18 +68,16 @@ class SummaryController extends Controller
         $persentase_pemalang = $this->persentaseDepo('pemalang','DDS 3',$date);
         $persentase_semarang = $this->persentaseDepo('semarang','DDS 3',$date);
         $persentase_solo = $this->persentaseDepo('bandung','DDS 3',$date);
-
         // return $persentase_bandung;die;
         //kalau tidak ada awb jadi error, fix besok(patch notes)
         
         // return $persentase_bandung;
-        return view('summary.index',compact('persentase_tambun','persentase_tambun2','persentase_bandung','persentase_pemalang','persentase_semarang','persentase_solo','proformas'));
+        return view('summary.index',compact('persentase_tambun','persentase_tambun2','persentase_bandung','persentase_pemalang','persentase_semarang','persentase_solo','awbs'));
     }
 
     public function persentaseDepo($depo,$dds,$date){
         // $date = Carbon::now();
-        $depo = Proforma::select(DB::raw('proformas.no_proforma,awbs.status as status, dealers.dds, dealers.depo'))
-                        ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+        $depo = Awb::select(DB::raw('awbs.status, dealers.dds, dealers.depo'))
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
                         ->where('dds',$dds)
                         ->where('depo',$depo)
@@ -168,11 +162,10 @@ class SummaryController extends Controller
         $count = count($rayon);
         // return $count;
         for($i=0;$i<$count;$i++){
-            $total = Proforma::select(DB::raw('count(proformas.no_proforma) as total'))
-                        ->leftjoin('awbs','proformas.no_awb','=','awbs.no_awb')                        
+            $total = Awb::select(DB::raw('count(awbs.no_awb) as total'))
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
                         ->where('rayon', $rayon[$i])
-                        ->where('awbs.status',$status)
+                        ->where('status',$status)
                         ->whereMonth('tanggal_ds',$date)
                         ->whereYear('tanggal_ds',$date)
                         ->first();
@@ -191,8 +184,7 @@ class SummaryController extends Controller
         $count = count($rayon);
         // return $count;
         for($i=0;$i<$count;$i++){
-            $total = Proforma::select(DB::raw('count(awbs.no_awb) as total'))
-                        ->leftjoin ('awbs','proformas.no_awb','awbs.no_awb')
+            $total = Awb::select(DB::raw('count(awbs.no_awb) as total'))
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')                        
                         ->where('rayon', $rayon[$i])
                         ->whereMonth('tanggal_ds',$date)

@@ -21,6 +21,8 @@ class AwbImport implements ToCollection, WithHeadingRow, SkipsOnError
                 'no_proforma'=>$row['no_proforma'],
                 'koli'=>$row['koli'],
                 'no_awb'=>$row['no_awb'],
+                'total_koli'=>$row['total_koli'],
+                'keterangan'=>$row['keterangan'],
                 'tipe'=>'YGP',
             ]);
         }

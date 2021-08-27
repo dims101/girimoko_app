@@ -131,9 +131,9 @@
                   <td>{{$awb->dds}}</td>
                   <td>
                     @if ($awb->status <> null)
-                      <span class="badge badge-success">Awb telah sampai</span>                   
+                      <span class="badge badge-success">Awb has arrived</span>                   
                     @else
-                      <span class="badge badge-warning">Awb sedang dikirim</span>
+                      <span class="badge badge-warning">Awb on delivery</span>
                     @endif
                     <br>
                     @if ($awb->total_koli - $awb->koli == 0 and $awb->statusp <> null)
