@@ -53,7 +53,17 @@
               </table>
           </div>
       </div>
-
+      <div class="col-md-6">
+          <div class="card-body mt-1">
+              <table class="table-borderless">
+              <tr>
+                <td class="align-top"><h5 class="card-subtitle text-muted ">{{__(" Keterangan")}}</h5></td>
+                <td class="align-top"><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
+                <td><h5 class="card-subtitle text-muted  "></h5>{{$proformas->keterangan}} ( No. Awb : {{$proformas->no_awb}} ) </td>
+              </tr>
+              </table>
+          </div>
+      </div>
       
       </div>
       </div> 
@@ -63,7 +73,6 @@
         <!-- <table class="table table-borderless"> -->
           <thead class="text-primary text-center">
             <!-- <th>No.</th> -->
-            <th>No. Proforma</th> 
             <th>No. AWB</th> 
             <th>Jumlah Koli</th> 
             <th>Tanggal Kirim</th>
@@ -75,7 +84,6 @@
           <tbody>
             @foreach ($awbs as $awb)
               <tr class="text-center">
-                <td>{{$awb->no_proforma}}</td>
                 <td>{{$awb->no_awb}}</td>
                 <td>{{$awb->koli}}</td>
                 <td>{{$awb->tanggal_ds}}</td>
@@ -96,7 +104,7 @@
                     Delay >3 hari
                   @endif                  
                 </td>
-                <td>{{$awb->keterangan}}</td>
+                <td class="text-left">{{$awb->keterangan}}</td>
               </tr>
             @endforeach
           </tbody>
@@ -104,10 +112,6 @@
       </div>
       
       <div class="text-right pb-3 pr-4">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Lihat bukti Awb
-          </button>
           <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
       </div>
     </div>

@@ -13,17 +13,8 @@
   <div class="container">
     <div class="card">
       <div class="card-header card-header-warning row">         
-          <div class="col-md-8">
-            <table style="margin-bottom:-1em;margin-top:-1em" class="table table-sm">
-                <tr>
-                  <td><i class="material-icons">manage_search</i></td>
-                  <td class="h4">Total Proforma : {{$proformas['total']}}</td>
-                  <td class="h4">Ontime : {{$proformas['ontime']}}</td>
-                  <td class="h4">Delay : {{$proformas['delay']}}</td>
-                  <td class="h4">Sedang dikirim : {{$proformas['belum_terkirim']}}</td>
-                </tr>
-            </table>
-          </div>
+          <i class="material-icons">manage_search</i>
+          <h4 class="card-title">&nbsp;&nbsp;Total AWB : <span>{{$awbs['total']}}</span>&nbsp;</h4> <h4> | Ontime : <span>{{$awbs['ontime']}}</span> | Delay : <span>{{$awbs['delay']}} </span> | Belum terkirim : <span>{{$awbs['belum_terkirim']}}</span></h4>             
       </div>
       <div class="card-body">
       <form action="/summary" method="get" class="form form-inline">

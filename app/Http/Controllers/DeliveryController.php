@@ -37,7 +37,7 @@ class DeliveryController extends Controller
     {
         // return $request->dds;
         $date = Carbon::now();
-        $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,awbs.tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
+        $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
                         ->orderBy('awbs.no_awb','DESC')
@@ -167,15 +167,17 @@ class DeliveryController extends Controller
         // $status = $request->status; 
         // $search = $request->cari;
         
-        $awbs = Awb::when($request->keyword, function ($query) use ($request) {
-            $query->select(DB::raw('awbs.no_awb, awbs.tanggal_ds, dealers.kode_dealer, dealers.nama_dealer, dealers.dds, awbs.status'))
+        $awbs = Proforma::when($request->keyword, function ($query) use ($request) {
+            $query->select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
+                            ->leftjoin('awbs','proformas.no_awb','=','awbs.no_awb')
                             ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')
-                            ->where('awbs.no_awb','LIKE','%'. $request->keyword . '%')
+                            ->where('proformas.no_proforma','LIKE','%'. $request->keyword . '%')
+                            ->orwhere('awbs.no_awb','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.kode_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
                             ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
-                            ->orderBy('awbs.tanggal_ds','ASC');
+                            ->orderBy('proformas.no_awb','DESC');
         })->paginate(10);    
         //ini apa    
         $awbs->appends($request->only('keyword'));            
@@ -209,12 +211,14 @@ class DeliveryController extends Controller
         //try catch sini 
         $proformas = Proforma::select(DB::raw(
                         'proformas.no_proforma,
+                        awbs.no_awb,
                         dealers.nama_dealer,
                         proformas.tipe,
                         proformas.total_koli,
                         dealers.rayon,
                         dealers.dds,
                         dealers.depo,
+                        proformas.keterangan,
                         proformas.status'
                         ))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
@@ -225,8 +229,8 @@ class DeliveryController extends Controller
                         'awbs.no_awb,
                         proformas.no_proforma,
                         proformas.koli,
-                        awbs.tanggal_ds,
-                        pengirimans.tanggal_terima,
+                        DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,
+                        DATE_FORMAT(pengirimans.tanggal_terima,"%d-%m-%Y") as tanggal_terima ,
                         pengirimans.waktu_terima,
                         pengirimans.penerima,
                         pengirimans.foto_awb,
@@ -247,13 +251,17 @@ class DeliveryController extends Controller
                     ->whereNotNull('awbs.status')
                     ->where('proformas.no_proforma',$no_proforma)
                     ->first();
-        
-        $iscomplete = $cek->total_koli - $cek->jumlah_koli;
-        if ($iscomplete = 0) {
-            $iscomplete = "Completed";
+        if (!empty($cek->jumlah_koli)){
+            $iscomplete = $cek->total_koli - $cek->jumlah_koli;
+            if ($iscomplete == 0) {
+                $iscomplete = "Completed";
+            } else {
+                $iscomplete = "Not Completed";
+            }
         } else {
-            $iscomplete = "Not Completed";
+            $iscomplete = "On delivery";
         }
+        // return $cek;die;
         // return $iscomplete;die;
         return view('delivery.detail',compact('awbs','proformas','iscomplete'));die;
 
