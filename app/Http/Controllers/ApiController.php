@@ -356,7 +356,7 @@ class ApiController extends Controller
                 $i++;
             }  
             $status = $x-$target;
-            if($status == -1){
+            if($status < 0){
                 $status = 0;
             }
             if ($status >3){
