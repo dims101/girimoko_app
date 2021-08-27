@@ -59,7 +59,7 @@
               <tr>
                 <td class="align-top"><h5 class="card-subtitle text-muted ">{{__(" Keterangan")}}</h5></td>
                 <td class="align-top"><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  "></h5>{{$proformas->keterangan}} ( No. Awb : {{$proformas->no_awb}} ) </td>
+                <td><h5 class="card-subtitle text-muted  "></h5>{{$proformas->keterangan}} {{$proformas->keterangan <> null ? '( No. Awb : '.$proformas->no_awb.' )' : '-' }} </td>
               </tr>
               </table>
           </div>
