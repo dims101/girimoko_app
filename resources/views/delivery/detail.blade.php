@@ -83,8 +83,8 @@
           </thead>
           <tbody>
             @foreach ($awbs as $awb)
-              <tr class="text-center">
-                <td>{{$awb->no_awb}}</td>
+              <tr class="text-center">              
+                <td><a href="/delivery/image/{{$awb->no_awb}}" target="_blank">{{$awb->no_awb}}</a></td>
                 <td>{{$awb->koli}}</td>
                 <td>{{$awb->tanggal_ds}}</td>
                 <td>{{$awb->tanggal_terima}} - {{$awb->waktu_terima}}</td>
@@ -118,7 +118,7 @@
   </div> 
 </div>  
 <!-- BaseModal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -136,10 +136,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <script>
-  $('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
 </script>
 @endsection
