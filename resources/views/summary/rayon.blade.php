@@ -35,7 +35,7 @@
             <tr>
               <td class="text-center">{{$d->no_proforma}}</td>
               <td class="text-center">{{$d->no_awb}}</td>
-              <td class="text-center">{{$d->dealer}}</td>
+              <td>{{$d->nama_dealer}}</td>
               <td >{{$d->alamat}}</td>
               <td class="text-center">{{$d->status == null ? 'Sedang dikirim' : 'Telah diterima'}}</td>
               <td class="text-center">{{$d->keterangan}}</td>
