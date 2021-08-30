@@ -203,8 +203,18 @@ class DeliveryController extends Controller
     //     return view('delivery.index',['awbs'=>$awbs]);
         
     // }
-    
+    public function image($no_awb){
+        $foto = Awb::leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
+                    ->where('awbs.no_awb',$no_awb)
+                    ->first();
+        if (!empty($foto)){
+            $foto = $foto->foto_awb;
+            return '<img src='.asset('bukti_awb/'.$foto).'>';
+        } else {
+            return '<img src='.asset('bukti_awb/default-image.jpg>');
+        }
 
+    }
 
     public function detail($no_proforma)
     {   

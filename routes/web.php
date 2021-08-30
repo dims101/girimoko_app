@@ -35,10 +35,12 @@ Route::post('/rayon', 'DealerController@rayon')->name('rayon');
 Route::get('/importawb', 'HomeController@import');
 
 Route::get('/summary', 'SummaryController@index');
+Route::get('/summary/{dds}/{kota}/{rayon}', 'SummaryController@rayon');
 Route::get('/detail/{dds}/{kota}', 'SummaryController@detail');
 
 Route::get('/delivery/cari/', 'DeliveryController@cari');
 Route::put('/delivery/store', 'DeliveryController@store');
+Route::get('/delivery/image/{no_awb}', 'DeliveryController@image');
 // Route::get('/delivery/search/', 'DeliveryController@liveSearch')->name('liveSearch');
 Route::get('/delivery', 'DeliveryController@index');
 Route::get('/delivery/detail/{no_awb}', 'DeliveryController@detail');
