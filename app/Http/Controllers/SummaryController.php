@@ -239,8 +239,9 @@ class SummaryController extends Controller
                         ->where('dealers.depo',$depo)
                         ->where('dealers.rayon',$rayon)
                         ->whereMonth('tanggal_ds',$date)
-                        ->whereYear('tanggal_ds',$date)
-                        ->get();
+                        ->whereYear('tanggal_ds',$date);
+                        // ->get();
+        $detail = $detail->paginate(10)->appends(request()->query());
         // return $detail;die;
         return view('summary.rayon',compact('detail','dds','depo','rayon'));
     }

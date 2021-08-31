@@ -199,6 +199,7 @@ class ApiController extends Controller
             return response()->json($response);
         }
     }
+
     public function storeProforma(Request $request){
         $app_secret = $request->app_secret;
 
@@ -218,6 +219,34 @@ class ApiController extends Controller
                                     'status'=>$status,
                                     'keterangan'=>$keterangan,
                             ]);            
+            $response = array(
+                'success' => '1',
+                'message' => 'Proforma berhasil disimpan!'
+
+                );
+            return response()->json($response);
+        }
+    }
+    public function storeAllProforma(Request $request){
+        $app_secret = $request->app_secret;
+
+        if($app_secret != config('app.secret')){
+            $response = array(
+                'success' => '0',
+                'message' => 'Akses ditolak!'
+
+                );
+            return response()->json($response);
+        } else {
+            $no_awb =$request->no_awb;
+            $status = $request->status;
+            $keterangan = $request->keterangan;
+
+            Proforma::where('no_awb',$no_awb)
+                    ->update([
+                        'status'=>$status,
+                        'keterangan'=>$keterangan
+                    ]);
             $response = array(
                 'success' => '1',
                 'message' => 'Proforma berhasil disimpan!'
