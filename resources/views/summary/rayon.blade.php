@@ -17,7 +17,7 @@
         <h4 class="card-title"><span>{{$dds}}</span> - <span>{{$depo}}</span> - <span>{{$rayon}}</span></h4>
       </div>
       <div class="card-body row">
-      <form class="navbar-form col-sm-6" action="/rayon/cari" method="get">
+      <form class="navbar-form col-sm-6" action="/summary/{{$dds}}/{{$depo}}/{{$rayon}}/cari" method="get">
                 
         <div class="input-group no-border mt-2">
           @if(!request()->get('keyword'))
@@ -25,6 +25,8 @@
           @else
           <input type="text" name="keyword" value="{{request()->keyword}}"class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
           @endif
+          <input type="hidden" name="bulan" value=" <?=request()->get('bulan')?>">
+          <input type="hidden" name="tahun" value=" <?=request()->get('tahun')?>">
           <button type="submit" class="btn btn-white btn-round btn-just-icon">
           <i class="material-icons">search</i>
           <div class="ripple-container"></div>

@@ -96,7 +96,7 @@ class DeliveryController extends Controller
     }
 
     public function store(Request $request){
-        return $request;die;
+        // return $request;die;
         
         Pengiriman::where('id',$request->id)->update([
             'no_kendaraan'=> $request->no_kendaraan,
@@ -164,7 +164,7 @@ class DeliveryController extends Controller
         // $bulan = $request->bulan;
         // $tahun = $request->tahun;
         // $dds = $request->dds;
-        // $status = $request->status; 
+        // $status = $request->status;
         // $search = $request->cari;
         
         $awbs = Proforma::when($request->keyword, function ($query) use ($request) {

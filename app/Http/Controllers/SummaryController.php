@@ -245,4 +245,55 @@ class SummaryController extends Controller
         // return $detail;die;
         return view('summary.rayon',compact('detail','dds','depo','rayon'));
     }
+
+    public function cariRayon($dds,$depo,$rayon,Request $request){
+        
+        $date = Carbon::now();
+        if(empty($request->bulan)){
+            $bulan = $date->format('m');
+        } else {
+            $bulan = $request->bulan;
+        }
+        
+        if(empty($request->tahun)){
+            $tahun = $date->year;
+        } else {
+            $tahun = $request->tahun;
+        }
+        if(!empty($request->bulan) or !empty($request->tahun)){            
+            $stringdate = $tahun .'-'.$bulan . '-' . '01';
+            $date = new Carbon($stringdate);
+        }
+        // return $dds;die;
+        $detail = Proforma::when($request->keyword, function ($query) use ($request) {
+            global $dds;
+            global $depo;
+            global $rayon;
+            global $date;
+            $query->select(DB::raw(
+                        'proformas.no_proforma,
+                        proformas.no_awb,
+                        dealers.nama_dealer,
+                        dealers.alamat,
+                        awbs.status'
+                        ))
+                        ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+                        ->leftjoin('dealers','awbs.kode_dealer','dealers.kode_dealer')
+                        ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
+                        ->where('dealers.dds',$dds)
+                        ->where('dealers.depo',$depo)
+                        ->where('dealers.rayon',$rayon)
+                        ->whereMonth('tanggal_ds',$date)
+                        ->whereYear('tanggal_ds',$date)
+                        ->where('proformas.no_proforma','LIKE','%'. $request->keyword . '%')
+                        ->orWhere('proformas.no_awb','LIKE','%'. $request->keyword . '%')
+                        ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
+                        ->orWhere('dealers.alamat','LIKE','%'. $request->keyword . '%')
+                        ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%');
+        })->paginate(10);    
+        //ini apa    
+        $detail->appends(request()->query());  
+        // return $detail;die;
+        return view('summary.rayon',compact('detail','dds','depo','rayon'));
+    }
 }
