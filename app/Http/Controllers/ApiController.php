@@ -240,8 +240,14 @@ class ApiController extends Controller
         } else {
             $no_awb =$request->no_awb;
             $status = $request->status;
-            $keterangan = $request->keterangan;
-
+            $keterangan = $request->keterangan;       
+            $done = Proforma::select(DB::raw('(sum(koli) - sum(total_koli)) as hasil'))
+                                ->where('no_awb',$no_awb)
+                                ->where('status',null)
+                                ->first();  
+            // return $done->hasil;die;         
+            if ($done->hasil == 0){
+                
             Proforma::where('no_awb',$no_awb)
                     ->update([
                         'status'=>$status,
@@ -253,6 +259,14 @@ class ApiController extends Controller
 
                 );
             return response()->json($response);
+            } else {
+            $response = array(
+                'success' => '0',
+                'message' => 'Ada proforma yang tidak lengkap!'
+
+                );
+            return response()->json($response);
+            }
         }
     }
     public function getDealer(Request $request){

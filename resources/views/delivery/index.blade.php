@@ -131,16 +131,18 @@
                   <td>{{$awb->dds}}</td>
                   <td>
                     @if ($awb->status <> null)
-                      <span class="badge badge-success">Awb has arrived</span>                   
+                      <span class="badge badge-success">Awb has arrived</span>                           
+                      @if ($awb->total_koli - $awb->koli == 0 and $awb->statusp == 1)
+                        <br>
+                        <span class="badge badge-info">Completed</span>  
+                      @else
+                        <br>
+                        <span class="badge badge-danger">Not Completed</span>  
+                      @endif              
                     @else
                       <span class="badge badge-warning">Awb on delivery</span>
                     @endif
-                    <br>
-                    @if ($awb->total_koli - $awb->koli == 0 and $awb->statusp <> null)
-                      <span class="badge badge-info">Completed</span>  
-                    @else
-                      <span class="badge badge-danger">Not Completed</span>  
-                    @endif
+                    
                   </td>
                   <td>
                     <div class="">

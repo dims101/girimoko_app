@@ -40,7 +40,7 @@ class DeliveryController extends Controller
         $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
-                        ->orderBy('awbs.no_awb','DESC')
+                        ->orderBy('awbs.tanggal_ds','ASC')
                         ->groupBy('proformas.no_proforma');
                         // ->where('dds','DDS 1');
         if(!empty($request->bulan)){
@@ -177,7 +177,7 @@ class DeliveryController extends Controller
                             ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
                             ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
-                            ->orderBy('proformas.no_awb','DESC');
+                            ->orderBy('awbs.tanggal_ds','ASC');
         })->paginate(10);    
         //ini apa    
         $awbs->appends($request->only('keyword'));            
