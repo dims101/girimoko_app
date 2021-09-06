@@ -83,7 +83,7 @@
                 <!-- <i class="material-icons">content_paste</i> -->
                 <i class="material-icons">content_copy</i>
               </div>
-              <p class="card-title">{{ __('Total AWB') }}</p>           
+              <p class="card-title">{{ __('Total Proforma') }}</p>           
             </div>
             <div class="card-stats mt-3">
                 <div class="green">
@@ -113,7 +113,7 @@
               <div class="card-icon">
                 <i class="material-icons">app_registration</i>
               </div>
-              <p class="card-title">{{ __('AWB Terkirim VS Sedang dikirim') }}</p>
+              <p class="card-title">{{ __('Detail Proforma') }}</p>
             </div>
             <div class="">                
                 <figure class="highcharts-figure">
@@ -135,7 +135,7 @@
               <div class="card-icon">
                 <i class="material-icons">assessment</i>
               </div>
-              <p class="card-title">{{ __('Persentase AWB Terkirim') }}</p>             
+              <p class="card-title">{{ __('Persentase Proforma Terkirim') }}</p>             
             </div>
             <div class="">
               <figure class="highcharts-figure">
@@ -154,7 +154,7 @@
       <div class="card">
         <div class="card-header card-header-warning row">         
             <i class="material-icons">local_shipping </i>
-            <h4 class="card-title">&nbsp;&nbsp;{{ __('AWB Belum Terkirim') }}</h4>             
+            <h4 class="card-title">&nbsp;&nbsp;{{ __('Proforma Belum Terkirim') }}</h4>             
         </div>
         <div class="card-body">
         <figure class="highcharts-figure">
