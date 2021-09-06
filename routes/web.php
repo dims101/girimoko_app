@@ -36,6 +36,7 @@ Route::get('/importawb', 'HomeController@import');
 
 Route::get('/summary', 'SummaryController@index');
 Route::get('/summary/{dds}/{kota}/{rayon}', 'SummaryController@rayon');
+Route::get('/summary/{dds}/{kota}/{rayon}/cari', 'SummaryController@cariRayon');
 Route::get('/detail/{dds}/{kota}', 'SummaryController@detail');
 
 Route::get('/delivery/cari/', 'DeliveryController@cari');
