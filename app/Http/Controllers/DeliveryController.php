@@ -40,7 +40,7 @@ class DeliveryController extends Controller
         $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
-                        ->orderBy('awbs.tanggal_ds','ASC')
+                        ->orderBy('awbs.tanggal_ds','DESC')
                         ->groupBy('proformas.no_proforma');
                         // ->where('dds','DDS 1');
         if(!empty($request->bulan)){
@@ -66,8 +66,6 @@ class DeliveryController extends Controller
             $status = $request->status;            
             $awbs->where('status',$status);
         }
-        // $awbs->get();
-        // return $awbs;die;
         $awbs = $awbs->paginate(10)->appends(request()->query());
         // return $awbs;die;
         return view('delivery.index',compact('awbs'));
@@ -177,7 +175,7 @@ class DeliveryController extends Controller
                             ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
                             ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
-                            ->orderBy('awbs.tanggal_ds','ASC');
+                            ->orderBy('awbs.tanggal_ds','DESC');
         })->paginate(10);    
         //ini apa    
         $awbs->appends($request->only('keyword'));            
@@ -207,7 +205,8 @@ class DeliveryController extends Controller
         $foto = Awb::leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
                     ->where('awbs.no_awb',$no_awb)
                     ->first();
-        if (!empty($foto)){
+        // return $foto;die;
+        if (!empty($foto->foto_awb)){
             $foto = $foto->foto_awb;
             return '<img src='.asset('bukti_awb/'.$foto).'>';
         } else {
@@ -251,8 +250,15 @@ class DeliveryController extends Controller
                     ->leftjoin('proformas','awbs.no_awb','proformas.no_awb')
                     ->where('no_proforma',$no_proforma)
                     ->get();
+        $keterangan_awb = Proforma::select(DB::raw(
+                                    'awbs.no_awb,                                    
+                                    proformas.keterangan'
+                                    ))
+                            ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+                            ->where('proformas.no_proforma',$no_proforma)
+                            ->get();
         // $awb_note = 
-        // return $awbs;die;
+        // return $keterangan_awb;die;
         $cek = Proforma::select(DB::raw(
                         'proformas.total_koli,
                         sum(proformas.koli) as jumlah_koli'
@@ -273,7 +279,7 @@ class DeliveryController extends Controller
         }
         // return $cek;die;
         // return $iscomplete;die;
-        return view('delivery.detail',compact('awbs','proformas','iscomplete'));die;
+        return view('delivery.detail',compact('awbs','proformas','iscomplete','keterangan_awb'));die;
 
         // $no_awb = Proforma::where('no_proforma',$no_proforma)
         //                 ->pluck('no_awb');

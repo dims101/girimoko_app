@@ -59,7 +59,12 @@
               <tr>
                 <td class="align-top"><h5 class="card-subtitle text-muted ">{{__(" Keterangan")}}</h5></td>
                 <td class="align-top"><h5 class="card-subtitle text-muted  ">&nbsp;{{__(":")}}&nbsp;</h5></td>
-                <td><h5 class="card-subtitle text-muted  "></h5>{{$proformas->keterangan}} {{$proformas->keterangan <> null ? '( No. Awb : '.$proformas->no_awb.' )' : '-' }} </td>
+                <td><h5 class="card-subtitle text-muted  "></h5>
+                @foreach ($keterangan_awb as $ket)
+                {{$ket->keterangan}} {{$ket->keterangan <> null ? '( No. Awb : '.$ket->no_awb.' )' : '-' }} 
+                <br>
+                @endforeach
+              </td>
               </tr>
               </table>
           </div>
@@ -83,8 +88,8 @@
           </thead>
           <tbody>
             @foreach ($awbs as $awb)
-              <tr class="text-center">              
-                <td><a href="/delivery/image/{{$awb->no_awb}}" target="_blank">{{$awb->no_awb}}</a></td>
+              <tr class="text-center">          
+                <td><?= !empty($awb->status) ? '<a href="/delivery/image/'.$awb->no_awb.'" target="_blank">'.$awb->no_awb.'</a>' : $awb->no_awb?></td>
                 <td>{{$awb->koli}}</td>
                 <td>{{$awb->tanggal_ds}}</td>
                 <td>{{$awb->tanggal_terima}} - {{$awb->waktu_terima}}</td>

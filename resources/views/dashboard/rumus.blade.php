@@ -36,7 +36,7 @@ Highcharts.chart('container-2', {
         format: '<b><span style="font-size:14px">{point.name}</span></b><br><span style="font-size:15px">{point.y} %</span></b> <br/>',
        
         // format: '<b>{point.name}</b><br>{point.y}</b> %<br/>',
-        distance: -35
+        distance: -25
       }
     }
   },
@@ -48,18 +48,23 @@ Highcharts.chart('container-2', {
 
   series: [
     {
-      name: "AWB",
+      name: "Proforma",
       colorByPoint: true,
       data: [
         {
-          name: "Terkirim",
+          name: "Complete",
           // y: 90,
-          y: {{$data['terkirim']}},
+          y: {{$data['complete']}},
         },
         {
-          name: "sedang <br>dikirim",
+          name: "Not Complete",
+          // y: 90,
+          y: {{$data['notcomplete']}},
+        },
+        {
+          name: "On <br>Delivery",
           // y: 10,
-          y: {{$data['tertunda']}},
+          y: {{$data['ondelivery']}},
         }
       ]
     }
@@ -78,7 +83,7 @@ Highcharts.chart('container-2', {
     type: 'column'
   },
   title: {
-    text: 'AWB Terkirim'
+    text: 'Proforma Terkirim'
   },
   subtitle: {
     text: ''
@@ -117,32 +122,37 @@ Highcharts.chart('container-2', {
 
   series: [
     {
-      name: "Total AWB",
+      name: "Total Proforma",
       colorByPoint: true,
       data: [
         {
           name: "DDS1 Tambun",
-          y: <?=$awb_dds[0]?>,
+          y: <?=$proforma_dds[0]?>,
           drilldown: "DDS1 Tambun"
         },
         {
+          name: "DDS2 Tambun",
+          y: <?=$proforma_dds[1]?>,
+          drilldown: "DDS2 Tambun"
+        },
+        {
           name: "DDS2 Bandung",
-          y: <?=$awb_dds[1]?>,
+          y: <?=$proforma_dds[1]?>,
           drilldown: "DDS2 Bandung"
         },
         {
           name: "DDS3 Purwokerto",
-          y: <?=$awb_dds[2]?>,
+          y: <?=$proforma_dds[2]?>,
           drilldown: "DDS3 Purwokerto"
         },
         {
           name: "DDS3 Semarang",
-          y: <?=$awb_dds[3]?>,
+          y: <?=$proforma_dds[3]?>,
           drilldown: "DDS3 Semarang"
         },
         {
           name: "DDS3 Solo",
-          y: <?=$awb_dds[4]?>,
+          y: <?=$proforma_dds[4]?>,
           drilldown: "DDS3 Solo"
         }
         
@@ -168,7 +178,7 @@ Highcharts.chart('container-2', {
     type: 'column'
   },
   title: {
-    text: 'AWB yang Sedang dikirim Bulan ini'
+    text: 'Proforma yang Sedang dikirim Bulan ini'
   },
   subtitle: {
     text: ''
@@ -207,9 +217,9 @@ Highcharts.chart('container-2', {
 
   series: [
     {
-      name: "Total AWB",
+      name: "Total Proforma",
       colorByPoint: true,
-      data: <?=$data['awb_tertunda']?>
+      data: <?=$data['proforma_tertunda']?>
     }
   ],
   drilldown: {

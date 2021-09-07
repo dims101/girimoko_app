@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Awb;
+use App\Proforma;
 use App\User;
 use DB;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -49,76 +50,77 @@ class HomeController extends Controller
             } else {
                 $date = Carbon::now();
             }
-            $awbs = Awb::whereMonth('tanggal_ds',$date)
-                            ->whereYear('tanggal_ds',$date)
-                            ->get();
-            $total = count($awbs);
+            
+            $complete = Proforma::leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+                            ->whereMonth('awbs.tanggal_ds',$date)
+                            ->whereYear('awbs.tanggal_ds',$date)
+                            ->where('proformas.status','1')->get()->count();
+            $notcomplete = Proforma::leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+                            ->whereMonth('awbs.tanggal_ds',$date)
+                            ->whereYear('awbs.tanggal_ds',$date)
+                            ->where('proformas.status','2')->get()->count();
+            $ondelivery = Proforma::leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+                            ->whereMonth('awbs.tanggal_ds',$date)
+                            ->whereYear('awbs.tanggal_ds',$date)
+                            ->whereNull('proformas.status')->get()->count();
+            
+            $total = $complete+$notcomplete+$ondelivery;
             if ($total == 0){
                 $total =1;
             }
-            $terkirim = round(count($awbs->whereNotNull('status'))/$total*100,1);
-            $tertunda = round(count($awbs->whereNull('status'))/$total*100,1);   
-            // return $bulan;die;
-            function depo($depo,$tahun,$bulan){
-                // $date = Carbon::now();//cari biar bisa panggil dari luar
-                $now = Carbon::now();
-                if(empty($request->bulan)){
-                    $bulan = $now->format('m');                
-                } else {
-                    $bulan = $request->bulan;
-                }
-                if(empty($request->tahun)){
-                    $tahun = $now->year;                
-                }else {
-                    $tahun = $request->tahun;
-                }
-                if(!empty($bulan or !empty($tahun))){
-                    $stringdate = $tahun .'-'.$bulan . '-' . '01';
-                    $date = new Carbon($stringdate);
-                } else {
-                    $date = Carbon::now();
-                }
-                // global $date;
-                $awb_dds = Awb::select(DB::raw('count(awbs.no_awb) as jumlah'))
+            $complete = round($complete/$total*100,1);
+            $notcomplete = round($notcomplete/$total*100,1);   
+            $ondelivery = round($ondelivery/$total*100,1);   
+
+            function depo($depo,$dds,$date){
+                
+                $proforma_dds = Proforma::select(DB::raw('count(proformas.no_proforma) as jumlah'))
+                                    ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                                     ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')
                                     ->where('depo',$depo)
-                                    ->whereMonth('tanggal_ds',$date)
-                                    ->whereYear('tanggal_ds',$date)
-                                    ->whereNotNull('status') 
+                                    ->where('dds',$dds)
+                                    ->whereMonth('awbs.tanggal_ds',$date)
+                                    ->whereYear('awbs.tanggal_ds',$date)
+                                    ->whereNotNull('awbs.status') 
                                     //toggle status jangan lupa
                                     ->groupBy('dealers.depo')
                                     ->pluck('jumlah');
-                if(empty(count($awb_dds))){
+                if(empty(count($proforma_dds))){
                     return 0;
                 } else {
-                    return $awb_dds[0];
+                    return $proforma_dds[0];
 
                 }
             }
-            $tambun = depo("TAMBUN",$request->tahun,$request->bulan);
+
+            $tambun = depo("TAMBUN","DDS 1",$date);
             $tambun = round($tambun/$total*100,1);
-            $bandung = depo("BANDUNG",$request->tahun,$request->bulan);
+            $tambun2 = depo("TAMBUN","DDS 2",$date);
+            $tambun2 = round($tambun2/$total*100,1);
+            $bandung = depo("BANDUNG","DDS 2",$date);
             $bandung = round($bandung/$total*100,1);
-            $purwokerto = depo("PURWOKERTO",$request->tahun,$request->bulan);
+            $purwokerto = depo("PURWOKERTO","DDS 3",$date);
             $purwokerto = round($purwokerto/$total*100,1);
-            $semarang = depo("SEMARANG",$request->tahun,$request->bulan);
+            $semarang = depo("SEMARANG","DDS 3",$date);
             $semarang = round($semarang/$total*100,1);
-            $solo = depo("SOLO",$request->tahun,$request->bulan);
+            $solo = depo("SOLO","DDS 3",$date);
             $solo = round($solo/$total*100,1);
-            $awb_dds = [$tambun,$bandung,$purwokerto,$semarang,$solo];
+            $proforma_dds = [$tambun,$tambun2,$bandung,$purwokerto,$semarang,$solo];
             
             
-            $awb_tertunda = Awb::select(DB::raw('tanggal_ds as name, count(no_awb) as y'))
+            $proforma_tertunda = Proforma::select(DB::raw('DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as name, count(proformas.no_awb) as y'))
+                                    ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                                     ->whereMonth('tanggal_ds',$date)
-                                    ->whereNull('status')
+                                    ->whereNull('awbs.status')
                                     ->groupBy('tanggal_ds')
                                     ->get();
             if($total == 1){
                 $total =0;
-            } 
-            $data = compact('total','tertunda','terkirim','awb_tertunda');
+            }
+
+            $data = compact('total','complete','notcomplete','ondelivery','proforma_tertunda');
             
-            return view('dashboard.index',compact('data','awb_dds'));
+            return view('dashboard.index',compact('data','proforma_dds'));
         // } else {
         //     return redirect('/home');
         // }
