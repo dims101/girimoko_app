@@ -154,11 +154,7 @@
       <div class="card">
         <div class="card-header card-header-warning row">         
             <i class="material-icons">local_shipping </i>
-<<<<<<< HEAD
-            <h5 class="card-title">&nbsp;&nbsp;{{ __('AWB Belum Terkirim') }}</h5>             
-=======
             <h4 class="card-title">&nbsp;&nbsp;{{ __('Proforma Belum Terkirim') }}</h4>             
->>>>>>> a875bf2d5527df4d2f5ced557afefff57043f8d8
         </div>
         <div class="card-body">
         <figure class="highcharts-figure">
