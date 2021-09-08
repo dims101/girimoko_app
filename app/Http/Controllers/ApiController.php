@@ -319,7 +319,7 @@ class ApiController extends Controller
         } else {
             $username = $request->username;
             $no_awb = $request->no_awb;  
-            $no_kendaraan = $request->no_kendaraan;
+            // $no_kendaraan = $request->no_kendaraan; katanya diilangin
             $penerima =$request->penerima;
             $keterangan = $request->keterangan;
 
@@ -414,23 +414,27 @@ class ApiController extends Controller
             $file_name = $no_awb .'-'.$tanggal_terima . '.jpg';
             file_put_contents(public_path('bukti_awb/'.$file_name), $file);
 
+            $no_kendaraan = Awb::where('no_awb',$no_awb)
+                                ->select('no_kendaraan')
+                                ->first();
             $pengiriman = Pengiriman::create([
                 'username'=>$username,
                 'tanggal_terima'=>$tanggal_terima,
                 'waktu_terima'=>$waktu_terima,
                 'penerima'=>$penerima,
                 'foto_awb'=> $file_name,
-                'no_kendaraan'=>$no_kendaraan,
+                'no_kendaraan'=>$no_kendaraan->no_kendaraan,
                 'target_aktual'=> $status,
             ]);
-            //validasi apakah sudah ada pengiriman sebelumnya(belum dibuat)
+
             $awb = Awb::where('no_awb',$no_awb)
                         ->update([
                             'id_pengiriman'=>$pengiriman->id,
                             'keterangan'=>$keterangan,
                             'status'=>$status
                             //toggle status
-                        ]);
+            ]);
+            //validasi apakah sudah ada pengiriman sebelumnya(belum dibuat)
            
             if(!empty($proformas)){
                 foreach($proformas as $proforma){
