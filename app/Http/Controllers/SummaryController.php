@@ -285,7 +285,7 @@ class SummaryController extends Controller
                         ->where('dealers.rayon',$rayon)
                         ->whereMonth('tanggal_ds',$date)
                         ->whereYear('tanggal_ds',$date)
-                        ->where('proformas.no_proforma','LIKE','%'. $request->keyword . '%')
+                        ->orWhere('proformas.no_proforma','LIKE','%'. $request->keyword . '%')
                         ->orWhere('proformas.no_awb','LIKE','%'. $request->keyword . '%')
                         ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
                         ->orWhere('dealers.alamat','LIKE','%'. $request->keyword . '%')

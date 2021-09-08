@@ -89,7 +89,7 @@
           <tbody>
             @foreach ($awbs as $awb)
               <tr class="text-center">          
-                <td><?= !empty($awb->status) ? '<a href="/delivery/image/'.$awb->no_awb.'" target="_blank">'.$awb->no_awb.'</a>' : $awb->no_awb?></td>
+                <td><?=!is_null($awb->status) ? '<a href="/delivery/image/'.$awb->no_awb.'" target="_blank">'.$awb->no_awb.'</a>' : $awb->no_awb?></td>
                 <td>{{$awb->koli}}</td>
                 <td>{{$awb->tanggal_ds}}</td>
                 <td>{{$awb->tanggal_terima}} - {{$awb->waktu_terima}}</td>

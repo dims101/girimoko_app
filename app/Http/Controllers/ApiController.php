@@ -249,11 +249,11 @@ class ApiController extends Controller
             if ($done->hasil == 0){
                 
             Proforma::where('no_awb',$no_awb)
+                    ->where('status',null)
                     ->update([
                         'status'=>$status,
                         'keterangan'=>$keterangan
                     ]);
-            return 'Yeay';die;
             $response = array(
                 'success' => '1',
                 'message' => 'Proforma berhasil disimpan!'

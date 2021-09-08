@@ -258,7 +258,7 @@ class DeliveryController extends Controller
                             ->where('proformas.no_proforma',$no_proforma)
                             ->get();
         // $awb_note = 
-        // return $keterangan_awb;die;
+        // return $awbs;die;
         $cek = Proforma::select(DB::raw(
                         'proformas.total_koli,
                         sum(proformas.koli) as jumlah_koli'
