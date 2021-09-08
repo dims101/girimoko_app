@@ -16,6 +16,7 @@ class AwbImport implements ToCollection, WithHeadingRow, SkipsOnError
  {
    public function collection(Collection $rows)
     {
+        // return $rows;die;
         foreach ($rows as $row){
             Proforma::create([
                 'no_proforma'=>$row['no_proforma'],
@@ -39,6 +40,7 @@ class AwbImport implements ToCollection, WithHeadingRow, SkipsOnError
                 'no_awb' => $row['no_awb'],
                 'no_ds' => $row['no_ds'],
                 'kode_dealer' => $row['kode_dealer'],
+                'no_kendaraan'=>$row['no_pol'],
                 'tanggal_ds' => date('Y-m-d', strtotime($row['tgl_ds'])),
             ]);
             // }
