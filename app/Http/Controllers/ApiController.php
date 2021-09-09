@@ -251,11 +251,7 @@ class ApiController extends Controller
             if ($done->hasil == 0){
                 
             Proforma::where('no_awb',$no_awb)
-<<<<<<< HEAD
-                    ->where('status',null)
-=======
                     ->whereNull('status')
->>>>>>> f397adc1ce3017e206f2edd2fe87502c971a92f0
                     ->update([
                         'status'=>$status,
                         'keterangan'=>$keterangan
