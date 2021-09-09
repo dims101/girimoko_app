@@ -212,9 +212,11 @@ class ApiController extends Controller
             return response()->json($response);
         } else {
             $no_proforma = $request->no_proforma;
+            $no_awb = $request->no_awb;
             $status = $request->status;
             $keterangan = $request->keterangan;
             Proforma::where('no_proforma',$no_proforma)
+                        ->where('no_awb',$no_awb)
                             ->update([
                                     'status'=>$status,
                                     'keterangan'=>$keterangan,
@@ -243,17 +245,17 @@ class ApiController extends Controller
             $keterangan = $request->keterangan;       
             $done = Proforma::select(DB::raw('(sum(koli) - sum(total_koli)) as hasil'))
                                 ->where('no_awb',$no_awb)
-                                ->where('status',null)
+                                ->whereNull('status')
                                 ->first();  
             // return $done->hasil;die;         
             if ($done->hasil == 0){
                 
             Proforma::where('no_awb',$no_awb)
+                    ->whereNull('status')
                     ->update([
                         'status'=>$status,
                         'keterangan'=>$keterangan
                     ]);
-            return 'Yeay';die;
             $response = array(
                 'success' => '1',
                 'message' => 'Proforma berhasil disimpan!'
@@ -345,6 +347,7 @@ class ApiController extends Controller
                 foreach ($daftar as $d){
                     
                     $statusP = Proforma::where('no_proforma',$d)
+                                ->where('no_awb',$no_awb)
                                 ->first();
                     $statusP = $statusP->status;
                     if($statusP == 3){
@@ -353,6 +356,7 @@ class ApiController extends Controller
                         $statusP = 2;
                     }
                     Proforma::where('no_proforma',$d)
+                                ->where('no_awb',$no_awb)
                                 ->update([
                                    'status'=>$statusP, 
                                 ]);
