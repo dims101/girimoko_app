@@ -91,7 +91,6 @@
         <!-- <table class="table table-borderless"> -->
           <thead class="text-danger">
             <th>Proforma</th>
-            <th>AWB</th>
             <th>Kode</th>
             <th>Dealer</th>
             <th>Tanggal DS</th>
@@ -124,7 +123,6 @@
               <tbody>
                 <tr>
                   <td>{{$awb->no_proforma}}</td>
-                  <td>{{$awb->no_awb}}</td>
                   <td>{{$awb->kode_dealer}}</td>
                   <td>{{$awb->nama_dealer}}</td>
                   <td>{{$awb->tanggal_ds}}</td>
@@ -132,7 +130,7 @@
                   <td>
                     @if ($awb->status <> null)
                       <span class="badge badge-success">Awb has arrived</span>                           
-                      @if ($awb->total_koli - $awb->koli == 0 and $awb->statusp == 1)
+                      @if ($awb->total_koli - $awb->koli == 0)
                         <br>
                         <span class="badge badge-info">Completed</span>  
                       @else

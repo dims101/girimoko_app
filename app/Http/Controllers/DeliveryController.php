@@ -37,12 +37,12 @@ class DeliveryController extends Controller
     {
         // return $request->dds;
         $date = Carbon::now();
-        $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,sum(proformas.status) as statusp'))
+        $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
                         ->orderBy('awbs.tanggal_ds','DESC')
-                        ->groupBy('proformas.no_proforma')
-                        ->groupBy('proformas.no_awb');
+                        ->groupBy('proformas.no_proforma');
+                        // ->groupBy('proformas.no_awb');
                         // ->where('dds','DDS 1');
         if(!empty($request->bulan)){
             // $bulan = $date->format('m');
