@@ -51,14 +51,20 @@ class HomeController extends Controller
                 $date = Carbon::now();
             }
             
-            $complete = Proforma::leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+            $complete = Proforma::select(DB::raw('proformas.no_proforma,(sum(koli) - total_koli) as delivery'))
+                            ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                             ->whereMonth('awbs.tanggal_ds',$date)
                             ->whereYear('awbs.tanggal_ds',$date)
-                            ->where('proformas.status','1')->get()->count();
-            $notcomplete = Proforma::leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+                            ->having('delivery','=',0)
+                            // ->where('proformas.status','1')
+                            ->groupBy('proformas.no_proforma')->get()->count();
+            $notcomplete = Proforma::select(DB::raw('proformas.no_proforma,(sum(koli) - total_koli) as delivery'))
+                            ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                             ->whereMonth('awbs.tanggal_ds',$date)
                             ->whereYear('awbs.tanggal_ds',$date)
-                            ->where('proformas.status','2')->get()->count();
+                            // ->where('proformas.status','2')                            
+                            ->having('delivery','<>',0)
+                            ->groupBy('proformas.no_proforma')->get()->count();
             $ondelivery = Proforma::leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                             ->whereMonth('awbs.tanggal_ds',$date)
                             ->whereYear('awbs.tanggal_ds',$date)
