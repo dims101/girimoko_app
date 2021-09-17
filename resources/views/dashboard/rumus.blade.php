@@ -33,16 +33,16 @@ Highcharts.chart('container-2', {
     series: {
       dataLabels: {
         enabled: true,
-        format: '<b><span style="font-size:14px">{point.name}</span></b><br><span style="font-size:15px">{point.y} %</span></b> <br/>',
+        format: '<b><span style="font-size:12px">{point.name}</span></b><br><span style="font-size:12px">{point.y} %</span></b> <br/>',
        
         // format: '<b>{point.name}</b><br>{point.y}</b> %<br/>',
-        distance: -25
+        distance: -15
       }
     }
   },
 
   tooltip: {
-    headerFormat: '<span style="font-size:18px">{series.name}</span><br>',
+    headerFormat: '<span style="font-size:12px">{series.name}</span><br>',
     pointFormat: '<span style="color:{point.color}">{point.nama}</span>: <b>{point.y}</b> %<br/>', 
   },
 
