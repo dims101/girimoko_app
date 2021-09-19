@@ -62,10 +62,10 @@ class DeliveryController extends Controller
         if($request->status == null){
             
         } else if($request->status == "delay"){          
-            $awbs->whereNull('status');
+            $awbs->whereNull('awbs.status');
         } else {
             $status = $request->status;            
-            $awbs->where('status',$status);
+            $awbs->where('awbs.status',$status);
         }
         $awbs = $awbs->paginate(10)->appends(request()->query());
         // return $awbs;die;
