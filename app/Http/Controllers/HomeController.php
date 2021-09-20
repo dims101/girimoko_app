@@ -55,6 +55,7 @@ class HomeController extends Controller
                             ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                             ->whereMonth('awbs.tanggal_ds',$date)
                             ->whereYear('awbs.tanggal_ds',$date)
+                            ->whereNotNull('proformas.status')
                             ->having('delivery','=',0)
                             // ->where('proformas.status','1')
                             ->groupBy('proformas.no_proforma')->get()->count();
@@ -74,10 +75,11 @@ class HomeController extends Controller
             if ($total == 0){
                 $total =1;
             }
+            // return $complete;
             $complete = round($complete/$total*100,1);
             $notcomplete = round($notcomplete/$total*100,1);   
             $ondelivery = round($ondelivery/$total*100,1);   
-
+            
             function depo($depo,$dds,$date){
                 
                 $proforma_dds = Proforma::select(DB::raw('count(proformas.no_proforma) as jumlah'))
