@@ -93,12 +93,13 @@ class HomeController extends Controller
                                     //toggle status jangan lupa
                                     ->groupBy('dealers.depo')
                                     ->pluck('jumlah');
+                                    $total = count($proforma_dds);
                 if(empty(count($proforma_dds))){
                     $proforma_dds = 0;
                 } else {
                     $proforma_dds = $proforma_dds[0];
                 }
-                $total = count($proforma_dds);
+                
                 if ($total < 1){
                     $total =1;
                 }
