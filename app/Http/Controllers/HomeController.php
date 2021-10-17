@@ -94,25 +94,30 @@ class HomeController extends Controller
                                     ->groupBy('dealers.depo')
                                     ->pluck('jumlah');
                 if(empty(count($proforma_dds))){
-                    return 0;
+                    $proforma_dds = 0;
                 } else {
-                    return $proforma_dds[0];
-
+                    $proforma_dds = $proforma_dds[0];
                 }
+                $total = count($proforma_dds);
+                if ($total < 1){
+                    $total =1;
+                }
+                $proforma_dds = round($proforma_dds/$total*100,1);
+                return $proforma_dds;
             }
 
             $tambun = depo("TAMBUN","DDS 1",$date);
-            $tambun = round($tambun/$total*100,1);
+            // $tambun = round($tambun/$total*100,1);
             $tambun2 = depo("TAMBUN","DDS 2",$date);
-            $tambun2 = round($tambun2/$total*100,1);
+            // $tambun2 = round($tambun2/$total*100,1);
             $bandung = depo("BANDUNG","DDS 2",$date);
-            $bandung = round($bandung/$total*100,1);
+            // $bandung = round($bandung/$total*100,1);
             $purwokerto = depo("PURWOKERTO","DDS 3",$date);
-            $purwokerto = round($purwokerto/$total*100,1);
+            // $purwokerto = round($purwokerto/$total*100,1);
             $semarang = depo("SEMARANG","DDS 3",$date);
-            $semarang = round($semarang/$total*100,1);
+            // $semarang = round($semarang/$total*100,1);
             $solo = depo("SOLO","DDS 3",$date);
-            $solo = round($solo/$total*100,1);
+            // $solo = round($solo/$total*100,1);
             $proforma_dds = [$tambun,$tambun2,$bandung,$purwokerto,$semarang,$solo];
             
             
