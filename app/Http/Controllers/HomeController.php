@@ -93,13 +93,23 @@ class HomeController extends Controller
                                     //toggle status jangan lupa
                                     ->groupBy('dealers.depo')
                                     ->pluck('jumlah');
-                                    $total = count($proforma_dds);
+                
                 if(empty(count($proforma_dds))){
                     $proforma_dds = 0;
                 } else {
                     $proforma_dds = $proforma_dds[0];
                 }
-                
+                $total = Proforma::select(DB::raw('count(proformas.no_proforma) as jumlah'))
+                                    ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
+                                    ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')
+                                    ->where('depo',$depo)
+                                    ->where('dds',$dds)
+                                    ->whereMonth('awbs.tanggal_ds',$date)
+                                    ->whereYear('awbs.tanggal_ds',$date)
+                                    // ->whereNotNull('awbs.status') 
+                                    //toggle status jangan lupa
+                                    ->groupBy('dealers.depo')
+                                    ->pluck('jumlah');
                 if ($total < 1){
                     $total =1;
                 }
