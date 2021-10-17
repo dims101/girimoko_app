@@ -110,6 +110,11 @@ class HomeController extends Controller
                                     //toggle status jangan lupa
                                     ->groupBy('dealers.depo')
                                     ->pluck('jumlah');
+                if(empty(count($total))){
+                    $total = 0;
+                } else {
+                    $total = $total[0];
+                }               
                 if ($total < 1){
                     $total =1;
                 }
