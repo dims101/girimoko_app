@@ -165,7 +165,9 @@ class DeliveryController extends Controller
         // $dds = $request->dds;
         // $status = $request->status;
         // $search = $request->cari;
-        
+        if (empty($request->keyword)) {
+            return redirect()->action('DeliveryController@index');
+        }
         $awbs = Proforma::when($request->keyword, function ($query) use ($request) {
             $query->select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                             ->leftjoin('awbs','proformas.no_awb','=','awbs.no_awb')
@@ -176,11 +178,12 @@ class DeliveryController extends Controller
                             ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
                             ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
                             ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
+                            ->groupBy('proformas.no_proforma')
                             ->orderBy('awbs.tanggal_ds','DESC');
         })->paginate(10);    
         //ini apa    
         $awbs->appends($request->only('keyword'));            
-    
+        // return $awbs;die;
     return view('delivery.index',compact('awbs')); 
 
     }
@@ -278,7 +281,7 @@ class DeliveryController extends Controller
         } else {
             $iscomplete = "On delivery";
         }
-        // return $cek;die;
+        // return $awbs;die;
         // return $iscomplete;die;
         return view('delivery.detail',compact('awbs','proformas','iscomplete','keterangan_awb'));die;
 
