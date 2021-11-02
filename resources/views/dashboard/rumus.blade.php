@@ -137,22 +137,22 @@ Highcharts.chart('container-2', {
         },
         {
           name: "DDS2 Bandung",
-          y: <?=$proforma_dds[1]?>,
+          y: <?=$proforma_dds[2]?>,
           drilldown: "DDS2 Bandung"
         },
         {
           name: "DDS3 Purwokerto",
-          y: <?=$proforma_dds[2]?>,
+          y: <?=$proforma_dds[3]?>,
           drilldown: "DDS3 Purwokerto"
         },
         {
           name: "DDS3 Semarang",
-          y: <?=$proforma_dds[3]?>,
+          y: <?=$proforma_dds[4]?>,
           drilldown: "DDS3 Semarang"
         },
         {
           name: "DDS3 Solo",
-          y: <?=$proforma_dds[4]?>,
+          y: <?=$proforma_dds[5]?>,
           drilldown: "DDS3 Solo"
         }
         
