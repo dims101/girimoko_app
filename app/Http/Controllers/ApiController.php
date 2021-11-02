@@ -146,7 +146,7 @@ class ApiController extends Controller
                     $i++;
                 }  
                 $status = $x-$target;
-                if($status == -1 or $status == 0){
+                if($status == -1 or $status == 0 or $status == -2){
                     $status = "Ontime";
                 }
                 if ($status >3){
