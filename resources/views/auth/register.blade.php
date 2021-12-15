@@ -106,7 +106,7 @@
                                     <option value="admin">Admin</option>
                                     @endif
                                     @if(auth()->user()->level == "admin" or auth()->user()->level == "Super Admin")
-                                    <option value="user">User - Yamaha</option>
+                                    <option value="user">User</option>
                                     <option value="driver">Driver</option>
                                     @endif
                                 </select>                                

@@ -49,5 +49,6 @@ Route::get('/delivery/edit/{no_awb}', 'DeliveryController@edit');
 // Route::get('/delivery/filter/','DeliveryController@liveFilter')->name('liveFilter');
 
 Route::get('/tracking', 'TrackingController@index');
+Route::post('/updatelokasi', 'TrackingController@updatelokasi');
 Route::get('/coba', 'TrackingController@update');
 Route::post('/tracking/update', 'TrackingController@update');
