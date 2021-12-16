@@ -21,6 +21,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    @if (Session::has('message'))
+                      <div class="alert alert-success" role="alert">
+                          {{Session::get('message')}}
+                      </div>
+                    @endif
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
                         </div>
@@ -41,7 +46,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Daftar AWB dalam Delivery Sheet</h5>
@@ -72,7 +77,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
         <form action="/updatelokasi" method='post'>
-            <button type="submit" class="btn btn-primary">Update lokasi</button>
+            @csrf
+            <input type="hidden" name="ds" id="update-ds">
+            <button type="submit" id="tracking" class="btn btn-primary">Update lokasi</button>
         </form>
       </div>
     </div>
@@ -81,7 +88,7 @@
 <script>
     $('#update').on('click', function(event) {
         let ds = document.getElementById("ds").value;
-        
+        $('#update-ds').val(ds);
         // alert(dds);
         // Kirim gambar dalam bentuk base64
         $.ajax({
@@ -93,17 +100,25 @@
                 ds: $('#ds').val()
             },
             success: function(response) {
-                // alert(response);
-                //fungsi ada di sini
-                $('#myTable > tbody').empty();
-                var i=1;
-                $.each(response, function (index,value) {
-                $('#myTable > tbody:last-child').append('<tr><td>'+i+'</td><td>'+value['tanggal_ds']+'</td><td>'+value['no_awb']+'</td><td>'+value['kode_dealer']+'</td><td>'+value['nama_dealer']+'</td><td>'+value['dds']+'</td><td>'+value['lokasi']+'</td></tr>'); 
-                i++;
-                });
+                if(Object.keys(response).length === 0){    
+                  $('#myTable > tbody').empty();
+                  $('#myTable > tbody:last-child').append('<tr ><td colspan="7" class="text-center">Tidak ada data!</td></tr>'); 
+                  document.getElementById("tracking").disabled = true;
+                } else {
+                  //fungsi ada di sini
+                  $('#myTable > tbody').empty();
+                  var i=1;
+                  $.each(response, function (index,value) {
+                  $('#myTable > tbody:last-child').append('<tr><td>'+i+'</td><td>'+value['tanggal_ds']+'</td><td>'+value['no_awb']+'</td><td>'+value['kode_dealer']+'</td><td>'+value['nama_dealer']+'</td><td>'+value['dds']+'</td><td>'+value['lokasi']+'</td></tr>'); 
+                  i++;
+                  });
+                  document.getElementById("tracking").disabled = false;
+                }
+                
             },
             error: function(jqXHR, status, err){
                 alert(jqXHR.responseText);
+                  // alert('Delivery sheet tidak ditemukan!');
             }
         });
         

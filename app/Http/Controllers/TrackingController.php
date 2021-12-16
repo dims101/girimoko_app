@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Awb;
 use App\Tracking;
+use Auth;
 use DB;
 use Illuminate\Http\Request;
 
@@ -29,5 +30,18 @@ class TrackingController extends Controller
         ->get();
         // return $last;die;
         return response()->json($response);
+    }
+
+    public function updateLokasi(Request $request)
+    {
+        $user = Auth::user();
+        Tracking::create([
+            'ds' => $request->ds,
+            'id_user' => $user->id,
+            'lokasi' => $user->name,
+            'comment' => 'SHIPMENT RECEIVED BY GIRIMOKO OFFICER AT'
+        ]);
+
+        return redirect('/tracking')->with('message','Lokasi berhasil di-update');
     }
 }

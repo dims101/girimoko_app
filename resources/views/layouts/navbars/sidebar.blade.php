@@ -49,12 +49,22 @@
             <p>{{ __('Dealer') }}</p>
         </a>
       </li>
+      @if (auth()->user()->username == "girimoko" or auth()->user()->username == "admin")
       <li class="nav-item{{ $activePage == 'import_excel' ? ' active' : '' }}">
         <a class="nav-link" href="/awb/excel">
           <i class="material-icons">upload_file</i>
             <p>{{ __('Import File Excel') }}</p>
         </a>
       </li>
+      @endif
+      @if (auth()->user()->username != "girimoko"  )
+      <li class="nav-item{{ $activePage == 'tracking' ? ' active' : '' }}">
+        <a class="nav-link" href="/tracking">
+          <i class="material-icons">trending_up</i>
+            <p>{{ __('Tracking') }}</p>
+        </a>
+      </li>
+      @endif
       @endif
       
       <!-- <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">

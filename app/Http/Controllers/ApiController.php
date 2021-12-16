@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Awb;
+use App\Tracking;
 use App\Proforma;
 use App\Dealer;
 use App\Pengiriman;
@@ -321,6 +322,10 @@ class ApiController extends Controller
         } else {
             $username = $request->username;
             $no_awb = $request->no_awb;  
+            $ds = Awb::where('no_awb',$no_awb)
+                    ->pluck('no_ds');
+            $ds = $ds[0];
+            
             // $no_kendaraan = $request->no_kendaraan; katanya diilangin
             $penerima =$request->penerima;
             $keterangan = $request->keterangan;
@@ -449,11 +454,19 @@ class ApiController extends Controller
                             ]);
                 }
             }
+            //taruh tracking disini
+            Tracking::create([
+                'ds' => $ds,
+                'lokasi' => $request->penerima,
+                'id_user' => $username,
+                'comment' => 'DELIVERED TO '
+            ]);
             $response = array(
                 'success' => '1',
                 'message' => 'Berhasil!'
 
                 );
+            
             return response()->json($response);
         }
     }
