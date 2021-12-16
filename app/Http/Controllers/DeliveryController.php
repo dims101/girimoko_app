@@ -180,6 +180,7 @@ class DeliveryController extends Controller
                             ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
                             ->groupBy('proformas.no_proforma')
                             ->orderBy('awbs.tanggal_ds','DESC');
+                            
         })->paginate(10);    
         //ini apa    
         $awbs->appends($request->only('keyword'));            
