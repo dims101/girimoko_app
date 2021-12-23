@@ -457,7 +457,7 @@ class ApiController extends Controller
             //taruh tracking disini
             Tracking::create([
                 'ds' => $ds,
-                'lokasi' => $request->penerima,
+                'lokasi' => 'TELAH DITERIMA OLEH ' . $request->penerima,
                 'id_user' => $username,
                 'comment' => 'DELIVERED TO '
             ]);
