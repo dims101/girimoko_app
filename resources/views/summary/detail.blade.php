@@ -67,12 +67,12 @@
               <tr>
                   <td class="text-center">{{$i+1}}</td>
                   <td class="text-center"><a href="/summary/{{$detail->dds}}/{{$detail->depo}}/{{$data['rayon'][$i]}}?bulan=<?=request()->get('bulan')?>&tahun=<?=request()->get('tahun')?>">{{$data['rayon'][$i]}}</a></td>
-                  <td class="text-center">{{$data['ontime'][$i]}}</td>
-                  <td class="text-center">{{$data['delay1'][$i]}}</td>
-                  <td class="text-center">{{$data['delay2'][$i]}}</td>
-                  <td class="text-center">{{$data['delay3'][$i]}}</td>
-                  <td class="text-center">{{$data['delay4'][$i]}}</td>
-                  <td class="text-center">{{$data['tunda'][$i]}}</td>
+                  <td class="text-center">{{$data['ontime'][$i]}} / {{$data['all'][$i] != 0 ? round($data['ontime'][$i]/$data['all'][$i]*100,1).'%' : '0%'}}</td>
+                  <td class="text-center">{{$data['delay1'][$i]}} / {{$data['all'][$i] != 0 ? round($data['delay1'][$i]/$data['all'][$i]*100,1).'%' : '0%'}}</td>
+                  <td class="text-center">{{$data['delay2'][$i]}} / {{$data['all'][$i] != 0 ? round($data['delay2'][$i]/$data['all'][$i]*100,1).'%' : '0%'}}</td>
+                  <td class="text-center">{{$data['delay3'][$i]}} / {{$data['all'][$i] != 0 ? round($data['delay3'][$i]/$data['all'][$i]*100,1).'%' : '0%'}}</td>
+                  <td class="text-center">{{$data['delay4'][$i]}} / {{$data['all'][$i] != 0 ? round($data['delay4'][$i]/$data['all'][$i]*100,1).'%' : '0%'}}</td>
+                  <td class="text-center">{{$data['tunda'][$i]}} / {{$data['all'][$i] != 0 ? round($data['tunda'][$i]/$data['all'][$i]*100,1).'%' : '0%'}}</td>
                   <td class="text-center">{{$data['all'][$i]}}</td>
               </tr>
           
