@@ -41,7 +41,8 @@ class DeliveryController extends Controller
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
                         ->orderBy('awbs.tanggal_ds','DESC')
-                        ->groupBy('proformas.no_proforma');
+                        ->groupBy('proformas.no_proforma')
+                        ->groupBy('proformas.no_awb');
                         // ->groupBy('proformas.no_awb');
                         // ->where('dds','DDS 1');
         if(!empty($request->bulan)){
@@ -179,6 +180,7 @@ class DeliveryController extends Controller
                             ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
                             ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
                             ->groupBy('proformas.no_proforma')
+                            ->groupBy('proformas.no_awb')
                             ->orderBy('awbs.tanggal_ds','DESC');
                             
         })->paginate(10);    

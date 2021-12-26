@@ -493,6 +493,7 @@ class ApiController extends Controller
                             '))
                             ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
                             ->where('awbs.status','!=',null)
+                            ->orderBy('pengirimans.id','desc')
                             ->get();
             
             } else {
@@ -507,10 +508,11 @@ class ApiController extends Controller
                             ->leftjoin('pengirimans','awbs.id_pengiriman','pengirimans.id')
                             ->where('awbs.status','!=',null)
                             ->where('no_awb','LIKE','%'.$filter.'%')
-                            ->Orwhere('kode_dealer','LIKE','%'.$filter.'%')
-                            ->Orwhere('tanggal_ds','LIKE','%'.$filter.'%')
-                            ->Orwhere('tanggal_terima','LIKE','%'.$filter.'%')
-                            ->Orwhere('username','LIKE','%'.$filter.'%')
+                            ->orWhere('kode_dealer','LIKE','%'.$filter.'%')
+                            ->orWhere('tanggal_ds','LIKE','%'.$filter.'%')
+                            ->orWhere('tanggal_terima','LIKE','%'.$filter.'%')
+                            ->orWhere('username','LIKE','%'.$filter.'%')
+                            ->orderBy('pengirimans.id','desc')
                             ->get();
             }
             $response = array(

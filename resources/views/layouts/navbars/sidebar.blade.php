@@ -37,12 +37,14 @@
             <p>{{ __('Panel Admin') }}</p>
         </a>
       </li> -->
+      @if (auth()->user()->username == "girimoko" or auth()->user()->username == "admin")
       <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}">
         <a class="nav-link" href="/register">
           <i class="material-icons">add</i>
             <p>{{ __('Tambah pengguna') }}</p>
         </a>
       </li>
+      @endif
       <li class="nav-item{{ $activePage == 'dealer' ? ' active' : '' }}">
         <a class="nav-link" href="/dealer">
           <i class="material-icons">home</i>
