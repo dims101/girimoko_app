@@ -47,12 +47,16 @@ class AwbImport implements ToCollection, WithHeadingRow, SkipsOnError
 
             
         }
-        Tracking::create([
-            'ds' => $rows[0]['no_ds'],
-            'id_user' => auth()->user()->id,
-            'lokasi' => 'DEPO UTAMA [BEKASI]',
-            'comment' => 'SHIPMENT RECEIVED BY GIRIMOKO OFFICER AT'
-        ]);
+        foreach ($rows as $row)
+        {
+            Tracking::create([
+                'awb' => $row['no_awb'],
+                'id_user' => auth()->user()->username,
+                'lokasi' => 'DEPO UTAMA [BEKASI]',
+                'comment' => 'SHIPMENT RECEIVED BY GIRIMOKO OFFICER AT'
+            ]);
+        }
+        
    }
    public function onError(Throwable $error)
    {

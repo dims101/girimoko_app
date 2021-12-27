@@ -24,7 +24,7 @@ class TrackingController extends Controller
         $response = Awb::select(
         DB::raw('awbs.no_awb,date_format(trackings.created_at ,"%d/%m/%Y %H:%i") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,trackings.lokasi'))
         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')      
-        ->leftjoin('trackings','awbs.no_ds','=','trackings.ds') 
+        ->leftjoin('trackings','awbs.no_awb','=','trackings.awb') 
         ->where('no_ds',$request->ds)
         // ->where('trackings.id',$last)
         ->get();
@@ -35,12 +35,17 @@ class TrackingController extends Controller
     public function updateLokasi(Request $request)
     {
         $user = Auth::user();
-        Tracking::create([
-            'ds' => $request->ds,
-            'id_user' => $user->id,
-            'lokasi' => $user->name,
-            'comment' => 'SHIPMENT RECEIVED BY GIRIMOKO OFFICER AT'
-        ]);
+        $awbs = Awb::where('no_ds',$request->ds)
+                    ->pluck('no_awb');
+        foreach ($awbs as $awb){
+            Tracking::create([
+                'awb' => $awb,
+                'id_user' => $user->username,
+                'lokasi' => $user->name,
+                'comment' => 'SHIPMENT RECEIVED BY GIRIMOKO OFFICER AT'
+            ]);
+        }
+        
 
         return redirect('/tracking')->with('message','Lokasi berhasil di-update');
     }
