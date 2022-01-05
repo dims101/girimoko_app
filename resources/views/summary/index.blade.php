@@ -45,10 +45,8 @@
             </select>
             <select class="ml-2 form-control form-control mb-2 mr-sm-2" name="tahun" id="">
               <option value="">-- Tahun --</option>
-              <option value="2018" <?=request()->get('tahun') == "2018" ? 'selected' : '' ?>>2018</option>
-              <option value="2019" <?=request()->get('tahun') == "2019" ? 'selected' : '' ?>>2019</option>
-              <option value="2020"<?=request()->get('tahun') == "2020" ? 'selected' : '' ?>>2020</option>
               <option value="2021"<?=request()->get('tahun') == "2021" ? 'selected' : '' ?>>2021</option>
+              <option value="2022"<?=request()->get('tahun') == "2022" ? 'selected' : '' ?>>2022</option>
             </select>
             <button  type="submit" class="btn btn-sm btn-warning ml-2 mb-2">Ubah</button>
             <a style="margin-top:0px" href="/summary" class="ml-2 btn btn-sm btn-success">Bulan ini</a>
