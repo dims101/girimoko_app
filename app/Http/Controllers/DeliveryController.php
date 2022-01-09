@@ -173,14 +173,15 @@ class DeliveryController extends Controller
             $query->select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                             ->leftjoin('awbs','proformas.no_awb','=','awbs.no_awb')
                             ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')
+                            ->whereNotNull('awbs.status')
                             ->where('proformas.no_proforma','LIKE','%'. $request->keyword . '%')
-                            ->orwhere('awbs.no_awb','LIKE','%'. $request->keyword . '%')
-                            ->orWhere('dealers.kode_dealer','LIKE','%'. $request->keyword . '%')
-                            ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
-                            ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
-                            ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
+                            // ->orwhere('awbs.no_awb','LIKE','%'. $request->keyword . '%')
+                            // ->orWhere('dealers.kode_dealer','LIKE','%'. $request->keyword . '%')
+                            // ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
+                            // ->orWhere('dealers.dds','LIKE','%'. $request->keyword . '%')
+                            // ->orWhere('awbs.status','LIKE','%'. $request->keyword . '%')
                             ->groupBy('proformas.no_proforma')
-                            ->groupBy('proformas.no_awb')
+                            // ->groupBy('proformas.no_awb')
                             ->orderBy('awbs.tanggal_ds','DESC');
                             
         })->paginate(10);    

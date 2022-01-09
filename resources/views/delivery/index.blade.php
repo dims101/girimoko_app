@@ -23,7 +23,7 @@
                 
           <div class="input-group no-border">
             @if(!request()->get('keyword'))
-            <input type="text" name="keyword" class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
+            <input type="text" name="keyword" class="form-control col-sm-10" placeholder="Masukan nomor proforma" id="search">
             @else
             <input type="text" name="keyword" value="{{request()->keyword}}"class="form-control col-sm-10" placeholder="Masukan kata kunci pencarian" id="search">
             @endif
