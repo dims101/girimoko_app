@@ -71,8 +71,8 @@ class SummaryController extends Controller
         $persentase_bandung = $this->persentaseDepo('BANDUNG','DDS 2',$date);
         $persentase_pemalang = $this->persentaseDepo('pemalang','DDS 3',$date);
         $persentase_semarang = $this->persentaseDepo('semarang','DDS 3',$date);
-        $persentase_solo = $this->persentaseDepo('bandung','DDS 3',$date);
-
+        $persentase_solo = $this->persentaseDepo('solo','DDS 3',$date);
+        //prob6-7
         // return $persentase_bandung;die;
         //kalau tidak ada awb jadi error, fix besok(patch notes)
         

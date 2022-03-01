@@ -141,9 +141,9 @@ Highcharts.chart('container-2', {
           drilldown: "DDS2 Bandung"
         },
         {
-          name: "DDS3 Purwokerto",
+          name: "DDS3 Pemalang",
           y: <?=$proforma_dds[3]?>,
-          drilldown: "DDS3 Purwokerto"
+          drilldown: "DDS3 Pemalang"
         },
         {
           name: "DDS3 Semarang",

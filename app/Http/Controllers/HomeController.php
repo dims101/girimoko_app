@@ -128,13 +128,13 @@ class HomeController extends Controller
             // $tambun2 = round($tambun2/$total*100,1);
             $bandung = depo("BANDUNG","DDS 2",$date);
             // $bandung = round($bandung/$total*100,1);
-            $purwokerto = depo("PURWOKERTO","DDS 3",$date);
-            // $purwokerto = round($purwokerto/$total*100,1);
+            $pemalang = depo("PEMALANG","DDS 3",$date);
+            // $pemalang = round($pemalang/$total*100,1);
             $semarang = depo("SEMARANG","DDS 3",$date);
             // $semarang = round($semarang/$total*100,1);
             $solo = depo("SOLO","DDS 3",$date);
             // $solo = round($solo/$total*100,1);
-            $proforma_dds = [$tambun,$tambun2,$bandung,$purwokerto,$semarang,$solo];
+            $proforma_dds = [$tambun,$tambun2,$bandung,$pemalang,$semarang,$solo];
             
             
             $proforma_tertunda = Proforma::select(DB::raw('DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as name, count(proformas.no_awb) as y'))
