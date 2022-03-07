@@ -56,17 +56,20 @@
                   <option value="12" <?=request()->get('bulan') == "12" ? 'selected' : '' ?> >Desember</option>                                      
                 </select>
                 <select name="tahun" id="tahun" class="form-control col-sm-3">
-                  <option value="">-- Tahun --</option>                 
-                  <option value="2018" @if (request()->get('tahun') == 2018) selected @endif>2018</option>                 
-                  <option value="2019" @if (request()->get('tahun') == 2019) selected @endif>2019</option>                 
+                  <option value="">-- Tahun --</option>              
                   <option value="2020" @if (request()->get('tahun') == 2020) selected @endif>2020</option>                 
                   <option value="2021" @if (request()->get('tahun') == 2021) selected @endif>2021</option>                 
+                  <option value="2022" @if (request()->get('tahun') == 2022) selected @endif>2022</option>                 
+                  <option value="2023" @if (request()->get('tahun') == 2023) selected @endif>2023</option>                 
                 </select>
                 <select name="dds" id="dds" class="form-control col-sm-3">
                   <option value="">-- DDS --</option>   
-                  <option value="DDS 1">DDS 1</option>   
-                  <option value="DDS 2">DDS 2</option>   
-                  <option value="DDS 3">DDS 3</option>   
+                  <option value="DDS 1 Tambun">DDS 1 Tambun</option>   
+                  <option value="DDS 2 Tambun">DDS 2 Tambun</option>   
+                  <option value="DDS 2 Bandung">DDS 2 Bandung</option>   
+                  <option value="DDS 3 Pemalang">DDS 3 Pemalang</option>   
+                  <option value="DDS 3 Semarang">DDS 3 Semarang</option>   
+                  <option value="DDS 3 Solo">DDS 3 Solo</option>   
                 </select>
                 <select name="status" id="status" class="form-control col-sm-3">
                   <option value="" <?=request()->get('status') == null ? 'selected' : '' ?> >-- Status --</option>     

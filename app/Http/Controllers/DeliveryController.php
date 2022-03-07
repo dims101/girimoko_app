@@ -35,7 +35,7 @@ class DeliveryController extends Controller
      */
     public function index(Request $request)
     {
-        // return $request->dds;
+        // return substr($request->dds,6,strlen($request->dds)-6);die;
         $date = Carbon::now();
         $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
@@ -56,8 +56,10 @@ class DeliveryController extends Controller
             $awbs->whereYear('tanggal_ds',$tahun);
         }
         if(!empty($request->dds)){
-            $dds = $request->dds;
+            $dds = substr($request->dds,0,5);
+            $depo = substr($request->dds,6,strlen($request->dds)-6);
             $awbs->where('dds',$dds);
+            $awbs->where('depo',$depo);
         }
         
         if($request->status == null){
