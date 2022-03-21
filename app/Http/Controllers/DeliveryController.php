@@ -36,15 +36,22 @@ class DeliveryController extends Controller
     public function index(Request $request)
     {
         // return substr($request->dds,6,strlen($request->dds)-6);die;
+        
         $date = Carbon::now();
         $awbs = Proforma::select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                         ->leftjoin('awbs','proformas.no_awb','awbs.no_awb')
                         ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')          
                         ->orderBy('awbs.tanggal_ds','DESC')
                         ->groupBy('proformas.no_proforma');
+                        // ->whereNotNull('proformas.status');
                         // ->groupBy('proformas.no_awb');
                         // ->groupBy('proformas.no_awb');
                         // ->where('dds','DDS 1');
+        if(!empty($request->hari)){
+            // $bulan = $date->format('m');
+            $hari = $request->hari;
+            $awbs->whereDay('tanggal_ds',$hari);
+        }
         if(!empty($request->bulan)){
             // $bulan = $date->format('m');
             $bulan = $request->bulan;
@@ -168,15 +175,28 @@ class DeliveryController extends Controller
         // $dds = $request->dds;
         // $status = $request->status;
         // $search = $request->cari;
+        // return $request;die;
         if (empty($request->keyword)) {
             return redirect()->action('DeliveryController@index');
         }
-        $awbs = Proforma::when($request->keyword, function ($query) use ($request) {
+        $type = $request->type;
+        if ($type == "no_awb"){
+            $search = 'awbs.no_awb';
+        } elseif ($type == "no_proforma" ){
+            $search = 'proformas.no_proforma';
+        } elseif ($type == "kode_dealer") {
+            $search = 'dealers.kode_dealer';
+        } else {
+            $search = 'dealers.nama_dealer';
+        }
+        // return $search;die;
+        $awbs = Proforma::when($request->keyword, function ($query) use ($request,$search) {
+
             $query->select(DB::raw('proformas.no_proforma,awbs.no_awb,DATE_FORMAT(awbs.tanggal_ds, "%d-%m-%Y") as tanggal_ds,dealers.kode_dealer,dealers.nama_dealer,dealers.dds,awbs.status,sum(proformas.koli) as koli,proformas.total_koli,proformas.status as statusp'))
                             ->leftjoin('awbs','proformas.no_awb','=','awbs.no_awb')
                             ->leftjoin('dealers','awbs.kode_dealer','=','dealers.kode_dealer')
-                            ->whereNotNull('awbs.status')
-                            ->where('proformas.no_proforma','LIKE','%'. $request->keyword . '%')
+                            ->where($search,'LIKE','%'. $request->keyword . '%')
+                            // ->whereNotNull('awbs.status') //kenapa yang not null?
                             // ->orwhere('awbs.no_awb','LIKE','%'. $request->keyword . '%')
                             // ->orWhere('dealers.kode_dealer','LIKE','%'. $request->keyword . '%')
                             // ->orWhere('dealers.nama_dealer','LIKE','%'. $request->keyword . '%')
@@ -188,7 +208,7 @@ class DeliveryController extends Controller
                             
         })->paginate(10);    
         //ini apa    
-        $awbs->appends($request->only('keyword'));            
+        $awbs->appends($request->only('keyword','type'));            
         // return $awbs;die;
     return view('delivery.index',compact('awbs')); 
 
