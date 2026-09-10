@@ -38,7 +38,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Masukan Username">
-						<input id="username" type="text" class="input100" placeholder="username" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+						<input id="username" type="text" class="input100" placeholder="admin" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 							@error('username')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
@@ -51,7 +51,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Masukan Password">
-						<input id="password" type="password" class="input100" placeholder="Password" name="password" required autocomplete="current-password">
+						<input id="password" type="password" class="input100" placeholder="12345678" name="password" required autocomplete="current-password">
 							@error('password')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>

@@ -45,6 +45,10 @@
               <option value="">-- Tahun --</option>              
               <option value="2021"<?=request()->get('tahun') == "2021" ? 'selected' : '' ?>>2021</option>
               <option value="2022"<?=request()->get('tahun') == "2022" ? 'selected' : '' ?>>2022</option>
+              <option value="2023"<?=request()->get('tahun') == "2023" ? 'selected' : '' ?>>2023</option>
+              <option value="2024"<?=request()->get('tahun') == "2024" ? 'selected' : '' ?>>2024</option>
+              <option value="2025"<?=request()->get('tahun') == "2025" ? 'selected' : '' ?>>2025</option>
+              <option value="2026"<?=request()->get('tahun') == "2026" ? 'selected' : '' ?>>2026</option>
             </select>
             <button  type="submit" class="btn btn-sm btn-warning ml-2 mb-2">Ubah</button>
             <a style="margin-top:0px" href="/dashboard" class="ml-2 btn btn-sm btn-success">Bulan ini</a>
