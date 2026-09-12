@@ -5,7 +5,6 @@
 /public/bukti_awb
 /storage/*.key
 /vendor
-.env
 .env.backup
 /storage/framework/laravel-excel
 .phpunit.result.cache
