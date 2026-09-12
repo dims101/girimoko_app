@@ -1,8 +1,8 @@
 FROM php:7.4.33-fpm-bullseye
 
-RUN apt-get update -o Acquire::http::No-Cache=true \
+RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    git libpng-dev libonig-dev unzip zip libzip-dev \
+    libpng-dev libonig-dev unzip zip libzip-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
