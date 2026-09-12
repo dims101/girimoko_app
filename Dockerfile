@@ -1,11 +1,11 @@
-FROM php:7.4-fpm
+FROM php:7.4.33-fpm-bullseye
 
-# Install dependensi sistem & ekstensi PHP yang umum dibutuhkan Laravel 7
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git curl libpng-dev libonig-dev libxml2-dev zip unzip libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
